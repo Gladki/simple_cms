@@ -19,7 +19,7 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-
+gem 'heroku-forward'
 gem 'jquery-rails'
 gem 'newrelic_rpm'
 gem 'pg'
