@@ -22,7 +22,12 @@ end
 
 gem 'jquery-rails'
 gem 'newrelic_rpm'
-gem  'activerecord-postgresql-adapter'
+gem 'pg'
+gem 'em-postgresql-adapter', :git => 'git://github.com/leftbee/em-postgresql-adapter.git'
+gem 'rack-fiber_pool',  :require => 'rack/fiber_pool'
+gem 'em-synchrony', :git     => 'git://github.com/igrigorik/em-synchrony.git',
+                    :require => ['em-synchrony',
+                                 'em-synchrony/activerecord']
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
