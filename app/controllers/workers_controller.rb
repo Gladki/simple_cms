@@ -27,7 +27,7 @@ require 'csv'
 
     @workers = Worker.find(:all, :include => [:effectivenes], :joins => [:effectivenes])
     @worker = Worker.find(params[:id])
-    @effec = Effectivenes.find(:all, :conditions => ["worker_id = ?" , @worker.id])
+    @effec = Effectivene.find(:all, :conditions => ["worker_id = ?" , @worker.id])
     @worker_count = Worker.count
     @efektyw = @worker.effectivenes
   end

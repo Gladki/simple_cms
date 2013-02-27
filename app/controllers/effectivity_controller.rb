@@ -1,4 +1,4 @@
-class EffectivityController < ApplicationController
+class EffectivenesController < ApplicationController
 
 layout 'admin'
 
