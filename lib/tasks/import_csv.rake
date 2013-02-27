@@ -7,7 +7,7 @@ task :import_effectivity => [:environment] do
 
   CSV.foreach(file, :headers => true) do |row|
     Effectivenes.create(
-    :id_worker => row[0],  
+    :worker_id => row[0],  
     :effectivity => row[1],  
     :effectivity_min => row[2],  
     :effectivity_max => row[3]
