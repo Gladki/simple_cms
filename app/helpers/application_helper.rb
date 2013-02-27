@@ -51,7 +51,7 @@ module ApplicationHelper
           result << "%" 
           else 
           result.append '''class="bad"'''
-          result << ">"
+          result.append ">"
           result.append efektywnosc
           result << "%"
           end 
