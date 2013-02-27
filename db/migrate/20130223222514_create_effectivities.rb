@@ -1,4 +1,4 @@
-class CreateEffectivities < ActiveRecord::Migration
+class CreateEffectivenes < ActiveRecord::Migration
   def change
     create_table :effectivenes do |t|
       t.integer :id

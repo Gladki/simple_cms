@@ -23,7 +23,7 @@ module ApplicationHelper
     @worker = Worker.find(:all,  :include => [:effectivenes], 
     :joins => "left join effectivenes ef on ef.id = workers.id", 
     :conditions => ['workers.id in (?)', id])
-    effectivity =  Effectivene.find(:all , :conditions => ['effectivenes.id in (?)', id])
+    effectivity =  Effectivenes.find(:all , :conditions => ['effectivenes.id in (?)', id])
     result = ["<tr>"]
     @worker.each do |f|
       result.append "<td>"
@@ -72,7 +72,7 @@ module ApplicationHelper
   end
 
   def count_effectivity_by_id ( id )
-    effectivity =  Effectivene.find(:all , :conditions => ['effectivenes.id in (?)', id])
+    effectivity =  Effectivenes.find(:all , :conditions => ['effectivenes.id in (?)', id])
     @result = []    
     effectivity.each do |e|
       @result << ((e.effectivity - e.effectivity_min).to_f / (e.effectivity_max - e.effectivity_min).to_f)*100

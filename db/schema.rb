@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(:version => 20130223225859) do
 
   add_index "admin_users_pages", ["admin_user_id", "page_id"], :name => "index_admin_users_pages_on_admin_user_id_and_page_id"
 
-  create_table "effectiveness", :force => true do |t|
-    t.integer  "id_worker"
+  create_table "effectivenes", :force => true do |t|
+    t.integer  "worker_id"
     t.decimal  "effectivity",     :precision => 10, :scale => 0
     t.decimal  "effectivity_min", :precision => 10, :scale => 0
     t.decimal  "effectivity_max", :precision => 10, :scale => 0
