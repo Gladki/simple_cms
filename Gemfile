@@ -19,11 +19,19 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-gem 'heroku-forward'
+
+#inne
 gem 'jquery-rails'
 gem 'newrelic_rpm'
+
+#heroku
+gem 'heroku-forward'
 gem 'pg'
-gem 'em-postgresql-adapter', :git => 'git://github.com/leftbee/em-postgresql-adapter.git'
+gem 'thin'
+gem 'heroku'
+
+
+# gem 'em-postgresql-adapter', :git => 'git://github.com/leftbee/em-postgresql-adapter.git'
 # gem 'rack-fiber_pool',  :require => 'rack/fiber_pool'
 # gem 'em-synchrony', :git     => 'git://github.com/igrigorik/em-synchrony.git',
 #                     :require => ['em-synchrony',
