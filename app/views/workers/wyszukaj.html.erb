@@ -1,0 +1,44 @@
+  
+<%= link_to("Powrót do wyszukiwania", {:action => 'lista'}, :class => 'back-link') %>
+  
+<h1>Dane o pracowniku: </h1>
+	 <table class="listing" summary="Section list">
+   	  <tr>
+   	  	<td class="header">Id pracownika: </td><td><%= @worker.id_worker %></td>
+   	  </tr><tr>
+   	  	<td class="header">Id pracownika merx: </td><td><%= @worker.id_worker_merx %></td>
+  	  </tr><tr>	
+   	  	<td class="header">Imie:</td><td><%= @worker.first_name %></td>
+   	  </tr><tr>
+   	  	<td class="header">Nazwisko:</td><td><%= @worker.last_name.first %></td>
+   	  </tr><tr>
+   	  <% @efektyw.each do |efektyw| %>
+   	  	<td class="header">Effektywność:</td>
+   	  	<% if efektyw.effectivity < efektyw.effectivity_min %>
+   	  	<%= tag(:td , :class => "bad") %>
+   	  	<% else %>
+   	  	<%= tag(:td, :class => "ok") %>
+        <% end %>
+   	  	<%=  efektyw.effectivity %>%
+   	  </tr><tr>
+   	  	<td class="header">Effektywność minimum:</td><td><%= efektyw.effectivity_min %></td>
+   	  </tr>
+   	  <tr>
+   	  	<td class="header">Effektywność maximum:</td><td><%= efektyw.effectivity_max %></td>
+   	  </tr>
+   	  <tr>
+   	  	<td class="header">Data ostatniego update:</td><td><%= efektyw.created_at %></td>
+   	  </tr>
+ <% end %>
+
+
+
+ 
+  <%= form_for(:worker, :url => {:action => 'update', :id => @worker.id}) do |f| %>
+  
+    <%= render(:partial => 'form', :locals => {:f => f}) %>
+    
+    <div class="form-buttons">
+      <%= submit_tag("Update Section") %>
+    </div>
+      <% end %>

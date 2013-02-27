@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  id_worker: 1
+  effectivity: 9.99
+  effectivity_min: 9.99
+  effectivity_max: 9.99
+
+two:
+  id: 1
+  id_worker: 1
+  effectivity: 9.99
+  effectivity_min: 9.99
+  effectivity_max: 9.99

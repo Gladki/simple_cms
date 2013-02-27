@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130203164124) do
+ActiveRecord::Schema.define(:version => 20130223225859) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "first_name",      :limit => 25
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(:version => 20130203164124) do
   end
 
   add_index "admin_users_pages", ["admin_user_id", "page_id"], :name => "index_admin_users_pages_on_admin_user_id_and_page_id"
+
+  create_table "effectiveness", :force => true do |t|
+    t.integer  "id_worker"
+    t.decimal  "effectivity",     :precision => 10, :scale => 0
+    t.decimal  "effectivity_min", :precision => 10, :scale => 0
+    t.decimal  "effectivity_max", :precision => 10, :scale => 0
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+  end
 
   create_table "pages", :force => true do |t|
     t.integer  "subject_id"
@@ -75,6 +84,15 @@ ActiveRecord::Schema.define(:version => 20130203164124) do
     t.boolean  "visible",    :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+  end
+
+  create_table "workers", :force => true do |t|
+    t.integer  "id_worker"
+    t.integer  "id_worker_merx"
+    t.string   "last_name"
+    t.string   "first_name"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
 end

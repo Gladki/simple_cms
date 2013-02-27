@@ -1,0 +1,12 @@
+<% if object && object.errors.size > 0 %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(object.errors.size, "Błąd", "Błędy") %>!
+  Czynność nie może być dalej wykonywana.</h2>
+    <p>Wystąpił błąd w poniższych polach:</p>
+    <ul>
+    <% object.errors.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

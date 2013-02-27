@@ -1,0 +1,76 @@
+<% @page_title = "Sections List" %>
+
+<div class="section list">
+  <h2>Sections</h2>
+  
+  <%= link_to("Add New Section", {:action => 'new'}, :class => 'action new') %>
+
+  <table class="listing" summary="Section list">
+    <tr class="header">
+      <th>ID<br/>Pracownika</th>
+      <th>ID<br/>Merx<br/>Pracownika</th>
+      <th>Nazwisko</th>
+      <th>Imie</th>
+      <th>Effektywność</th>
+      <th>Effektywność<br/>minimalna</th>
+      <th>Effektywność<br/>maxymalna</th>
+      <th>Realizacja<br/>celu</th>
+    </tr>
+    <% lista = [1,2,3] %>
+    <% @workers.each do |worker| %>
+    <tr> 
+     
+      <% if lista.include?(worker.id)   %>
+      <td><%= worker.id_worker %></td>
+      <td><%= worker.id_worker_merx %></td>
+      <td><%= worker.last_name %></td>
+      <td><%= worker.first_name %></td>
+      <% worker.effectivenes.each do |effe| %>
+      <td><%= effe.effectivity %>%</td> 
+      <td><%= effe.effectivity_min %>%</td>
+      <td><%= effe.effectivity_max %>%</td>
+      <td><%= za = (((effe.effectivity - effe.effectivity_min).to_f/(effe.effectivity_max - effe.effectivity_min).to_f )*100).round %>%</td>
+      <td> 
+      <%=  if za >0
+        status_tag(true)
+      else 
+        status_tag(false)
+      end
+      %>
+      </td>
+      <td><%= button_to("szczegóły",:action => 'wyszukaj', :id => worker.id ) %></td>
+            <% end %>
+     <% end %>
+
+     <!--  <td class="actions">
+        <%= link_to("Show", {:action => 'show', :id => worker.id}, :class => 'action show') %>
+        <%= link_to("Edit", {:action => 'edit', :id => worker.id}, :class => 'action edit') %>
+        <%= link_to("Delete", {:action => 'delete', :id => worker.id}, :class => 'action delete') %>
+      </td> -->
+    </tr>
+   
+    <% end %>
+  </table>
+
+<h1> test</h1>
+ <div>
+    <table class="listing" summary="Section list">
+    <tr class="header">
+      <th>ID<br/>Pracownika</th>
+      <th>ID<br/>Merx<br/>Pracownika</th>
+      <th>Nazwisko</th>
+      <th>Imie</th>
+      <th>Effektywność</th>
+      <th>Effektywność<br/>minimalna</th>
+      <th>Effektywność<br/>maxymalna</th>
+      <th>Realizacja<br/>celu</th>
+    </tr>
+
+  <% array = render_worker_to_table([1,2,3]) %>
+  <%= raw array.join("") %>
+  <% array2 = count_effectivity_by_id ([1]) %>
+<!--   <td><%= raw array2.join("")%></td>
+ --></tr>
+</table>
+</div>
+</div>
