@@ -28,12 +28,12 @@
   <%=f.label "Effektywność:" %>
   <%=f.text_field "effectivenes.effectivity" , :class => "insert small"%>    
   <%=f.label "Effektywność min:" %>
-  <%=f.text_field "effectivenes.effectivity_min", :class => "insert small" %>    
+  <%=f.text_field "effectivenes.effectivity_min", :class => "insert  small" %>    
   <%=f.label "Effektywność max:" %>
   <%=f.text_field "effectivenes.effectivity_max" , :class => "insert small"%>    
 <br/>
    <%=f.label "Data dodania efektywności:" %>
-    <%= f.collection_select :id , Effectivenes.all , :id , :created_at   %>
+    <%= f.collection_select :id , Effectivenes.all , :id , :created_at ,{:include_blank => ''}  %>
 
   <br/>
   <%=f.submit "szukaj" , :class => "szukaj" %>
@@ -65,7 +65,7 @@
       <td><%= effe.effectivity_min %>%</td>
       <td><%= effe.effectivity_max %>%</td>
       <td><%= za = (((effe.effectivity - effe.effectivity_min).to_f/(effe.effectivity_max - effe.effectivity_min).to_f )*100).round %>%</td>
-      <td><%= effe.created_at.beginning_of_day %></td>
+      <td><%= effe.created_at.strftime("%d-%m-%Y r. ") %></td>
       <td> 
       <%=  if za >0
         status_tag(true)

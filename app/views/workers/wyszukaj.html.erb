@@ -27,7 +27,7 @@
    	  	<td class="header">Effektywność maximum:</td><td><%= efektyw.effectivity_max %></td>
    	  </tr>
    	  <tr>
-   	  	<td class="header">Data ostatniego update:</td><td><%= efektyw.created_at %></td>
+   	  	<td class="header">Data ostatniego update:</td><td><%= efektyw.created_at.strftime("%d-%m-%Y r. ") %></td>
    	  </tr>
     </table>
  <% end %>
