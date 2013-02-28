@@ -7,7 +7,7 @@ class Worker < ActiveRecord::Base
 		if search
 			find(:all, :conditions => ['workers.id LIKE (?)', "%#{search}%"])
 		else
-			find(:all, :conditions => ['effectivenes.created_at = ""'])
+			find(:all)
 		end
 	end
 
