@@ -5,7 +5,7 @@ class Worker < ActiveRecord::Base
 
 	def self.search(search)
 	if search
-	find(:all, :conditions => ['workers.id LIKE ?', search])
+	find(:all, :conditions => ['workers.id LIKE ?', @search])
 	else
 	find(:all)
 	end
