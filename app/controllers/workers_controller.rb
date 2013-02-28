@@ -2,17 +2,22 @@ class WorkersController < ApplicationController
 require 'csv'
 
   layout 'worker'
- 
    @workers = Worker.find(:all, :include => [:effectivenes], :joins => [:effectivenes])
+
   def index
-    
+    @search = Search.new(:worker, params[:search])
+    @search.order = 'id'  # optional
+    @workers = @search.run
     render('lista')
     @pracownik = Worker.find(params[:id])
   end
-  
+    # GET /workers
   def lista
-  @workers = Worker.find(:all, :include => [:effectivenes], :joins => [:effectivenes])
-
+    @search = Search.new(:worker, params[:search])
+    @search.order = 'id'  # optional
+    @workers = @search.run
+   # @workers = Worker.find(:all, :include => [:effectivenes], :joins => [:effectivenes])
+    @projects = Worker.search(params[:search])
 	end
 
 

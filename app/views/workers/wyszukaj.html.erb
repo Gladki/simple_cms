@@ -29,11 +29,12 @@
    	  <tr>
    	  	<td class="header">Data ostatniego update:</td><td><%= efektyw.created_at %></td>
    	  </tr>
+    </table>
  <% end %>
 
 
 
- 
+<!--  
   <%= form_for(:worker, :url => {:action => 'update', :id => @worker.id}) do |f| %>
   
     <%= render(:partial => 'form', :locals => {:f => f}) %>
@@ -41,4 +42,4 @@
     <div class="form-buttons">
       <%= submit_tag("Update Section") %>
     </div>
-      <% end %>
+      <% end %> -->

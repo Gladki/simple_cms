@@ -1,6 +1,13 @@
 SimpleCms::Application.routes.draw do
-  root :to => "demo#index"
+  root :to => "workers#lista"
   
+  match '/workers/lista', :controller => 'workers', :action => "lista"
+
+  resources :workers
+
+  resources :effectivenes
+
+
   #get "demo/index"
 
   # The priority is based upon order of creation:

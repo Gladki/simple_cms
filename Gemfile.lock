@@ -95,6 +95,7 @@ GEM
       activesupport (= 3.2.11)
       bundler (~> 1.0)
       railties (= 3.2.11)
+    rails-simple-search (0.9.6)
     railties (3.2.11)
       actionpack (= 3.2.11)
       activesupport (= 3.2.11)
@@ -145,6 +146,7 @@ DEPENDENCIES
   newrelic_rpm
   pg
   rails (= 3.2.11)
+  rails-simple-search
   sass-rails (~> 3.2.3)
   thin
   uglifier (>= 1.0.3)

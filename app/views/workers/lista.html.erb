@@ -1,11 +1,48 @@
 <% @page_title = "Sections List" %>
 
 <div class="section list">
-  <h2>Sections</h2>
+  <h1>Wyszukiwanie pracowników</h2>
   
-  <%= link_to("Add New Section", {:action => 'new'}, :class => 'action new') %>
 
-  <table class="listing" summary="Section list">
+<div  class= "search_form" >
+<%= form_for @search, :url => "/workers/lista" do |f|  %>
+
+  <%=f.label "#{:id}:"%>
+  <%=f.text_field :id, :class => "insert small" %>
+  <%= f.select :id, Worker.all.collect{|t|[t.id]}, {:include_blank => ''}   %>
+  <%=f.label "Numer Pracownika:" %>
+  <%=f.text_field :id_worker, :class => "insert small" %>
+  <%= f.select :id_worker, Worker.all.collect{|t|[t.id_worker]}, {:include_blank => ''}    %>
+  <%=f.label "Numer pracownika merx:" %>
+  <%=f.text_field :id_worker_merx, :class => "insert small" %>
+  <%= f.select :id_worker_merx, Worker.all.collect{|t|[t.id_worker_merx]}, {:include_blank => ''}    %>
+
+  <%=f.label "Imię:" %>
+  <%=f.text_field :first_name, :class => "insert medium"%>
+  <%= f.collection_select :id , Worker.all , :id , :first_name ,{:include_blank => ''}  %> 
+<br/>
+  <%=f.label "Nazwisko:" %>
+  <%=f.text_field :last_name, :class => "insert medium"%>
+  <%= f.collection_select :id , Worker.all , :id , :last_name ,{:include_blank => ''}  %>
+ 
+  <%=f.label "Effektywność:" %>
+  <%=f.text_field "effectivenes.effectivity" , :class => "insert small"%>    
+  <%=f.label "Effektywność min:" %>
+  <%=f.text_field "effectivenes.effectivity_min", :class => "insert small" %>    
+  <%=f.label "Effektywność max:" %>
+  <%=f.text_field "effectivenes.effectivity_max" , :class => "insert small"%>    
+<br/>
+   <%=f.label "Data dodania efektywności:" %>
+    <%= f.collection_select :id , Effectivenes.all , :id , :created_at   %>
+
+  <br/>
+  <%=f.submit "szukaj" , :class => "szukaj" %>
+<% end %>
+</div>
+<br/>
+<br/>
+<br/>
+<table class="listing" summary="Section list">
     <tr class="header">
       <th>ID<br/>Pracownika</th>
       <th>ID<br/>Merx<br/>Pracownika</th>
@@ -15,13 +52,11 @@
       <th>Effektywność<br/>minimalna</th>
       <th>Effektywność<br/>maxymalna</th>
       <th>Realizacja<br/>celu</th>
+      <th>Data dodania efektywności</th>
     </tr>
-    <% lista = [1,2,3] %>
-    <% @workers.each do |worker| %>
-    <tr> 
-     
-      <% if lista.include?(worker.id)   %>
-      <td><%= worker.id_worker %></td>
+ <% @workers.each do |worker| %>
+ <tr>
+   <td><%= worker.id_worker %></td>
       <td><%= worker.id_worker_merx %></td>
       <td><%= worker.last_name %></td>
       <td><%= worker.first_name %></td>
@@ -30,6 +65,7 @@
       <td><%= effe.effectivity_min %>%</td>
       <td><%= effe.effectivity_max %>%</td>
       <td><%= za = (((effe.effectivity - effe.effectivity_min).to_f/(effe.effectivity_max - effe.effectivity_min).to_f )*100).round %>%</td>
+      <td><%= effe.created_at.beginning_of_day %></td>
       <td> 
       <%=  if za >0
         status_tag(true)
@@ -40,33 +76,13 @@
       </td>
       <td><%= button_to("szczegóły",:action => 'wyszukaj', :id => worker.id ) %></td>
             <% end %>
+          </tr>
      <% end %>
+       </table>
 
-  
-    </tr>
-   
-    <% end %>
-  </table>
+<br/>
+<br/>
 
-<h1> test</h1>
- <div>
-    <table class="listing" summary="Section list">
-    <tr class="header">
-      <th>ID<br/>Pracownika</th>
-      <th>ID<br/>Merx<br/>Pracownika</th>
-      <th>Nazwisko</th>
-      <th>Imie</th>
-      <th>Effektywność</th>
-      <th>Effektywność<br/>minimalna</th>
-      <th>Effektywność<br/>maxymalna</th>
-      <th>Realizacja<br/>celu</th>
-    </tr>
-
-  <% array = render_worker_to_table([1,2,3]) %>
-  <%= raw array.join("") %>
-  <% array2 = count_effectivity_by_id ([1]) %>
-<!--   <td><%= raw array2.join("")%></td>
- --></tr>
-</table>
+ 
 </div>
 </div>

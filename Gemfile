@@ -24,6 +24,10 @@ end
 gem 'jquery-rails'
 gem 'newrelic_rpm'
 
+#search
+gem 'rails-simple-search'
+
+
 #heroku
 gem 'heroku-forward'
 gem 'pg'

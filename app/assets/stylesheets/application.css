@@ -33,10 +33,36 @@ table tr th, table tr td { vertical-align: top; text-align: left;
   padding: 3px; }
 a, a:visited { color: #993120; }
 a:hover {}
-
+.search_form label{
+font-weight: bold;
+}
+.search_form select{
+height:23px;
+}
+.szukaj {
+width:100px;
+clear:right;
+cursor: pointer;
+margin-top:20px;
+height:30px;
+font-size: 18px;
+background-color: #999;
+}
+.szukaj:hover {
+	background-color: #94B26F;
+}
 .clear { clear: both; }
 .center { text-align: center; }
+.insert {
+	height:10px;
+	margin:5px;
+	padding:5px;
+}
+.small {width:50px;}
+.medium {
 
+	width:80px;
+}
 /* Structure */
 #header { height: 4em; padding-top: 1em; text-align: center; 
   background: #993120; color: #FFFFFF; }
