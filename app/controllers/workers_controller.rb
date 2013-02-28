@@ -17,7 +17,6 @@ require 'csv'
     @search.order = 'id'  # optional
     @workers = @search.run
    # @workers = Worker.find(:all, :include => [:effectivenes], :joins => [:effectivenes])
-    @projects = Worker.search(params[:search])
 	end
 
 
