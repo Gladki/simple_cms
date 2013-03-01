@@ -1,8 +1,8 @@
 SimpleCms::Application.routes.draw do
   root :to => "workers#lista"
   
-  match '/workers/lista', :controller => 'workers', :action => "lista"
-
+  match '/workers/lista', :controller => 'workers', :action => 'lista' , :as => :lista_pracownikow
+  #match 'effectivenes' => 'effectivenes#index' , :as => :effectivenes
   resources :workers
 
   resources :effectivenes

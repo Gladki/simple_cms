@@ -1,0 +1,45 @@
+<% data = DateTime.now.to_date.strftime("%d-%m-%Y") %>
+<% headers["Content-Disposition"] = "attachment; filename=\"lista-racownikow-i-efektywnosci-#{data}.xls\""  %>
+
+<table border="1">
+    <tr>
+      <th>ID Pracownika</th>
+      <th>ID Merx Pracownika</th>
+      <th>Nazwisko</th>
+      <th>Imie</th>
+      <th>Effektywność</th>
+      <th>Effektywność minimalna</th>
+      <th>Effektywność maxymalna</th>
+      <th>Realizacja celu</th>
+      <th>Data dodania efektywności</th>
+    </tr> 
+ <% lista_id = @@lista_id %>
+   
+<% @workers.each do |worker| %>
+<% if lista_id.include?(worker.id)   %>
+ <tr>
+  
+     <td><%= worker.id_worker %></td>
+      <td><%= worker.id_worker_merx %></td>
+      <td><%= worker.last_name %></td>
+      <td><%= worker.first_name %></td>
+      <% worker.effectivenes.each do |effe| %>
+      <% za = (((effe.effectivity - effe.effectivity_min).to_f/(effe.effectivity_max - effe.effectivity_min).to_f )*100).round  %>
+      <% if za > 0 %>
+        <% @klasa = 'style="background-color:#00FF00;"' %>
+      <% else %>
+        <% @klasa = 'style="background-color:#FF0000;"' %>
+      <% end %>
+      <td <%= @klasa %> ><%= effe.effectivity %>%</td> 
+      <td><%= effe.effectivity_min %>%</td>
+      <td><%= effe.effectivity_max %>%</td>
+      <td><%= za %>%</td>
+
+
+      <td><%= effe.created_at.strftime("%d-%m-%Y r. ") %></td>
+<b> </b>
+   <% end %>
+   </tr>
+   <% end %>
+<% end %>
+</table>

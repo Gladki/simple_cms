@@ -5,6 +5,8 @@ require 'csv'
    @workers = Worker.find(:all, :include => [:effectivenes], :joins => [:effectivenes])
 
   def index
+   
+
     @search = Search.new(:worker, params[:search])
     @search.order = 'id'  # optional
     @workers = @search.run
@@ -16,6 +18,16 @@ require 'csv'
     @search = Search.new(:worker, params[:search])
     @search.order = 'id'  # optional
     @workers = @search.run
+    @workers_by_order = Worker.order(:id)
+    #Worker.find(:all, :include => [:effectivenes])
+    respond_to do |format|
+    format.html
+    format.csv { send_data @workers_by_order.to_csv ,:filename => 'lista-pracownikow-' + DateTime.now.to_date.strftime("%d-%m-%Y") }
+    format.xls 
+    # { send_data @effectivenes.to_csv(col_sep: "\t") }
+    #send_data   
+
+    end
    # @workers = Worker.find(:all, :include => [:effectivenes], :joins => [:effectivenes])
 	end
 

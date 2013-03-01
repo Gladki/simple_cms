@@ -1,0 +1,18 @@
+<table border="1" >
+	<tr><th>ID</th>
+	<th>ID Pracownika</th>
+	<th>Effektywność</th>
+	<th>Effektywność min</th>
+	<th>Effektywność max</th>
+	<th>Data dodania danych</th></tr>
+	<% @effectivenes.each do |render| %>
+		<tr>
+			<td><%= render.id %></td>
+			<td><%= render.worker_id %></td>
+			<td><%= render.effectivity %></td>
+			<td><%= render.effectivity_min %></td>
+			<td><%= render.effectivity_max %></td>
+			<td><%= render.created_at.strftime("%d-%m-%Y %H:%M:%S") %></td>
+		</tr>
+	<% end %>
+</table>
