@@ -13,4 +13,14 @@ class Worker < ActiveRecord::Base
 	end
 
 
+
+	def self.search(search)
+	  if search
+	    find(:all, :conditions => ['id in (?)', search])
+	  else
+	    find(:all)
+	  end
+	end
+
+
 end

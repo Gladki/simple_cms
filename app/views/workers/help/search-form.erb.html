@@ -1,0 +1,37 @@
+ 
+<!-- <div  class= "search_form" >
+    <%= form_for @search, :url => "/workers/lista" do |f|  %>
+
+    <%=f.label "#{:id}:"%>
+    <%=f.text_field :id, :class => "insert small" %>
+    <%= f.select :id, Worker.all.collect{|t|[t.id]}, {:include_blank => ''}   %>
+    <%=f.label "Numer Pracownika:" %>
+    <%=f.text_field :id_worker, :class => "insert small" %>
+    <%= f.select :id_worker, Worker.all.collect{|t|[t.id_worker]}, {:include_blank => ''}    %>
+    <%=f.label "Numer pracownika merx:" %>
+    <%=f.text_field :id_worker_merx, :class => "insert small" %>
+    <%= f.select :id_worker_merx, Worker.all.collect{|t|[t.id_worker_merx]}, {:include_blank => ''}    %>
+
+    <%=f.label "Imię:" %>
+    <%=f.text_field :first_name, :class => "insert medium"%>
+    <%= f.collection_select :id , Worker.all , :id , :first_name ,{:include_blank => ''}  %> 
+    <br/>
+    <%=f.label "Nazwisko:" %>
+    <%=f.text_field :last_name, :class => "insert medium"%>
+    <%= f.collection_select :id , Worker.all , :id , :last_name ,{:include_blank => ''}  %>
+
+    <%=f.label "Effektywność:" %>
+    <%=f.text_field "effectivenes.effectivity" , :class => "insert small"%>    
+    <%=f.label "Effektywność min:" %>
+    <%=f.text_field "effectivenes.effectivity_min", :class => "insert  small" %>    
+    <%=f.label "Effektywność max:" %>
+    <%=f.text_field "effectivenes.effectivity_max" , :class => "insert small"%>    
+    <br/>
+    <%=f.label "Data dodania efektywności:" %>
+    <%= f.collection_select :id , Effectivenes.all , :id , :created_at ,{:include_blank => ''}  %>
+
+    <br/>
+    <%=f.submit "szukaj" , :class => "szukaj" %>
+    <% end %>
+</div>
+ -->

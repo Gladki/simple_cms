@@ -1,0 +1,17 @@
+one:
+  keywords: MyString
+  id_worker: 1
+  id_worker_merx: 1
+  min_effectivity: 1
+  max_effectivity: 1
+  date_from: 2013-03-01 04:29:39
+  date_to: 2013-03-01 04:29:39
+
+two:
+  keywords: MyString
+  id_worker: 1
+  id_worker_merx: 1
+  min_effectivity: 1
+  max_effectivity: 1
+  date_from: 2013-03-01 04:29:39
+  date_to: 2013-03-01 04:29:39

@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Simple CMS | <%= @page_title || 'Admin Area' %></title>
+    <title>Aplikacja - <%= yield(:title) || "Aplikacja" %></title>
     <%= stylesheet_link_tag('application', 'subjects' , :media => 'all') %>
     <%= javascript_include_tag('https://www.google.com/jsapi')%> 
     <script type="text/javascript">

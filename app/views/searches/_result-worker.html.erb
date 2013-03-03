@@ -1,0 +1,56 @@
+
+<div class="section list">
+  <h1>Wyszukiwanie pracowników</h2>
+
+<p>
+<b>Pobierz listę w formacie: 
+<%= link_to "Excel (.xls)" ,lista_pracownikow_path(format: "xls") %>
+
+</b>
+</p>
+<br/>
+<table class="listing" summary="Section list">
+    <tr class="header">
+      <th>ID<br/>Pracownika</th>
+      <th>ID<br/>Merx<br/>Pracownika</th>
+      <th>Nazwisko</th>
+      <th>Imie</th>
+      <th>Effektywność</th>
+      <th>Effektywność<br/>minimalna</th>
+      <th>Effektywność<br/>maxymalna</th>
+      <th>Realizacja<br/>celu</th>
+      <th>Data dodania efektywności</th>
+    </tr>
+    <% @@lista_id = [] %>
+
+ <% @workers.each do |worker| %>
+ <tr>
+ 
+   <td><%= worker.id_worker %></td>
+   <% @@lista_id << worker.id %>
+      <td><%= worker.id_worker_merx %></td>
+      <td><%= worker.last_name %></td>
+      <td><%= worker.first_name %></td>
+      <% worker.effectivenes.each do |effe| %>
+      <% za = (((effe.effectivity - effe.effectivity_min).to_f/(effe.effectivity_max - effe.effectivity_min).to_f )*100).round %>
+      <td><%= effe.effectivity %>%</td> 
+      <td><%= effe.effectivity_min %>%</td>
+      <td><%= effe.effectivity_max %>%</td>
+      <td><%= za %>%</td>
+      <td><%= effe.created_at.strftime("%d-%m-%Y r. ") %></td>
+      <td> 
+      <%=  if za >0
+        status_tag(true)
+      else 
+        status_tag(false)
+      end
+      %>
+      </td>
+      <td><%= button_to("szczegóły",info_pracownik_path(worker.id))%></td>
+            <% end %>
+          </tr>
+          
+     <% end %>
+       </table>
+ <%= @lista_id %>
+<br/>

@@ -1,45 +1,9 @@
-<% @page_title = "Sections List" %>
+<% title "Lista pracowników" %>
 
 <div class="section list">
   <h1>Wyszukiwanie pracowników</h2>
-  
-<div  class= "search_form" >
-<%= form_for @search, :url => "/workers/lista" do |f|  %>
-
-  <%=f.label "#{:id}:"%>
-  <%=f.text_field :id, :class => "insert small" %>
-  <%= f.select :id, Worker.all.collect{|t|[t.id]}, {:include_blank => ''}   %>
-  <%=f.label "Numer Pracownika:" %>
-  <%=f.text_field :id_worker, :class => "insert small" %>
-  <%= f.select :id_worker, Worker.all.collect{|t|[t.id_worker]}, {:include_blank => ''}    %>
-  <%=f.label "Numer pracownika merx:" %>
-  <%=f.text_field :id_worker_merx, :class => "insert small" %>
-  <%= f.select :id_worker_merx, Worker.all.collect{|t|[t.id_worker_merx]}, {:include_blank => ''}    %>
-
-  <%=f.label "Imię:" %>
-  <%=f.text_field :first_name, :class => "insert medium"%>
-  <%= f.collection_select :id , Worker.all , :id , :first_name ,{:include_blank => ''}  %> 
-<br/>
-  <%=f.label "Nazwisko:" %>
-  <%=f.text_field :last_name, :class => "insert medium"%>
-  <%= f.collection_select :id , Worker.all , :id , :last_name ,{:include_blank => ''}  %>
- 
-  <%=f.label "Effektywność:" %>
-  <%=f.text_field "effectivenes.effectivity" , :class => "insert small"%>    
-  <%=f.label "Effektywność min:" %>
-  <%=f.text_field "effectivenes.effectivity_min", :class => "insert  small" %>    
-  <%=f.label "Effektywność max:" %>
-  <%=f.text_field "effectivenes.effectivity_max" , :class => "insert small"%>    
-<br/>
-   <%=f.label "Data dodania efektywności:" %>
-    <%= f.collection_select :id , Effectivenes.all , :id , :created_at ,{:include_blank => ''}  %>
-
-  <br/>
-  <%=f.submit "szukaj" , :class => "szukaj" %>
-<% end %>
 </div>
-<br/>
-<br/>
+ <br/>
 <p>
 <b>Pobierz listę w formacie: 
 <%= link_to "Excel (.xls)" ,lista_pracownikow_path(format: "xls") %>
@@ -53,11 +17,9 @@
       <th>ID<br/>Merx<br/>Pracownika</th>
       <th>Nazwisko</th>
       <th>Imie</th>
-      <th>Effektywność</th>
-      <th>Effektywność<br/>minimalna</th>
-      <th>Effektywność<br/>maxymalna</th>
-      <th>Realizacja<br/>celu</th>
-      <th>Data dodania efektywności</th>
+      <th>Najlepsza<br/>Efektywność</th>
+      <th>Najgorsza<br/>Efektywność</th>
+      <th>Realizacja<br/>Celu</th>
     </tr>
     <% @@lista_id = [] %>
 
@@ -69,31 +31,44 @@
       <td><%= worker.id_worker_merx %></td>
       <td><%= worker.last_name %></td>
       <td><%= worker.first_name %></td>
-      <% worker.effectivenes.each do |effe| %>
-      <% za = (((effe.effectivity - effe.effectivity_min).to_f/(effe.effectivity_max - effe.effectivity_min).to_f )*100).round %>
-      <td><%= effe.effectivity %>%</td> 
-      <td><%= effe.effectivity_min %>%</td>
-      <td><%= effe.effectivity_max %>%</td>
-      <td><%= za %>%</td>
-      <td><%= effe.created_at.strftime("%d-%m-%Y r. ") %></td>
-      <td> 
-      <%=  if za >0
-        status_tag(true)
-      else 
-        status_tag(false)
-      end
-      %>
+      <td style="text-align:right"><%= maximum_effectivity(worker.id) %>%</td>
+      <td style="text-align:right"><%= minimum_effectivity(worker.id) %>%</td>
+      <% 
+      val1 = minimum_effectivity(worker.id)
+      val2 = effectivity_min(worker.id)[0].to_f
+      val3 = effectivity_max(worker.id)[0].to_f
+     
+          if val2 == 0 and val3 == 0
+            val4 = 0
+          else
+            val4 = (((val1-val2)/(val3-val2))*100).round
+          end
+
+        if val4 < 0
+          @klasa = "bad"
+        else
+          @klasa = "ok"
+        end
+
+       %>
+      <td class="<%= @klasa %>" style="text-align:right;"><%= val4 %>%</td>
+      
+   
+   
+     
+     
+    
+     
+    
       </td>
-      <td><%= button_to("szczegóły",:action => 'wyszukaj', :id => worker.id ) %></td>
-            <% end %>
-          </tr>
+      <td><%= button_to("szczegóły", szczegoly_po_id_path(worker.id) ) %></td>
+
+
+
+      </tr>
           
      <% end %>
-       </table>
- <%= @lista_id %>
+   </table>
 <br/>
-<br/>
-
- 
 </div>
 </div>

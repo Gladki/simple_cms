@@ -1,11 +1,23 @@
 SimpleCms::Application.routes.draw do
-  root :to => "workers#lista"
-  
-  match '/workers/lista', :controller => 'workers', :action => 'lista' , :as => :lista_pracownikow
-  #match 'effectivenes' => 'effectivenes#index' , :as => :effectivenes
-  resources :workers
+    root :to => "workers#lista"
+    match '/szukaj/nowe', :controller => 'searches', :action => 'new', :as => 'nowe_szukanie'
+    match '/szukaj/(/:id)' => 'searches#show', :as => 'szukaj_po_id'
+    resources :searches
 
-  resources :effectivenes
+    
+    match 'efektywnosc/import' => 'workers#import_render', :as => 'import_danych'
+    match 'pracownik/(/:id)' => 'workers#szczegoly', :as => 'szczegoly_po_id'
+
+    match '/searches/nowe', :controller => 'searches', :action => 'new'
+    match '/pracownicy/lista', :controller => 'workers', :action => 'lista' , :as => :lista_pracownikow
+    #match 'effectivenes' => 'effectivenes#index' , :as => :effectivenes
+    match '/workers/wyszukaj/(/:id)', :controller => 'workers', :action => 'wyszukaj' , :as => :info_pracownik
+
+
+    resources :workers do 
+      collection { post :import }
+    end
+    resources :effectivenes
 
 
   #get "demo/index"

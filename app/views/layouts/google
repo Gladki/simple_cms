@@ -1,0 +1,25 @@
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart', 'table']});
+       google.setOnLoadCallback(drawVisualization);
+    </script>
+<script type="text/javascript" >
+ var dataTable = google.visualization.arrayToDataTable([
+ ['ID Pracownika',   'Efektywność', 'Efektywność min' , 'Efektywność max', 'Poziom realizacji celu'],
+ <% @workers.each do |worker| %> 
+    [
+      '<%= worker.id_worker %>',
+   
+
+        <% worker.effectivenes.each do |effe| %>
+        <%=effe.effectivity %>, 
+        <%= effe.effectivity_min %>,
+        <%= effe.effectivity_max %>,
+        <%=  (effe.effectivity - effe.effectivity_min) /(effe.effectivity_max - effe.effectivity_min) %> ],
+        <% end %>
+        <% end %>
+])
+
+</script>
+
+
+    <%= javascript_include_tag :defaults ,'effectivity-graph'%> 

@@ -1,0 +1,29 @@
+<% title = "Searches" %>
+
+<table>
+  <tr>
+    <th>Keywords</th>
+    <th>Id Worker</th>
+    <th>Id Worker Merx</th>
+    <th>Min Effectivity</th>
+    <th>Max Effectivity</th>
+    <th>Date From</th>
+    <th>Date To</th>
+  </tr>
+  <% for search in @searches %>
+    <tr>
+      <td><%= search.keywords %></td>
+      <td><%= search.id_worker %></td>
+      <td><%= search.id_worker_merx %></td>
+      <td><%= search.min_effectivity %></td>
+      <td><%= search.max_effectivity %></td>
+      <td><%= search.date_from %></td>
+      <td><%= search.date_to %></td>
+      <td><%= link_to "Show", search %></td>
+      <td><%= link_to "Edit", edit_search_path(search) %></td>
+      <td><%= link_to "Destroy", search, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Search", new_search_path %></p>

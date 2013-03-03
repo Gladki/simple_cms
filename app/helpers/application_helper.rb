@@ -19,6 +19,37 @@ module ApplicationHelper
     
   end
 
+  def title(page_title)
+    content_for(:title) { page_title }
+  end
+
+  def maximum_effectivity(worker_id)
+    @maximum_effectivity = Effectivenes.maximum(:effectivity, :conditions => ["worker_id = ?", worker_id])
+    return @maximum_effectivity.to_f
+  end
+
+  def minimum_effectivity(worker_id)
+    @minimum_effectivity = Effectivenes.minimum(:effectivity, :conditions => ["worker_id = ?", worker_id])
+    return @minimum_effectivity.to_f
+  end 
+
+  def effectivity_min(worker_id)
+    @effectivity_min = Effectivenes.where("effectivenes.worker_id = ?", worker_id).limit(1).pluck(:effectivity_min)
+    return @effectivity_min
+
+  end  
+  def effectivity_max(worker_id)
+    @effectivity_max = Effectivenes.where("effectivenes.worker_id = ?", worker_id).limit(1).pluck("effectivity_max")
+    @effectivity_max
+  end
+
+
+
+    def count_effectivity(worker_id)
+      Effectivenes.count(:conditions => ["worker_id = ?", worker_id])
+    end
+
+
   def render_worker_to_table ( id )
     @worker = Worker.find(:all,  :include => [:effectivenes], 
     :joins => "left join effectivenes ef on ef.id = workers.id", 

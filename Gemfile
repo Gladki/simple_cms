@@ -20,6 +20,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+#import
+gem 'roo'
+
 #inne
 gem 'jquery-rails'
 gem 'newrelic_rpm'
@@ -27,6 +30,8 @@ gem 'newrelic_rpm'
 #search
 gem 'rails-simple-search'
 
+#scaffold
+gem "nifty-generators", :group => :development
 
 #heroku
 gem 'heroku-forward'
@@ -54,3 +59,5 @@ gem 'heroku'
 
 # To use debugger
 # gem 'debugger'
+
+gem "mocha", :group => :test
