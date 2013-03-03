@@ -3,7 +3,13 @@ class SearchesController < ApplicationController
   layout 'search'
 
   def index
-    @searches = Search.all
+    @searchess = Search.all
+    @searches = Worker.where("last_name like ? or first_name like ?", "%#{params[:q]}%", "%#{params[:q]}%")
+    respond_to do |format|
+    format.html
+    format.json { render :json => @searches.map{|contact|
+     {:id => contact.id, :name => contact.last_name + " " + contact.first_name }}}
+  end
   end
 
   def show
@@ -12,6 +18,12 @@ class SearchesController < ApplicationController
 
   def new
     @search = Search.new
+    @searches = Worker.where("last_name like ? or first_name like ?", "%#{params[:q]}%", "%#{params[:q]}%")
+    respond_to do |format|
+    format.html
+    format.json { render :json => @searches.map{|contact|
+     {:id => contact.id, :name => contact.last_name + " " + contact.first_name }}}
+  end
   end
 
   def create

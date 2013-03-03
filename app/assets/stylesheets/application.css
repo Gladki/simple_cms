@@ -33,22 +33,49 @@ table tr th, table tr td { vertical-align: top; text-align: left;
   padding: 3px; }
 a, a:visited { color: #993120; }
 a:hover {}
-.search_form label{
+.new_search label{
 font-weight: bold;
+font-size: 11px;
+margin: 5px 0 ;
+text-transform: uppercase;
 }
-.search_form select{
+.input-small{
+  overflow: hidden; 
+  height: 20px;
+  padding-left:10px;
+  width: 70px;
+  border: 1px solid #8496ba;
+  cursor: text;
+  font-size: 12px;
+  margin:5px 0;
+  font-family: Verdana;
+  background-color: #fff;
+  list-style-type: none;
+}
+.new_search select{
 height:23px;
 }
-.szukaj {
-width:100px;
+.szczegoly {
+width:auto;
 clear:right;
+border: 1px solid #8496ba;
 cursor: pointer;
-margin-top:20px;
-height:30px;
-font-size: 18px;
-background-color: #999;
+height:auto;
+padding:5px;
+font-size: 11px;
+background-color: #fff;
 }
-.szukaj:hover {
+.szukaj {
+width:80px;
+clear:right;
+border: 1px solid #8496ba;
+cursor: pointer;
+margin-top:10px;
+height:25px;
+font-size: 14px;
+background-color: #fff;
+}
+.szukaj:hover, .szczegoly:hover {
 	background-color: #94B26F;
 }
 .clear { clear: both; }

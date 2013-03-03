@@ -39,6 +39,9 @@ gem 'pg'
 gem 'thin'
 gem 'heroku'
 
+#jquery
+gem "jquery-rails"
+
 
 # gem 'em-postgresql-adapter', :git => 'git://github.com/leftbee/em-postgresql-adapter.git'
 # gem 'rack-fiber_pool',  :require => 'rack/fiber_pool'

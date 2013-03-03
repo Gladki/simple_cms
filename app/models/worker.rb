@@ -1,6 +1,6 @@
 class Worker < ActiveRecord::Base
  attr_accessible :id_worker, :id_worker_merx, :last_name, :first_name
-
+belongs_to :search
   has_many :effectivenes, :class_name => "Effectivenes"
 
 	def self.to_csv (options = {})

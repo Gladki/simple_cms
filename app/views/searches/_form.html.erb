@@ -1,4 +1,4 @@
-<%= form_for @search do |f| %>
+<%= form_for @search do |f|  %>
 
   <p>
     <%= f.label "Imie, Nazwisko: " %><br />
@@ -6,26 +6,26 @@
   </p>
   <p>
     <%= f.label "Numer ID Pracownika: " %><br />
-    <%= f.number_field :id_worker %>
+    <%= f.number_field :id_worker , :class=>"input-small"%>
   </p>
   <p>
     <%= f.label "Numer ID Pracownika MERX: " %><br />
-    <%= f.number_field :id_worker_merx %>
+    <%= f.number_field :id_worker_merx, :class=>"input-small" %>
   </p>
   <p>
     <%= f.label "Minimalna efektywność: " %><br />
-    <%= f.number_field :min_effectivity %>
+    <%= f.number_field :min_effectivity, :class=>"input-small" %>
   </p><p>
     <%= f.label "Maksymalna efektywność: " %><br/>
-    <%= f.number_field :max_effectivity %>
+    <%= f.number_field :max_effectivity , :class=>"input-small"%>
   </p>
   <p>
     <%= f.label "Od: " %><br />
-    <%= f.date_select :date_from, :prompt => {:day => "Dzień", :month => "Miesiąc", :year => "Rok" }  %>
+    <%= f.date_select :date_from, :prompt => {:day => "Dzień", :month => "Miesiąc", :year => "Rok" } , :class=>"input-small"  %>
   </p>
   <p>
     <%= f.label "Do: " %><br />
-    <%= f.date_select :date_to , :prompt => {:day => "Dzień", :month => "Miesiąc", :year => "Rok" } %>
+    <%= f.date_select :date_to , :prompt => {:day => "Dzień", :month => "Miesiąc", :year => "Rok" } , :class=>"input-small"%>
   </p>
-  <p><%= f.submit "Szukaj" %></p>
+  <p><%= f.submit "Szukaj" , :class => "szukaj"%></p>
 <% end %>
