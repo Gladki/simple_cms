@@ -37,9 +37,8 @@ require 'iconv'
   end
 
   def import
-    
     Effectivenes.import(params[:file])
-    redirect_to root_url, notice: "Efektywności dodane"
+    redirect_to root_url, notice: "Efektywnosci dodane"
   end
 
   def javascript
