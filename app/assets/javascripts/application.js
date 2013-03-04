@@ -14,10 +14,3 @@
 //= require jquery_ujs
 //= require_tree .
 
-$(function() {
-  $("#search_keywords").tokenInput("/searches.json", {
-    crossDomain: false,
-    prePopulate: $("#search_keywords").data("pre"),
-    theme: "facebook"
-  });
-});
