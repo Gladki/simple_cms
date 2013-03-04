@@ -131,3 +131,15 @@ span.status.true  { background: green; color: green; }
 span.status.false { background: red; color: red; }
 /* Content */
 #content h2 { color: #4C2516; }
+
+.wykres-efektywnosc {
+
+width:700px; 
+height:400px; 
+margin:0;
+margin-left:600px;
+margin-top: 20px;
+position: absolute;
+}
+
+

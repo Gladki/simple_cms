@@ -13,12 +13,12 @@ private
 
 def find_products
   @array = keywords.split(",").map(&:to_i)
-  @array2 = @array.collect{|i| i.to_s}
-  @array.each do |a|
-  puts @array[a]
+  if @array.size > 0  
+     val = { :id => @array}
+    else
+     val = conditions
   end
-
-  Worker.find(:all, :conditions => {:id => @array} || conditions, :include => [:effectivenes], :joins => [:effectivenes])
+  Worker.find(:all, :conditions => val, :include => [:effectivenes], :joins => [:effectivenes])
 end
 
 
@@ -41,11 +41,11 @@ def maximum_effectivity_conditions
 end
 
 def date_from_conditions
-  ["effectivenes.created_at >= ?", date_from] unless date_from.blank?
+  ["workers.created_at >= ?", date_from] unless date_from.blank?
 end
 
 def date_to_conditions
-  ["effectivenes.created_at <= ?", date_to] unless date_to.blank?
+  ["workers.created_at <= ?", date_to] unless date_to.blank?
 end
 
 

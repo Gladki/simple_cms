@@ -13,6 +13,10 @@ class Effectivenes < ActiveRecord::Base
   
  end
 
+def self.effectivity_on(date,id)
+    find(:all, :conditions => ["date(created_at) = ? and worker_id = ?" ,date,id])
+  end
+
 def self.open_spreadsheet(file)
   case File.extname(file.original_filename)
   when ".csv" then Csv.new(file.path, nil, :ignore)
