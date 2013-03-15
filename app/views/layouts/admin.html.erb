@@ -26,12 +26,17 @@
     <div id="header">
       <h1>Simple adder </h1>
     </div>
-    <div id="main">
+    <div class="header-pipe-bar">
+      
       <% if !flash[:notice].blank? %>
       <div class="notice">
         <%= flash[:notice] %>
       </div>
+
       <% end %>
+    </div>
+
+    <div id="main">
       <div id="content">
         <%= yield %>
       </div>

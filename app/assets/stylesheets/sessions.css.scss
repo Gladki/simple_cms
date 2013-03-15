@@ -1,0 +1,118 @@
+// Place all the styles related to the sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+$gray: #efefef;
+$black: #000;
+$blue:#0000ff;
+$red: #ff0000;
+$light-blue:#00FFFF;
+$white: #fff;
+@font-face
+{
+font-family:Helvetica Neue Light;
+src:url(HelveticaNeueLTPro-Lt.otf);
+}
+@font-face
+{
+font-family:Helvetica Neue Pro;
+src:url(HelveticaNeueLTPro-Cn.otf);
+}
+body {
+background-image: url("../assets/gray_jean.png");
+}
+@mixin rounded-corners($radius) {
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+}
+@mixin transition($value){
+	-webkit-transition:  $value linear;
+	   -moz-transition:  $value linear;
+		-ms-transition:  $value linear;
+	  	 -o-transition:  $value linear;
+		 	transition:  $value linear;
+
+}
+.login {
+	@include rounded-corners(10px);
+	width:200px;
+	margin: 120px auto;
+
+	height:auto;
+	padding:50px 50px 100px 50px ;
+	color:darken($gray,40%);
+	background-color: $gray;
+	border: solid 5px darken($gray, 5%);
+	box-shadow: 0px 0px 10px 6px hsla(0,0%,0%,.19);
+	font-size: 12px;
+	font-family: Helvetica Neue Pro;
+	h1{
+	color:darken($light-blue,10%);
+	font-weight: normal;
+	font-size: 15px;
+	text-transform: uppercase;
+	font-family: Helvetica Neue Pro;
+	}
+	h2 {
+		font-size:13px;
+	}
+
+	.flash-message {
+		color: $red;
+		float:left;
+		height: auto;
+		margin-bottom: 50px;
+		margin-top:10px;
+
+	}
+	
+	input{
+		width:200px;
+		height:40px;
+		outline: 0;
+		font-size: 13px;
+		border: 1px solid lighten($light-blue, 30%);
+		padding-left: 5px;
+	}
+	.button {
+		float: left;
+		@include rounded-corners(5px);
+		height:30px;
+		font-size:11px;		
+		width:180px;
+		margin:5px 10px;
+		cursor: pointer;
+		color:darken($gray,40%);
+		text-transform: uppercase;
+		background-color: $white;
+		@include transition(.50s);
+			&:hover {
+			
+			color: $white;
+			background-color: darken($light-blue,10%)
+			}
+		}
+	a {
+	color: darken($gray,50%);
+
+		float:left;
+		text-decoration: none;
+		font-weight: none;
+		text-indent: 8px;
+		@include transition(.50s);		
+		&:hover {
+			color: $red;
+		}
+	}
+	.links {
+	float:left;
+	margin-left:30px;
+	margin-top:10px;
+	width:200px;
+
+	}
+	
+
+}
+
+

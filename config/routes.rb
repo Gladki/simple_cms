@@ -1,10 +1,19 @@
 SimpleCms::Application.routes.draw do
-    root :to => "workers#lista"
+   
+  get "sessions/new"
+
+    #root :to => "workers#lista"
+    root :to => "sessions#new"
     match '/szukaj/nowe', :controller => 'searches', :action => 'new', :as => 'nowe_szukanie'
     match '/szukaj/(/:id)' => 'searches#show', :as => 'szukaj_po_id'
     resources :searches
 
-    
+    get "rejestruj" => "users#new", :as => "rejestruj"
+    resources :users
+    get "zaloguj" => "sessions#new", :as => "zaloguj"
+    get "wyloguj" => "sessions#destroy", :as => "wyloguj"
+    resources :sessions
+
     match 'efektywnosc/import' => 'workers#import_render', :as => 'import_danych'
     match 'pracownik/(/:id)' => 'workers#szczegoly', :as => 'szczegoly_po_id'
 

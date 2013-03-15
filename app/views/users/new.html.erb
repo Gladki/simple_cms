@@ -1,0 +1,47 @@
+
+
+<div class="login">
+  <h1>Rejestracja</h1>
+<%= form_for @user do |f| %>
+  <% if @user.errors.any? %>
+    <div class="error_messages">
+      <h2>Niepoprawnie wypełnione pola</h2>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+    
+  <% end %>
+  <p>
+    <%= f.label "Login (username)" %><br />
+    <%= f.text_field :login %>
+  </p>
+  <p>
+    <%= f.label "Grupa" %><br />
+    <%= f.text_field :group %>
+  </p>
+  <p>
+    <%= f.label "Email" %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label "Hasło" %><br />
+    <%= f.password_field :password %>
+  </p>
+  <p>
+    <%= f.label "Powtórz hasło" %><br />
+    <%= f.password_field :password_confirmation %>
+  </p>
+ <%= f.submit( "Stwórz użytkownika", :class => "button") %>
+<% end %>
+<br/>
+<div class="links">
+<%= link_to "Zaloguj", zaloguj_path %>  
+<%= link_to "Przypomnij hasło", zaloguj_path %>
+
+  
+</div>
+
+</div>

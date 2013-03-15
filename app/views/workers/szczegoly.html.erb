@@ -77,89 +77,90 @@ end
    </script>
 
 
-  <div id="container" class="wykres-efektywnosc">
+<div id="container" class="wykres-efektywnosc">
 
-  </div>
+</div>
+
   <h1>Dane o pracowniku: </h1>
- <table class="listing" >
- 	  <tr>
- 	  	<td class="header">Id pracownika: </td><td><%= @worker.id_worker %></td>
- 	  </tr><tr>
- 	  	<td class="header">Id pracownika merx: </td><td><%= @worker.id_worker_merx %></td>
-	  </tr><tr>	
- 	  	<td class="header">Imie:</td><td><%= @worker.first_name %></td>
- 	  </tr><tr>
- 	  	<td class="header">Nazwisko:</td><td><%= @worker.last_name %></td>
- 	  </tr><tr>
- 	    <% 
-    val1 = minimum_effectivity(params[:id])
-    val2 = effectivity_min(params[:id])[0].to_f
-    val3 = effectivity_max(params[:id])[0].to_f
-   
-        if val2 == 0 and val3 == 0
-          val4 = 0
-        else
-          val4 = (((val1-val2)/(val3-val2))*100).round
-        end
-
-      if val4 < 0
-        @klasa = "bad"
-      else
-        @klasa = "ok"
-      end
-
-     %>
-     <td>Najmniejszy poziom<br/>zrealizowania celu:</td><td class="<%= @klasa %>"><%= val4 %>%</td>
- 	  </tr><tr>
- 	  	<td class="header">Effektywność minimum:</td><td><%= val2 %>%</td>
- 	  </tr>
- 	  <tr>
- 	  	<td class="header">Effektywność maximum:</td><td><%= val3 %>%</td>
- 	  </tr>
- 	  <tr>
- 	  	<td class="header">Data ostatniego update:</td><td><%= last_update_effectivity(params[:id]).strftime("%d-%m-%Y r. ") %></td>
- 	  </tr>
-  </table>
-
-<h1>Tabela Efektywności</h1>
-  <table class="tabela-efektywnosci">
-    <thead>
-      <tr>
-        <th>Efektywność</th>
-        <th>Poziom zrealizowania celu</th>
-        <th>Data</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-
-
-        <% @effec.each do |f| %>
-        <tr>
-          <% 
-        val1 = f.effectivity
-        val2 = effectivity_min(params[:id])[0].to_f
-        val3 = effectivity_max(params[:id])[0].to_f
-       
-            if val2 == 0 and val3 == 0
-              val4 = 0
-            else
-              val4 = (((val1-val2)/(val3-val2))*100).round
-            end
-
-          if val4 < 0
-            @klasa = "bad"
+    <table class="listing" >
+    	  <tr>
+    	  	<td class="header">Id pracownika: </td><td><%= @worker.id_worker %></td>
+    	  </tr><tr>
+    	  	<td class="header">Id pracownika merx: </td><td><%= @worker.id_worker_merx %></td>
+      </tr><tr>	
+    	  	<td class="header">Imie:</td><td><%= @worker.first_name %></td>
+    	  </tr><tr>
+    	  	<td class="header">Nazwisko:</td><td><%= @worker.last_name %></td>
+    	  </tr><tr>
+    	    <% 
+      val1 = minimum_effectivity(params[:id])
+      val2 = effectivity_min(params[:id])[0].to_f
+      val3 = effectivity_max(params[:id])[0].to_f
+     
+          if val2 == 0 and val3 == 0
+            val4 = 0
           else
-            @klasa = "ok"
+            val4 = (((val1-val2)/(val3-val2))*100).round
           end
 
-         %>
-        <td><%= f.effectivity %>%</td>
-        <td class="<%= @klasa %>"><%= val4 %>%</td>
-        <td><%= f.created_at.strftime("%d-%m-%Y r. ")%></td>
+        if val4 < 0
+          @klasa = "bad"
+        else
+          @klasa = "ok"
+        end
+
+       %>
+       <td>Najmniejszy poziom<br/>zrealizowania celu:</td><td class="<%= @klasa %>"><%= val4 %>%</td>
+    	  </tr><tr>
+    	  	<td class="header">Effektywność minimum:</td><td><%= val2 %>%</td>
+    	  </tr>
+    	  <tr>
+    	  	<td class="header">Effektywność maximum:</td><td><%= val3 %>%</td>
+    	  </tr>
+    	  <tr>
+    	  	<td class="header">Data ostatniego update:</td><td><%= last_update_effectivity(params[:id]).strftime("%d-%m-%Y r. ") %></td>
+    	  </tr>
+    </table>
+
+  <h1>Tabela Efektywności</h1>
+    <table class="tabela-efektywnosci">
+      <thead>
+        <tr>
+          <th>Efektywność</th>
+          <th>Poziom zrealizowania celu</th>
+          <th>Data</th>
         </tr>
-        <% end %>
-      </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <tr>
+
+
+          <% @effec.each do |f| %>
+          <tr>
+            <% 
+          val1 = f.effectivity
+          val2 = effectivity_min(params[:id])[0].to_f
+          val3 = effectivity_max(params[:id])[0].to_f
+         
+              if val2 == 0 and val3 == 0
+                val4 = 0
+              else
+                val4 = (((val1-val2)/(val3-val2))*100).round
+              end
+
+            if val4 < 0
+              @klasa = "bad"
+            else
+              @klasa = "ok"
+            end
+
+           %>
+          <td><%= f.effectivity %>%</td>
+          <td class="<%= @klasa %>"><%= val4 %>%</td>
+          <td><%= f.created_at.strftime("%d-%m-%Y r. ")%></td>
+          </tr>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
 
