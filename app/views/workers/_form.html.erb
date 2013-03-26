@@ -2,14 +2,20 @@
 
 <table summary="Section form fields">
   <tr>
-  Użytkownik o id <%= @worker.id_worker_merx %>
   <tr>
-    <th>Position</th>
-    <td><%= f.select(:id_worker_merx, 1..@worker_count) %></td>
+    <th>Id Pracownika</th>
+    <td><%= f.text_field :id_worker %></td>
   </tr>
   <tr>
-    <th>Position</th>
-    <td><%= f.select(:id_worker, 1..@worker_count) %></td>
+    <th>Id Pracownika Merx</th>
+    <td><%= f.text_field :id_worker_merx %></td>
+  </tr><tr>
+    <th>Imie</th>
+    <td><%= f.text_field :first_name %></td>
+  </tr>
+  <tr>
+    <th>Nazwisko</th>
+    <td><%= f.text_field :last_name %></td>
   </tr>
 
 </table>

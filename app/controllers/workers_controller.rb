@@ -1,5 +1,6 @@
 class WorkersController < ApplicationController
-require 'iconv'
+  # filter_resource_access
+# require 'iconv'
 
  require 'csv'
 
@@ -11,6 +12,8 @@ require 'iconv'
   end
   def lista
     @workers = Worker.all
+
+
     @workers_by_order = Worker.order(:id)
     respond_to do |format|
     format.html
@@ -18,6 +21,32 @@ require 'iconv'
     format.xls 
     end
   end
+
+  def new 
+    @new_worker = Worker.new
+  end
+  def create 
+    @new_worker = Worker.new(params[:worker])
+    if @new_worker.save 
+    flash[:notice] = "Poprawnie dodano pracownika"
+    redirect_to :action => "new"
+    else
+      render :action => "new"
+
+    end
+
+  end
+
+  def delete
+    if Worker.find(params[:id]).destroy
+      flash[:notice] = "Poprawnie usunieto pracownika z bazy"
+      redirect_to :action => "lista"
+    else
+      flash[:notice] = "Nie udalo sie usunac pracownika"
+      redirect_to :action => "lista"
+    end
+  end
+
 
   def pracownik
   @workers = Worker.find(:all, :include => [:effectivenes], :joins => [:effectivenes])

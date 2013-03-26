@@ -6,7 +6,7 @@ end
 def create
   @user = User.new(params[:user])
   if @user.save
-    redirect_to root_url, :notice => "Poprawnie zalogowany jako: #{@user} "
+    redirect_to root_url, :notice => "Poprawnie stworzono uzytkownika o loginie: #{@user.login}"
   else
     render "new"
   end

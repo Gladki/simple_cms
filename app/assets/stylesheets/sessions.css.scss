@@ -20,6 +20,7 @@ src:url(HelveticaNeueLTPro-Cn.otf);
 body {
 background-image: url("../assets/gray_jean.png");
 }
+
 @mixin rounded-corners($radius) {
   border-radius: $radius;
   -moz-border-radius: $radius;
@@ -32,6 +33,18 @@ background-image: url("../assets/gray_jean.png");
 	  	 -o-transition:  $value linear;
 		 	transition:  $value linear;
 
+}
+#roles {
+
+	input[type="checkbox"]{
+	display: none;
+	}
+	input[type="checkbox"]{
+	display: inline-block;
+	width:15px;
+	height:15px;
+	}
+	
 }
 .login {
 	@include rounded-corners(10px);

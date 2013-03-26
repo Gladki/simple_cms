@@ -131,6 +131,7 @@ zoom: 1; /* Fix for IE7 */
         text-decoration: none; padding: 1px 7px;}
 #navigation a:hover { background: #F2DC87; padding:7px; 
 	 }
+ 
 .bad {
 	background-color: red;
 }

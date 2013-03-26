@@ -32,7 +32,9 @@ gem 'newrelic_rpm'
 
 #search
 gem 'rails-simple-search'
-
+# gem 'authlogic'
+# gem 'cancan'
+gem 'declarative_authorization'
 #scaffold
 gem "nifty-generators", :group => :development
 

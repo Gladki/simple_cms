@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
 
-	attr_accessible :login, :email, :group, :password, :password_confirmation
+	has_and_belongs_to_many :groups
 
+	attr_accessible :login, :email, :group_ids, :password, :password_confirmation, :created_at, :updated_at
 
 	
 	attr_accessor :password
@@ -11,6 +12,10 @@ class User < ActiveRecord::Base
 	validates_presence_of :password, :on => :create
 	validates_presence_of :login
 	validates_uniqueness_of :login
+
+	def group?(group)
+		 # group.to_s
+	end
 
 	def self.authenticate(login, password)
 		user = find_by_login(login)

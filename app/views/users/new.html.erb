@@ -19,10 +19,6 @@
     <%= f.text_field :login %>
   </p>
   <p>
-    <%= f.label "Grupa" %><br />
-    <%= f.text_field :group %>
-  </p>
-  <p>
     <%= f.label "Email" %><br />
     <%= f.text_field :email %>
   </p>
@@ -33,6 +29,14 @@
   <p>
     <%= f.label "Powtórz hasło" %><br />
     <%= f.password_field :password_confirmation %>
+  </p>
+  <p>
+      <% for group in Group.find(:all) %>
+      <div id="roles">
+        <%= check_box_tag "user[group_ids][]", group.id, @user.groups.include?(group) %> 
+        <%= label_tag "user[group_ids][]" ,group.name %>
+      </div>
+      <% end %>
   </p>
  <%= f.submit( "Stwórz użytkownika", :class => "button") %>
 <% end %>

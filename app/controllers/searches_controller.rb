@@ -1,5 +1,5 @@
 class SearchesController < ApplicationController
-  
+  # filter_resource_access
   layout 'search'
 
   def index

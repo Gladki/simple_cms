@@ -1,5 +1,5 @@
 class EffectivenesController < ApplicationController
-
+# filter_resource_access
 layout 'admin'
 
   def index
