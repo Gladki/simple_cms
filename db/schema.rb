@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130313153243) do
+ActiveRecord::Schema.define(:version => 20130327002337) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "first_name",      :limit => 25
@@ -67,6 +67,17 @@ ActiveRecord::Schema.define(:version => 20130313153243) do
 
   add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
   add_index "pages", ["subject_id"], :name => "index_pages_on_subject_id"
+
+  create_table "positions", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "positions_workers", :force => true do |t|
+    t.integer "worker_id"
+    t.integer "position_id"
+  end
 
   create_table "searches", :force => true do |t|
     t.string   "keywords"

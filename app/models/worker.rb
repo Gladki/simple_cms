@@ -1,7 +1,15 @@
 class Worker < ActiveRecord::Base
- attr_accessible :id_worker, :id_worker_merx, :last_name, :first_name
+ attr_accessible :id_worker, :id_worker_merx, :last_name, :first_name, :position_ids
  belongs_to :search
  has_many :effectivenes, :class_name => "Effectivenes"
+ has_and_belongs_to_many :positions
+
+ validates_presence_of [:id_worker,:id_worker_merx,:last_name,:first_name], :on => :create
+ validates_numericality_of [:id_worker,:id_worker_merx], :only_integer => true, :on => :create
+	
+
+
+
 
 	def self.to_csv (options = {})
 		CSV.generate(options) do |csv|

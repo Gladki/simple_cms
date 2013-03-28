@@ -46,13 +46,18 @@ background-image: url("../assets/gray_jean.png");
 	}
 	
 }
+#logo {
+	width: 200px;
+	margin:120px auto 0 auto;
+
+}
 .login {
 	@include rounded-corners(10px);
 	width:200px;
-	margin: 120px auto;
+	margin: 10px auto 120px auto;
 
 	height:auto;
-	padding:50px 50px 100px 50px ;
+	padding:30px 50px 100px 50px ;
 	color:darken($gray,40%);
 	background-color: $gray;
 	border: solid 5px darken($gray, 5%);
@@ -62,7 +67,7 @@ background-image: url("../assets/gray_jean.png");
 	h1{
 	color:darken($light-blue,10%);
 	font-weight: normal;
-	font-size: 15px;
+	font-size: 15px;text-align: center;
 	text-transform: uppercase;
 	font-family: Helvetica Neue Pro;
 	}
@@ -74,9 +79,8 @@ background-image: url("../assets/gray_jean.png");
 		color: $red;
 		float:left;
 		height: auto;
-		margin-bottom: 50px;
-		margin-top:10px;
-
+		width:200px;
+		text-align: center;
 	}
 	
 	input{

@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Aplikacja - <%= yield(:title) || "Aplikacja" %></title>
-    <%= stylesheet_link_tag('application', 'subjects' , :media => 'all') %>
+    <%= stylesheet_link_tag('application') %>
     <%= javascript_include_tag('application','jquery-1.8.2.min', 'highcharts')%> 
 
   
@@ -21,6 +21,7 @@
             Jesteś zalogowany jako: <%= current_user.login %>.
              <%= link_to "Wyloguj", wyloguj_path %>
           <li><%= link_to "Szukaj pracownika", nowe_szukanie_path %></li>
+          <li><%= link_to "Dodaj nowego pracownika", nowy_pracownik_path %></li>
           <li><%= link_to "Lista pracowników", lista_pracownikow_path %></li>
           <li><%= link_to "Import danych", import_danych_path %></li>
          

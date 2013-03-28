@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 			session[:user_id] = user.id
 			redirect_to lista_pracownikow_path, :notice => "Poprawnie zalogowano jako: #{user.login}"
 		else
-			flash.now.alert = "Nieprawidlowy email albo haslo"
+			flash.now.alert = "Nieprawidlowy login albo haslo"
 			render "new"
 		end
 	end

@@ -15,8 +15,9 @@ SimpleCms::Application.routes.draw do
     resources :sessions
 
     match 'efektywnosc/import' => 'workers#import_render', :as => 'import_danych'
-    match 'pracownik/(/:id)' => 'workers#szczegoly', :as => 'szczegoly_po_id'
+    match 'pracownik/szczegoly/(/:id)' => 'workers#szczegoly', :as => 'szczegoly_po_id'
     match 'pracownik/usun/(/:id)' => 'workers#delete', :as => 'usun_po_id'
+    match 'pracownik/dodaj' => 'workers#new', :as => 'nowy_pracownik'
 
     match '/searches/nowe', :controller => 'searches', :action => 'new'
     match '/pracownicy/lista', :controller => 'workers', :action => 'lista' , :as => :lista_pracownikow

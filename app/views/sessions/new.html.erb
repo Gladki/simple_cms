@@ -1,6 +1,15 @@
+<div id="logo">
+<%= link_to image_tag("logo_onn.png", :border => 0), root_path %>
+</div>
+
 
 <div class="login">
 <h1>Logowanie do systemu</h1>
+<div class="flash-message">
+<% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, :id => "flash_#{name}" %>
+<% end %><br/>
+</div>
 
 <%= form_tag sessions_path do %>
   <p>
@@ -17,10 +26,5 @@
 <div class  ="links">
     <%= link_to "Rejestruj", rejestruj_path %> 
     <%= link_to "Przypomnij hasło", zaloguj_path %>
-</div>
-<div class="flash-message">
-<% flash.each do |name, msg| %>
-  <%= content_tag :div, msg, :id => "flash_#{name}" %>
-<% end %><br/>
 </div>
 </div>

@@ -1,19 +1,27 @@
 class WorkersController < ApplicationController
-  # filter_resource_access
-# require 'iconv'
+ 
 
+ before_filter :worker_by_id , :only => [:edit, :update, :delete, :szczegoly]
+ before_filter :workers_all , :only => [:lista]
+
+
+ layout 'worker'
+ 
  require 'csv'
 
-  layout 'worker'
-  @workers = Worker.find(:all, :include => [:effectivenes], :joins => [:effectivenes])
+ def worker_by_id
+    @worker = Worker.find(params[:id])
+ end
+
+ def workers_all 
+    @workers = Worker.all
+ end   
+ 
   def index
     render('lista')
     @pracownik = Worker.find(params[:id])
   end
   def lista
-    @workers = Worker.all
-
-
     @workers_by_order = Worker.order(:id)
     respond_to do |format|
     format.html
@@ -26,36 +34,32 @@ class WorkersController < ApplicationController
     @new_worker = Worker.new
   end
   def create 
+    @new_position = Position.new
     @new_worker = Worker.new(params[:worker])
     if @new_worker.save 
-    flash[:notice] = "Poprawnie dodano pracownika"
-    redirect_to :action => "new"
+      flash[:notice] = "Poprawnie dodano pracownika"
+        redirect_to :action => "new"
     else
       render :action => "new"
-
+        flash[:notice] = "Nie udalo sie dodac pracownika sprawdz poprawnosc pol"
     end
 
   end
 
   def delete
-    if Worker.find(params[:id]).destroy
+    if @worker.destroy
+      redirect_to :action => "lista" 
       flash[:notice] = "Poprawnie usunieto pracownika z bazy"
-      redirect_to :action => "lista"
     else
+      redirect_to :action => "lista" 
       flash[:notice] = "Nie udalo sie usunac pracownika"
-      redirect_to :action => "lista"
     end
   end
 
-
   def pracownik
-  @workers = Worker.find(:all, :include => [:effectivenes], :joins => [:effectivenes])
   end
 
-
   def szczegoly
-    @workers = Worker.find(:all, :include => [:effectivenes], :joins => [:effectivenes])
-    @worker = Worker.find(params[:id])
     @effec = Effectivenes.find(:all, :conditions => ["worker_id = ?" , @worker.id])
     @worker_count = Worker.count
     @efektyw = @worker.effectivenes
@@ -70,7 +74,4 @@ class WorkersController < ApplicationController
     redirect_to root_url, notice: "Efektywnosci dodane"
   end
 
-  def javascript
-
-  end
 end

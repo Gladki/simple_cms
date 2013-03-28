@@ -17,5 +17,12 @@
     <th>Nazwisko</th>
     <td><%= f.text_field :last_name %></td>
   </tr>
+   <tr>
+    <th>Stanowisko</th>
+    
+    <td><%= f.collection_select  :position_ids, Position.all , :id, :name, :include_blank => true %></td>
+
+
+  </tr>
 
 </table>
