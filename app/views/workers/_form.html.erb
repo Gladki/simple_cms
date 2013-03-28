@@ -3,22 +3,22 @@
 <table summary="Section form fields">
   <tr>
   <tr>
-    <th>Id Pracownika</th>
+    <th><%= f.label :id_worker, "Id Pracownika: " %></th>
     <td><%= f.text_field :id_worker %></td>
   </tr>
   <tr>
-    <th>Id Pracownika Merx</th>
+    <th><%= f.label :id_worker_merx, "Id Pracownika Merx: " %></th>
     <td><%= f.text_field :id_worker_merx %></td>
   </tr><tr>
-    <th>Imie</th>
+    <th><%= f.label :first_name, "Imie: " %></th>
     <td><%= f.text_field :first_name %></td>
   </tr>
   <tr>
-    <th>Nazwisko</th>
+    <th><%= f.label :last_name, "Nazwisko: " %></th>
     <td><%= f.text_field :last_name %></td>
   </tr>
    <tr>
-    <th>Stanowisko</th>
+    <th><%= f.label :name, "Stanowisko" %></th>
     
     <td><%= f.collection_select  :position_ids, Position.all , :id, :name, :include_blank => true %></td>
 

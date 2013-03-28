@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 		if user
 			
 			session[:user_id] = user.id
-			redirect_to lista_pracownikow_path, :notice => "Poprawnie zalogowano jako: #{user.login}"
+			redirect_to index_path, :notice => "Poprawnie zalogowano jako: #{user.login}"
 		else
 			flash.now.alert = "Nieprawidlowy login albo haslo"
 			render "new"

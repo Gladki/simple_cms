@@ -1,12 +1,12 @@
 <% title "Lista pracowników" %>
 
 <div class="section list">
-  <h1>Wyszukiwanie pracowników</h2>
+  <h1>Wyszukiwanie pracowników</h1>
 </div>
  <br/>
 <p>
 <b>Pobierz listę w formacie: 
-<%= link_to "Excel (.xls)" ,lista_pracownikow_path(format: "xls") %>
+<%= button_to("Excel (.xls)" , lista_pracownikow_path(format: "xls"), :class => "szczegoly") %>
 
 </b>
 </p>
@@ -62,14 +62,13 @@
     
       </td>
       <td><%= button_to("szczegóły", szczegoly_po_id_path(worker.id), :class=>"szczegoly" ) %></td>
-      <td><%= button_to("usuń", usun_po_id_path(worker.id), :class=>"szczegoly" ) %></td>
-
+      
+      <% if permitted_to? :delete, :workers %>
+        <td><%= button_to("usuń", usun_po_id_path(worker.id), :class=>"szczegoly" ) %></td>
+      <% end %>
 
 
       </tr>
           
      <% end %>
    </table>
-<br/>
-</div>
-</div>

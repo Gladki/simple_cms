@@ -1,29 +1,31 @@
 SimpleCms::Application.routes.draw do
    
   get "sessions/new"
-
     #root :to => "workers#lista"
     root :to => "sessions#new"
+    match '/pracownicy/lista' => 'workers#lista', :as => :lista_pracownikow
+
     match '/szukaj/nowe', :controller => 'searches', :action => 'new', :as => 'nowe_szukanie'
-    match '/szukaj/(/:id)' => 'searches#show', :as => 'szukaj_po_id'
-    resources :searches
+    match '/szukaj/:id' => 'searches#show', :as => 'szukaj_po_id'
 
     get "rejestruj" => "users#new", :as => "rejestruj"
-    resources :users
     get "zaloguj" => "sessions#new", :as => "zaloguj"
     get "wyloguj" => "sessions#destroy", :as => "wyloguj"
-    resources :sessions
+    
 
     match 'efektywnosc/import' => 'workers#import_render', :as => 'import_danych'
-    match 'pracownik/szczegoly/(/:id)' => 'workers#szczegoly', :as => 'szczegoly_po_id'
-    match 'pracownik/usun/(/:id)' => 'workers#delete', :as => 'usun_po_id'
+    match 'pracownik/szczegoly/:id' => 'workers#szczegoly', :as => 'szczegoly_po_id'
+    match 'pracownik/usun/:id' => 'workers#delete', :as => 'usun_po_id'
     match 'pracownik/dodaj' => 'workers#new', :as => 'nowy_pracownik'
 
     match '/searches/nowe', :controller => 'searches', :action => 'new'
-    match '/pracownicy/lista', :controller => 'workers', :action => 'lista' , :as => :lista_pracownikow
+    match '/pracownicy' => 'workers#index', :as => :index
     #match 'effectivenes' => 'effectivenes#index' , :as => :effectivenes
-    match '/workers/wyszukaj/(/:id)', :controller => 'workers', :action => 'wyszukaj' , :as => :info_pracownik
+    match '/workers/wyszukaj/:id', :controller => 'workers', :action => 'wyszukaj' , :as => :info_pracownik
 
+    resources :searches
+    resources :sessions
+    resources :users
 
     resources :workers do 
       collection { post :import }

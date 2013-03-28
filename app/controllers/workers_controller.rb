@@ -1,9 +1,9 @@
 class WorkersController < ApplicationController
- 
 
+    filter_access_to :all
  before_filter :worker_by_id , :only => [:edit, :update, :delete, :szczegoly]
- before_filter :workers_all , :only => [:lista]
-
+ before_filter :workers_all , :only => [:lista,:index]
+  
 
  layout 'worker'
  
@@ -18,10 +18,10 @@ class WorkersController < ApplicationController
  end   
  
   def index
-    render('lista')
-    @pracownik = Worker.find(params[:id])
+    
   end
   def lista
+
     @workers_by_order = Worker.order(:id)
     respond_to do |format|
     format.html
@@ -34,7 +34,7 @@ class WorkersController < ApplicationController
     @new_worker = Worker.new
   end
   def create 
-    @new_position = Position.new
+  
     @new_worker = Worker.new(params[:worker])
     if @new_worker.save 
       flash[:notice] = "Poprawnie dodano pracownika"

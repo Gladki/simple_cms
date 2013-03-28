@@ -1,16 +1,15 @@
 <% @page_title = "Dodaj pracownika" %>
 
-<%= link_to("<< Back to List", lista_pracownikow_path, :class => 'back-link') %>
 
 <div class="section new">
-  <h2>Create Section</h2>
+  <h1>Create Section</h1>
 
   <%= form_for @new_worker  do |f| %>
   
     <%= render(:partial => 'form', :locals => {:f => f}) %>
     
     <div class="form-buttons">
-      <%= submit_tag("Dodaj pracownika") %>
+      <%= submit_tag("Dodaj pracownika" , :class => "szczegoly") %>
     </div>
     
   <% end %>

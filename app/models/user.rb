@@ -12,7 +12,11 @@ class User < ActiveRecord::Base
 	validates_presence_of :password, :on => :create
 	validates_presence_of :login
 	validates_uniqueness_of :login
-
+	def role_symbols
+		groups.map do |group|
+    		group.name.underscore.to_sym
+    	end
+	end
 	def group?(group)
 		 # group.to_s
 	end

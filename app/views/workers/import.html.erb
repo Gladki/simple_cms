@@ -2,8 +2,8 @@
 <p><b>Import danych z pliku CSV</b></p>
 <p>Efektywności:</p>
   <%= form_tag import_workers_path, multipart: true do %>
-    <%= file_field_tag :file %><br/><br/>
-    <%= submit_tag "Importuj!"%>
+    <%= file_field_tag :file , :class => "szczegoly"%><br/><br/>
+    <%= submit_tag "Importuj!", :class => "szczegoly"%>
   <% end %>
 
 
@@ -11,6 +11,6 @@
 <p>Efektywności:</p>
 
   <%= form_tag import_workers_path, multipart: true do %>
-    <%= file_field_tag :file %><br/><br/>
-    <%= submit_tag "Importuj!"%>
+    <%= file_field_tag :file , :class => "szczegoly"%><br/><br/>
+    <%= submit_tag "Importuj!" , :class => "szczegoly"%>
   <% end %>
