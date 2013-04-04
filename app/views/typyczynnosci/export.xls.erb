@@ -1,0 +1,25 @@
+<% data = DateTime.now.to_date.strftime("%d-%m-%Y") %>
+<% headers["Content-Disposition"] = "attachment; filename=\"typy-czynnosci-#{data}.xls\""  %>
+
+<table border="1">
+    <border="1"class="listing" summary="Section list">
+     <tr class="header">
+      <th>Kod<br/>Czynności</th>
+      <th>Opis</th>
+    
+      <th>Pochodzenie</th>
+      <th>Data utworzenia</th>
+    </tr>
+ <% @czynnosci.each do |czynnosc| %>
+ <tr >
+ 
+      <td><%= czynnosc.tc_kod %></td>
+      <td><%= czynnosc.tc_opis %></td>
+     
+      <td style="width:100px;"><%= czynnosc.tc_zrodlo_pochodzenia %></td>
+      <td><%= czynnosc.created_at.strftime("%d-%m-%Y") %></td>
+   
+      </tr>
+          
+     <% end %>
+   </table>

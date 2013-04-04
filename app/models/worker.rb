@@ -8,6 +8,8 @@ class Worker < ActiveRecord::Base
  validates_numericality_of [:id_worker,:id_worker_merx], :only_integer => true, :on => :create
 	
 
+	
+
 
 
 

@@ -14,14 +14,13 @@ class WorkersController < ApplicationController
  end
 
  def workers_all 
-    @workers = Worker.all
+    @workers = Worker.includes(:effectivenes).all
  end   
  
   def index
     
   end
   def lista
-
     @workers_by_order = Worker.order(:id)
     respond_to do |format|
     format.html
@@ -71,7 +70,25 @@ class WorkersController < ApplicationController
 
   def import
     Effectivenes.import(params[:file])
-    redirect_to root_url, notice: "Efektywnosci dodane"
+    redirect_to import_danych_path, notice: "Efektywnosci dodane"
+  end
+
+  def import_tn
+    Tabelanormatywow.import(params[:file])
+    if Tabelanormatywow.create.new_record? == true  
+      redirect_to import_danych_tn_path, notice: "Tabela Normatywow zostala poprawnie dodana"
+    else
+      redirect_to import_danych_tn_path, notice: "Plik o podanej nazwie zostal juz poprawnie wgrany!"
+    end
+  end
+
+  def import_tc
+    Typyczynnosci.import(params[:file])
+    if Typyczynnosci.create.new_record? == true  
+      redirect_to import_danych_tn_path, notice: "Tabela Czynnosci zostala poprawnie dodana"
+    else
+      redirect_to import_danych_tn_path, notice: "Plik o podanej nazwie zostal juz poprawnie wgrany!"
+    end
   end
 
 end

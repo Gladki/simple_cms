@@ -4,6 +4,8 @@ SimpleCms::Application.routes.draw do
     #root :to => "workers#lista"
     root :to => "sessions#new"
     match '/pracownicy/lista' => 'workers#lista', :as => :lista_pracownikow
+    match '/tabela-normatywow/export' => 'tabelanormatywow#export', :as => :export_normatywow
+    match '/typy-czynnosci/export' => 'typyczynnosci#export', :as => :export_czynnosci
 
     match '/szukaj/nowe', :controller => 'searches', :action => 'new', :as => 'nowe_szukanie'
     match '/szukaj/:id' => 'searches#show', :as => 'szukaj_po_id'
@@ -12,25 +14,35 @@ SimpleCms::Application.routes.draw do
     get "zaloguj" => "sessions#new", :as => "zaloguj"
     get "wyloguj" => "sessions#destroy", :as => "wyloguj"
     
-
-    match 'efektywnosc/import' => 'workers#import_render', :as => 'import_danych'
+    match 'import' => 'workers#import_render', :as => 'import_danych'
     match 'pracownik/szczegoly/:id' => 'workers#szczegoly', :as => 'szczegoly_po_id'
     match 'pracownik/usun/:id' => 'workers#delete', :as => 'usun_po_id'
     match 'pracownik/dodaj' => 'workers#new', :as => 'nowy_pracownik'
-
     match '/searches/nowe', :controller => 'searches', :action => 'new'
     match '/pracownicy' => 'workers#index', :as => :index
-    #match 'effectivenes' => 'effectivenes#index' , :as => :effectivenes
     match '/workers/wyszukaj/:id', :controller => 'workers', :action => 'wyszukaj' , :as => :info_pracownik
+
+    match 'tabela-normatywow' => 'tabelanormatywow#index', :as => 'tabela_normatywow'
+    match 'typy-czynnosci' => 'typyczynnosci#index', :as => 'typy_czynnosci'
+
+    
 
     resources :searches
     resources :sessions
     resources :users
-
-    resources :workers do 
-      collection { post :import }
-    end
+    resources :tabelanormatywow
+    resources :typyczynnosci
     resources :effectivenes
+    
+    #EXPORTY
+    match '/tabela-normatywow/export' => 'tabelanormatywow#export', :as => :export_normatywow
+    match '/typy-czynnosci/export' => 'typyczynnosci#export', :as => :export_czynnosci
+
+
+    #IMPORTY
+    resources :workers do 
+      collection {post :import , :import_tn, :import_tc}
+    end
 
 
   #get "demo/index"

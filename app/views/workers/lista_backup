@@ -21,10 +21,13 @@
       <th>Najgorsza<br/>Efektywność</th>
       <th>Realizacja<br/>Celu</th>
     </tr>
+    <% @@lista_id = [] %>
+
  <% @workers.each do |worker| %>
  <tr>
  
-     <td><%= worker.id_worker %></td>
+   <td><%= worker.id_worker %></td>
+   <% @@lista_id << worker.id %>
       <td><%= worker.id_worker_merx %></td>
       <td><%= worker.last_name %></td>
       <td><%= worker.first_name %></td>

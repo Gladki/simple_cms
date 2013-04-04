@@ -20,9 +20,12 @@
         <div id="navigation">
         <ul>
             Jesteś zalogowany jako: <%= current_user.login %>.
+            
             <% if permitted_to? :szczegoly, :workers %>
             <li><%= link_to "Dashboard", szczegoly_po_id_path(current_user.id) %></li>
-          <% end %>
+            <% end %>
+
+
           <% if permitted_to? :new, :searches %>
           <li><%= link_to "Szukaj pracownika", nowe_szukanie_path %></li>
           <% end %>
@@ -30,9 +33,17 @@
 
           <li><%= link_to "Dodaj nowego pracownika", nowy_pracownik_path %></li>
           <% end %>
+        
+         
 
           <% if permitted_to? :lista, :workers %>
             <li><%= link_to "Lista pracowników", lista_pracownikow_path %></li>
+          <% end %>
+          <% if permitted_to? :index, :tabelanormatywow %>
+            <li><%= link_to "Tabela Normatywów", tabela_normatywow_path %></li>
+          <% end %>
+          <% if permitted_to? :index, :typyczynnosci %>
+            <li><%= link_to "Typy Czynności", typy_czynnosci_path %></li>
           <% end %>
           <% if permitted_to? :import_render, :workers %>
             <li><%= link_to "Import danych", import_danych_path %></li>

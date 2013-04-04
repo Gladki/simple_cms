@@ -13,4 +13,22 @@
   <%= form_tag import_workers_path, multipart: true do %>
     <%= file_field_tag :file , :class => "szczegoly"%><br/><br/>
     <%= submit_tag "Importuj!" , :class => "szczegoly"%>
+  <% end %> 
+
+
+
+<p>Tabela Normatywów:</p>
+
+  <%= form_tag import_tn_workers_path, multipart: true do %>
+    <%= file_field_tag :file , :class => "szczegoly"%><br/><br/>
+    <%= submit_tag "Importuj!" , :class => "szczegoly"%>
+  <% end %>
+
+
+
+  <p>Tabela Czynności:</p>
+
+  <%= form_tag import_tc_workers_path, multipart: true do %>
+    <%= file_field_tag :file , :class => "szczegoly"%><br/><br/>
+    <%= submit_tag "Importuj!" , :class => "szczegoly"%>
   <% end %>

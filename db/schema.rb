@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130327002337) do
+ActiveRecord::Schema.define(:version => 20130404014025) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "first_name",      :limit => 25
@@ -120,6 +120,27 @@ ActiveRecord::Schema.define(:version => 20130327002337) do
     t.boolean  "visible",    :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+  end
+
+  create_table "tabela_normatywow", :force => true do |t|
+    t.string   "tn_kod_czynnosci"
+    t.string   "tn_obszar"
+    t.string   "tn_opis_czynnosci"
+    t.string   "tn_opis_czynnosci_szczegolowy"
+    t.string   "tn_jednostka_odniesienia"
+    t.decimal  "tn_czas",                       :precision => 10, :scale => 2
+    t.string   "tn_komentarz"
+    t.string   "tn_import_file_info"
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
+  end
+
+  create_table "typy_czynnosci", :force => true do |t|
+    t.string   "tc_kod"
+    t.string   "tc_opis"
+    t.string   "tc_zrodlo_pochodzenia"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "users", :force => true do |t|
