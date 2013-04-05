@@ -1,9 +1,9 @@
-<% title "Tabela czynnosci" %>
-
-<div class="section list">
-  <h1>Tabela Normatywów</h1>
-</div>
+<% title "Typy czynnosci" %>
+<div id="middle-content">
+  
+  <h1>Typy czynności</h1>
  <br/>
+ <p id=""></p>
 <p>
 <b>Pobierz listę w formacie: 
 <%= button_to("Excel (.xls)" , export_czynnosci_path(format: "xls"), :class => "szczegoly") %>
@@ -11,7 +11,7 @@
 </b>
 </p>
 <br/>
-<table style="font-size:11px;border-width: 1px;
+<table id="tczynnosci" style="font-size:11px;border-width: 1px;
   border-spacing: 2px;
   border-style: hidden;
   border-color: #000;
@@ -26,15 +26,20 @@
       <th>Data utworzenia</th>
     </tr>
  <% @czynnosci.each do |czynnosc| %>
- <tr >
- 
-      <td><%= czynnosc.tc_kod %></td>
-      <td><%= czynnosc.tc_opis %></td>
-     
-      <td style="width:100px;"><%= czynnosc.tc_zrodlo_pochodzenia %></td>
-      <td><%= czynnosc.created_at.strftime("%d-%m-%Y") %></td>
-   
-      </tr>
+ <%= render(:partial =>'czynnosc', :locals => {:czynnosc => czynnosc}) %>
           
      <% end %>
    </table>
+
+<div id="insert">
+  <p>Dodaj nową czynność:</p>
+
+ <%= form_for @nowa_czynnosc do |f| %>
+  
+    <%= render(:partial => 'form', :locals => {:f => f}) %>
+    
+    
+  <% end %>
+
+</div>
+</div>

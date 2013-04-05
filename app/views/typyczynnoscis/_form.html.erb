@@ -1,0 +1,20 @@
+<table summary="Section form fields">
+  <tr>
+    <th><%= f.label :tc_kod, "Kod czynności: " %></th>
+    <td><%= f.text_field :tc_kod %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :tc_opis, "Opis czynności: " %></th>
+    <td><%= f.text_field :tc_opis %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :tc_zrodlo_pochodzenia, "Źródło pochodzenia: " %></th>
+    <td><%= f.text_field :tc_zrodlo_pochodzenia, :value => "wpisany ręcznie" %></td>
+  </tr>
+  <tr><td>
+     <%= submit_tag("Dodaj czynność" , :class => "szczegoly", :remote => true) %>
+    </td>
+    </tr>
+
+
+</table>

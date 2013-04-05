@@ -1,0 +1,2 @@
+$('table#tczynnosci').append("<%= escape_javascript(render @nowa_czynnosc) %>");
+$('tr#<%= dom_id(@nowa_czynnosc) %>').effect('highlight');

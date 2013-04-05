@@ -1,6 +1,7 @@
 class Typyczynnosci < ActiveRecord::Base
 
 self.table_name = 'typy_czynnosci'
+ validates_presence_of [:tc_kod,:tc_opis,:tc_zrodlo_pochodzenia], :on => :create
 
 
  attr_accessible :id, 

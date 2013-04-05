@@ -17,21 +17,25 @@ SimpleCms::Application.routes.draw do
     match 'import' => 'workers#import_render', :as => 'import_danych'
     match 'pracownik/szczegoly/:id' => 'workers#szczegoly', :as => 'szczegoly_po_id'
     match 'pracownik/usun/:id' => 'workers#delete', :as => 'usun_po_id'
+    match 'typy-czynnosci/usun/:id' => 'typyczynnoscis#delete', :as => 'usun_po_id_czynnosc'
     match 'pracownik/dodaj' => 'workers#new', :as => 'nowy_pracownik'
     match '/searches/nowe', :controller => 'searches', :action => 'new'
     match '/pracownicy' => 'workers#index', :as => :index
     match '/workers/wyszukaj/:id', :controller => 'workers', :action => 'wyszukaj' , :as => :info_pracownik
 
     match 'tabela-normatywow' => 'tabelanormatywow#index', :as => 'tabela_normatywow'
-    match 'typy-czynnosci' => 'typyczynnosci#index', :as => 'typy_czynnosci'
+    match 'typy-czynnosci' => 'typyczynnoscis#index', :as => 'typy_czynnosci'
 
-    
+ 
+ 
+    resources :typyczynnoscis do
+      collection {get :index}
+    end
 
     resources :searches
     resources :sessions
     resources :users
     resources :tabelanormatywow
-    resources :typyczynnosci
     resources :effectivenes
     
     #EXPORTY
