@@ -21,7 +21,7 @@ end
 
 def self.import(file)
       tc_import_file_info = File.basename(file.original_filename, File.extname(file.original_filename))
-  
+               
       ex = open_spreadsheet(file)
       ex.default_sheet = 'TYPY_CZYNNOSCI'
       header = ['tc_kod','tc_opis','tc_zrodlo_pochodzenia']
