@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(:version => 20130407111147) do
   create_table "cele", :force => true do |t|
     t.string   "ce_minimum"
     t.string   "ce_maximum"
-    t.string   "ce_worker_id"
+    t.integer  "ce_worker_id"
     t.integer  "ce_aud_us_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
