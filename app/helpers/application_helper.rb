@@ -43,13 +43,22 @@ module ApplicationHelper
   #   @effectivity_max
   # end  
   def cel_min(worker_id)
+    if Cele.all.include?(worker_id) == false
     @cel_min = Cele.where("ce_worker_id = ?", worker_id).order('id desc').limit(1).pluck(:ce_minimum)
     return @cel_min
+    else
+      @cel_min = 0
+    end
+
 
   end  
    def cel_max(worker_id)
+    if Cele.all.include?(worker_id) == false
     @cel_max = Cele.where("ce_worker_id = ?", worker_id).order('id desc').limit(1).pluck(:ce_maximum)
     return @cel_max
+    else
+      @cel_max = 0
+    end
   end  
 
  def last_update_effectivity(worker_id)
