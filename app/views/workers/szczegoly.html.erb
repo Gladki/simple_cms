@@ -165,6 +165,7 @@ end
 
 
     <h1>Cele</h1>
+     <% if Cele.all.include?(@worker.id) == true %>
     <table class="tabela-cele" >
       <thead>
         <tr>
@@ -184,7 +185,7 @@ end
      <% end %> 
       </tbody>
     </table>
-
+<% end %>
      <div id="insert">
   <p>Dodaj nowy cel:</p>
 
