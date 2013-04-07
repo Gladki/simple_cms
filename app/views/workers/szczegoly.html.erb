@@ -165,7 +165,7 @@ end
 
 
     <h1>Cele</h1>
-     <% if Cele.all.include?(@worker.id) == true %>
+    
     <table class="tabela-cele" >
       <thead>
         <tr>
@@ -175,17 +175,25 @@ end
         </tr>
       </thead>
       <tbody>
+         <% if Cele.all.include?(@worker.id) == false %>
         <% @cele.each do |cel| %>
       <tr>
         <td><%= cel.ce_minimum %>%</td>
         <td><%= cel.ce_maximum %>%</td>
         <td><%= cel.created_at.strftime("%d-%m-%Y") %></td>
-     
+        
       </tr>
+       <% end else %>
+      
+       <tr>
+       <td>0</td><td>0</td><td>-</td>
+        </tr>
      <% end %> 
+     
+     
       </tbody>
     </table>
-<% end %>
+
      <div id="insert">
   <p>Dodaj nowy cel:</p>
 
