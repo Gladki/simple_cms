@@ -12,6 +12,7 @@
     <td><%= f.text_field :tc_zrodlo_pochodzenia, :value => "wpisany ręcznie" %></td>
   </tr>
   <tr><td>
+    <%= f.hidden_field :tc_aud_us_id, :value => current_user.id %>
      <%= submit_tag("Dodaj czynność" , :class => "szczegoly", :remote => true) %>
     </td>
     </tr>

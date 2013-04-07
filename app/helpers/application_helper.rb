@@ -33,15 +33,25 @@ module ApplicationHelper
     return @minimum_effectivity.to_f
   end 
 
-  def effectivity_min(worker_id)
-    @effectivity_min = Effectivenes.where("effectivenes.worker_id = ?", worker_id).limit(1).pluck(:effectivity_min)
-    return @effectivity_min
+  # def effectivity_min(worker_id)
+  #   @effectivity_min = Effectivenes.where("effectivenes.worker_id = ?", worker_id).limit(1).pluck(:effectivity_min)
+  #   return @effectivity_min
+
+  # end 
+  #  def effectivity_max(worker_id)
+  #   @effectivity_max = Effectivenes.where("effectivenes.worker_id = ?", worker_id).limit(1).pluck("effectivity_max")
+  #   @effectivity_max
+  # end  
+  def cel_min(worker_id)
+    @cel_min = Cele.where("ce_worker_id = ?", worker_id).order('id desc').limit(1).pluck(:ce_minimum)
+    return @cel_min
 
   end  
-  def effectivity_max(worker_id)
-    @effectivity_max = Effectivenes.where("effectivenes.worker_id = ?", worker_id).limit(1).pluck("effectivity_max")
-    @effectivity_max
+   def cel_max(worker_id)
+    @cel_max = Cele.where("ce_worker_id = ?", worker_id).order('id desc').limit(1).pluck(:ce_maximum)
+    return @cel_max
   end  
+
  def last_update_effectivity(worker_id)
     @last_update_effectivity = Effectivenes.maximum(:created_at, :conditions => ["worker_id = ?", worker_id])
     return @last_update_effectivity

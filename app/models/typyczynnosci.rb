@@ -1,5 +1,6 @@
 class Typyczynnosci < ActiveRecord::Base
 
+   
 self.table_name = 'typy_czynnosci'
  validates_presence_of [:tc_kod,:tc_opis,:tc_zrodlo_pochodzenia], :on => :create
 
@@ -7,7 +8,8 @@ self.table_name = 'typy_czynnosci'
  attr_accessible :id, 
                  :tc_kod, 
                  :tc_opis,
-                 :tc_zrodlo_pochodzenia
+                 :tc_zrodlo_pochodzenia,
+                 :tc_aud_us_id
 
 
 def self.open_spreadsheet(file)

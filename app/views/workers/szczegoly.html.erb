@@ -15,7 +15,7 @@ end
     var chart = new Highcharts.Chart({
 
         chart: {
-            renderTo: 'container',
+            renderTo: 'container_chart',
         },
         title: {
             text: 'Wykres Efektywności'
@@ -23,12 +23,12 @@ end
         xAxis: {
             type: "datetime"        },
         yAxis: {
-             max: <%= effectivity_min(params[:id])[0].to_f + 60%>,
+             max: <%= cel_min(params[:id])[0].to_f + 60%>,
             title: {
                 text: 'Efektywność w procentach'
             }, 
             plotLines : [{
-            value : <%= effectivity_min(params[:id])[0].to_f %> ,
+            value : <%= cel_min(params[:id])[0].to_f %> ,
             color : 'red',
             dashStyle : 'shortdash',
             width : 2,
@@ -37,7 +37,7 @@ end
             }
         },
           {
-            value : <%= effectivity_max(params[:id])[0].to_f %> ,
+            value : <%= cel_max(params[:id])[0].to_f %> ,
             color : 'green',
             dashStyle : 'shortdash',
             width : 2,
@@ -77,10 +77,10 @@ end
    </script>
 
 
-<div id="container" class="wykres-efektywnosc">
+<div id="container_chart" class="wykres-efektywnosc">
 
 </div>
-
+  
   <h1>Dane o pracowniku: </h1>
     <table class="listing" >
     	  <tr>
@@ -94,8 +94,8 @@ end
     	  </tr><tr>
     	    <% 
       val1 = minimum_effectivity(params[:id])
-      val2 = effectivity_min(params[:id])[0].to_f
-      val3 = effectivity_max(params[:id])[0].to_f
+      val2 = cel_min(params[:id])[0].to_f
+      val3 = cel_max(params[:id])[0].to_f
      
           if val2 == 0 and val3 == 0
             val4 = 0
@@ -122,7 +122,7 @@ end
     	  </tr>
     </table>
 
-  <h1>Tabela Efektywności</h1>
+  <h1>Efektywności</h1>
     <table class="tabela-efektywnosci">
       <thead>
         <tr>
@@ -133,14 +133,12 @@ end
       </thead>
       <tbody>
         <tr>
-
-
           <% @effec.each do |f| %>
           <tr>
             <% 
           val1 = f.effectivity
-          val2 = effectivity_min(params[:id])[0].to_f
-          val3 = effectivity_max(params[:id])[0].to_f
+          val2 = cel_min(params[:id])[0].to_f
+          val3 = cel_max(params[:id])[0].to_f
          
               if val2 == 0 and val3 == 0
                 val4 = 0
@@ -163,4 +161,39 @@ end
         </tr>
       </tbody>
     </table>
+
+
+
+    <h1>Cele</h1>
+    <table class="tabela-cele" >
+      <thead>
+        <tr>
+          <th>Cel minimum</th>
+          <th>Cel maximum</th>
+          <th>Data dodania</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cele.each do |cel| %>
+      <tr>
+        <td><%= cel.ce_minimum %>%</td>
+        <td><%= cel.ce_maximum %>%</td>
+        <td><%= cel.created_at.strftime("%d-%m-%Y") %></td>
+     
+      </tr>
+     <% end %> 
+      </tbody>
+    </table>
+
+     <div id="insert">
+  <p>Dodaj nowy cel:</p>
+
+ <%= form_for @nowy_cel do |f| %>
+  
+    <%= render(:partial => 'cele', :locals => {:f => f}) %>
+    
+    
+  <% end %>
+
+</div>
 

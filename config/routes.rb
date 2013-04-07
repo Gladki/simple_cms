@@ -35,6 +35,7 @@ SimpleCms::Application.routes.draw do
     resources :searches
     resources :sessions
     resources :users
+    resources :celes
     resources :tabelanormatywow
     resources :effectivenes
     

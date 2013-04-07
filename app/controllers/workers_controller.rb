@@ -62,6 +62,8 @@ class WorkersController < ApplicationController
     @effec = Effectivenes.find(:all, :conditions => ["worker_id = ?" , @worker.id])
     @worker_count = Worker.count
     @efektyw = @worker.effectivenes
+    @cele = Cele.find(:all,:conditions => ["ce_worker_id = ?" , @worker.id], :order => "id DESC")
+    @nowy_cel = Cele.new
   end
 
   def import_render

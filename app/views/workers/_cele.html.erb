@@ -1,0 +1,19 @@
+<table summary="Section form fields">
+  <tr>
+    <th><%= f.label :ce_minimum, "Cel minimum: " %></th>
+    <td><%= f.text_field :ce_minimum %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :ce_maximum, "Cel maximum: " %></th>
+    <td><%= f.text_field :ce_maximum %></td>
+  </tr>
+  <tr>
+    <td>
+    <%= f.hidden_field :ce_worker_id, :value => @worker.id %>
+    <%= f.hidden_field :ce_aud_us_id, :value => current_user.id %>
+     <%= submit_tag("Dodaj Cel" , :class => "szczegoly", :remote => true) %>
+    </td>
+    </tr>
+
+
+</table>

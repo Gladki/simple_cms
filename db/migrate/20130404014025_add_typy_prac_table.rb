@@ -4,6 +4,7 @@ class AddTypyPracTable < ActiveRecord::Migration
    	t.string :tc_kod
    	t.string :tc_opis
    	t.string :tc_zrodlo_pochodzenia
+    t.integer :tc_aud_us_id
    	
     t.timestamps
    end
