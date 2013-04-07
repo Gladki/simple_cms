@@ -175,21 +175,24 @@ end
         </tr>
       </thead>
       <tbody>
-         <% if Cele.all.include?(@worker.id) == false %>
-        <% @cele.each do |cel| %>
+         <% if @cele == nil %>
+      
+     
+       <tr>
+       <td>0</td><td>0</td><td>-</td>
+        </tr>
+
+
+       <% else %>
+         <% @cele.each do |cel| %>
       <tr>
         <td><%= cel.ce_minimum %>%</td>
         <td><%= cel.ce_maximum %>%</td>
         <td><%= cel.created_at.strftime("%d-%m-%Y") %></td>
         
       </tr>
-       <% end else %>
-      
-       <tr>
-       <td>0</td><td>0</td><td>-</td>
-        </tr>
      <% end %> 
-     
+     <% end %>
      
       </tbody>
     </table>
