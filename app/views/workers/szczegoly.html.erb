@@ -175,7 +175,7 @@ end
         </tr>
       </thead>
       <tbody>
-         <% if @cele == nil%>
+         <% if @cele == nil || @cele.empty? %>
       
      
        <tr>
@@ -184,7 +184,7 @@ end
 
 
        <% else %>
-         <% @cele.to_a.each do |cel| %>
+         <% @cele.each do |cel| %>
       <tr>
         <td><%= cel.ce_minimum %>%</td>
         <td><%= cel.ce_maximum %>%</td>
