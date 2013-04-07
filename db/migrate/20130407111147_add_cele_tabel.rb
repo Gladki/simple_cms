@@ -3,7 +3,7 @@ class AddCeleTabel < ActiveRecord::Migration
    create_table :cele do |t|
    	t.string :ce_minimum
    	t.string :ce_maximum
-   	t.string :ce_worker_id
+   	t.integer :ce_worker_id
     t.integer :ce_aud_us_id
    	
     t.timestamps
