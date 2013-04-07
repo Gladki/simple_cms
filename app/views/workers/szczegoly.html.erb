@@ -175,7 +175,7 @@ end
         </tr>
       </thead>
       <tbody>
-         <% if @cele == nil %>
+         <% if @cele == nil%>
       
      
        <tr>
@@ -184,14 +184,14 @@ end
 
 
        <% else %>
-         <% @cele.each do |cel| %>
+         <% @cele.to_a.each do |cel| %>
       <tr>
         <td><%= cel.ce_minimum %>%</td>
         <td><%= cel.ce_maximum %>%</td>
         <td><%= cel.created_at.strftime("%d-%m-%Y") %></td>
         
       </tr>
-     <% end %> 
+         <% end %> 
      <% end %>
      
       </tbody>
