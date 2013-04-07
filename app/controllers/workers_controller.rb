@@ -61,7 +61,7 @@ class WorkersController < ApplicationController
   def szczegoly
     @effec = Effectivenes.find(:all, :conditions => ["worker_id = ?" , @worker.id])
     @worker_count = Worker.count
-    @cele = Cele.find(:all,:conditions => ["ce_worker_id = ?" , @worker.id]), :order => "id DESC")
+    @cele = Cele.find(:all,:conditions => ["ce_worker_id = ?" , @worker.id], :order => "id DESC")
     @nowy_cel = Cele.new
   end
 
