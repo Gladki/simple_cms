@@ -91,5 +91,14 @@ class WorkersController < ApplicationController
       redirect_to import_danych_path, notice: "Plik o podanej nazwie zostal juz poprawnie wgrany!"
     end
   end
+  def import_tt
+    Tabelatransportowa.import(params[:file])
+    if Tabelatransportowa.create.new_record? == true  
+      redirect_to import_danych_path, notice: "Tabela Transportowa zostala poprawnie dodana"
+    else
+      redirect_to import_danych_path, notice: "Plik o podanej nazwie zostal juz poprawnie wgrany!"
+    end
+  end
+
 
 end

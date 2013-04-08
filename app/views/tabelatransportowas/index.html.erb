@@ -1,0 +1,83 @@
+<% title "Tabela Transportowa" %>
+
+<div class="section list">
+  <h1>Tabela Transportowa</h1>
+</div>
+ <br/>
+<p>
+<b>Pobierz listę w formacie: 
+<%= button_to("Excel (.xls)" , export_tabela_transportowa_path(format: "xls"), :class => "szczegoly") %>
+
+</b>
+</p>
+<br/>
+<table style="font-size:11px;border-width: 1px;
+  border-spacing: 2px;
+  border-style: hidden;
+  border-color: #000;
+  width:100%;
+  border-collapse: collapse;
+  text-align:center;
+  " border="1"class="listing" summary="Section list">
+    <tr class="header">
+      <th>Nr.<br/>drogi</th>
+      <th>Nr.<br/>z systemu</th>
+      <th>Przebieg trasy</th>
+      <th>Opis trasy</th>
+      <th>Typ<br/>operacji</th>
+      <th>Obszar</th>
+      <th>Ruch od</th>
+      <th>Ruch do</th>
+      <th>Środek<br/>transporu</th>
+      <th>Dystans od</th>
+      <th>Dystans do</th>
+      <th>Ilość zakrętów</th>
+      <th>Ilość start/stop</th>
+      <th>Rodzaj pobrania</th>
+      <th>Komentarz</th>
+      <th>Kod prędkości</th>
+      <th>Pochodzenie</th>
+      <th>Data dodania</th>
+     
+    </tr>
+ <% @transporty.each do |transport| %>
+ <tr >
+ 
+      <td><%= transport.tt_nr_drogi %></td>
+      <td><%= transport.tt_nr_drogi_system %></td>
+      <td><%= transport.tt_przebieg_trasy %></td>
+      <td><%= transport.tt_opis_trasy %></td>
+      <td><%= transport.tt_typ_operacji %></td>
+      <td><%= transport.tt_obszar %></td>
+      <td><%= transport.tt_ruch_od %></td>
+      <td><%= transport.tt_ruch_do %></td>
+      <td><%= transport.tt_srodek_transportu %></td>
+      <td><%= transport.tt_dystans_od.to_f.round(2) %></td>
+      <td><%= transport.tt_dystans_do.to_f.round(2) %></td>
+      <td><%= transport.tt_ilosc_zakretow %></td>
+      <td><%= transport.tt_ilosc_start_stop %></td>
+      <td><%= transport.tt_rodzaj_pobrania %></td>
+      <td><%= transport.tt_komentarz %></td>
+      <td><%= transport.tt_predkosc_kod %></td>
+      <td><%= transport.tt_import_file_info %>
+      <td><%= transport.created_at.strftime("%d-%m-%Y") %>
+      <% if permitted_to? :delete, :tabelatransportowas %>
+        <td><%= button_to("usuń", usun_po_id_transport_path(transport.id), :class=>"szczegoly" ) %></td>
+      <% end %>
+      </tr>
+          
+     <% end %>
+
+
+
+</div>
+   </table>
+     <div id="insert" >
+  <p>Dodaj nowy Transport:</p>
+
+ <%= form_for @nowy_transport do |f| %>
+  
+    <%= render(:partial => 'form', :locals => {:f => f}) %>
+    
+    
+  <% end %>

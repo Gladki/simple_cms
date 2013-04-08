@@ -1,0 +1,80 @@
+<% title "Typy czynnosci" %>
+  
+  <h1>Typy Predkosci</h1>
+
+<br/>
+<table id="tczynnosci" style="
+width:600px;font-size:11px;border-width: 1px;
+  border-spacing: 2px;
+  border-style: hidden;
+  border-color: #000;
+  border-collapse: collapse;
+  text-align:center;
+  " border="1"class="listing" summary="Section list">
+    <tr class="header">
+      <th>Rodzaj<br/>wózka</th>
+      <th>Opis</th>
+    
+      <th>Kod</th>
+      <th>Prędkość <br/>w [km/h]</th>
+      <th>Prędkość <br/>w [m/s]</th>
+      <th>Prędkość <br/>TMU</th>
+      <th>Data utworzenia</th>
+    </tr>
+ <% @predkosci.each do |predkosc| %>
+ <%= render(:partial =>'predkosc', :locals => {:predkosc => predkosc}) %>
+          
+     <% end %>
+   </table>
+
+<div id="insert">
+  <p>Dodaj nową prędkość:</p>
+
+ <%= form_for @nowa_predkosc do |f| %>
+  
+    <%= render(:partial => 'form', :locals => {:f => f}) %>
+    
+    
+  <% end %>
+
+</div>
+
+
+ <h1>Dodatki</h1>
+
+<br/>
+<table id="tczynnosci" style="
+width:600px;font-size:11px;border-width: 1px;
+  border-spacing: 2px;
+  border-style: hidden;
+  border-color: #000;
+  border-collapse: collapse;
+  text-align:center;
+  " border="1"class="listing" summary="Section list">
+    <tr class="header">
+      <th>Rodzaj<br/>wózka</th>
+      <th>Opis</th>
+    
+      <th>Kod</th>
+      <th>Czas zakrętu<br/>w [sek]</th>
+      <th>Czas start/stop<br/>w [sek]</th>
+      
+      <th>Data utworzenia</th>
+    </tr>
+ <% @dodatki.each do |dodatek| %>
+ <%= render(:partial =>'dodatek', :locals => {:dodatek => dodatek}) %>
+          
+     <% end %>
+   </table>
+
+<div id="insert">
+  <p>Dodaj nowy dodatek:</p>
+
+ <%= form_for @nowy_dodatek do |f| %>
+  
+    <%= render(:partial => 'formd', :locals => {:f => f}) %>
+    
+    
+  <% end %>
+
+</div>

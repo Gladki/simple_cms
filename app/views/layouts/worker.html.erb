@@ -39,14 +39,21 @@
           <% if permitted_to? :lista, :workers %>
             <li><%= link_to "Lista pracowników", lista_pracownikow_path %></li>
           <% end %>
-          <% if permitted_to? :index, :tabelanormatywow %>
-            <li><%= link_to "Tabela Normatywów", tabela_normatywow_path %></li>
+          <% if permitted_to? :index, :tabelanormatywows %>
+            <li><%= link_to "Tabela normatywów", tabela_normatywow_path %></li>
+          <% end %> 
+           <% if permitted_to? :index, :tabelatransportowas %>
+            <li><%= link_to "Tabela transportowa", tabela_transportowa_path %></li>
           <% end %>
           <% if permitted_to? :index, :typyczynnoscis %>
-            <li><%= link_to "Typy Czynności", typy_czynnosci_path %></li>
+            <li><%= link_to "Typy czynności", typy_czynnosci_path %></li>
           <% end %>
           <% if permitted_to? :import_render, :workers %>
             <li><%= link_to "Import danych", import_danych_path %></li>
+          <% end %>
+
+          <% if permitted_to? :index, :pomocniczes %>
+            <li><%= link_to "Pomocnicze Dane", pomocnicze_path %></li>
           <% end %>
            
 

@@ -1,0 +1,36 @@
+<% data = DateTime.now.to_date.strftime("%d-%m-%Y") %>
+<% headers["Content-Disposition"] = "attachment; filename=\"tabela-transportowa-#{data}.xls\""  %>
+
+<table border="1">
+    <border="1"class="listing" summary="Section list">
+    <tr class="header">
+      <th>Kod<br/>Czynności</th>
+      <th>Obszar</th>
+      <th>Opis czynności</th>
+      <th>Dodatkowy opis czynności</th>
+      <th>Jednostka<br/>odniesienia</th>
+      <th>Czas[s]</th>
+      <th>Czas[min]</th>
+      <th>Komentarz</th>
+      <th>Pochodzenie</th>
+      <th>Data utworzenia</th>
+    </tr>
+ <% @normatywy.each do |normatyw| %>
+<tr >
+ 
+      <td><%= normatyw.tn_kod_czynnosci %></td>
+      <td><%= normatyw.tn_obszar %></td>
+      <td><%= normatyw.tn_opis_czynnosci %></td>
+      <td><%= normatyw.tn_opis_czynnosci_szczegolowy %></td>
+      <td><%= normatyw.tn_jednostka_odniesienia %></td>
+      <td><%= normatyw.tn_czas.to_f.round(2) %></td>
+      <td><%= (normatyw.tn_czas.to_f/60).round(2) %></td>
+      <td><%= normatyw.tn_komentarz %></td>
+      <td style="width:100px;"><%= normatyw.tn_import_file_info %></td>
+      <td><%= normatyw.created_at.strftime("%d-%m-%Y") %></td>
+   
+      </tr>
+          
+     <% end %>
+   </table>
+

@@ -1,0 +1,21 @@
+<tr>
+
+<td style="width:100px;"><%= predkosc.pr_rodzaj_wozka %></td>
+<td style="width:200px;"><%= predkosc.pr_opis %></td>
+
+<td style="width:50px; padding:0 5px;"><%= predkosc.pr_kod %></td>
+
+<% if predkosc.pr_predkosc_km != nil  %>
+<td ><%= predkosc.pr_predkosc_km.round(2) %></td>
+<td ><%= (3600/(predkosc.pr_predkosc_km * 1000)).round(2) %></td>
+<td ><%= ((3600/(predkosc.pr_predkosc_km * 1000))*27.8).round(2) %></td>
+<% else %>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<% end %>
+<td><%= predkosc.created_at.strftime("%d-%m-%Y") %></td>
+<% if permitted_to? :delete, :pomocniczes %>
+        <td><%= button_to("usuń", usun_po_id_predkosc_path(predkosc.id), :class=>"szczegoly" ) %></td>
+      <% end %>
+</tr>

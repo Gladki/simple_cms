@@ -1,0 +1,41 @@
+<table summary="Section form fields">
+  <tr>
+    <th><%= f.label :do_rodzaj_wozka, "Rodzaj wózka: " %></th>
+    <td><%= f.text_field :do_rodzaj_wozka %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :do_opis, "Opis dodatku: " %></th>
+    <td><%= f.text_field :do_opis %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :do_kod, "Kod dla prędkości: " %></th>
+    <td><%= f.select(:do_kod, options_for_select([
+      ['czołowy', 'czołowy'], 
+      ['systemowy', 'systemowy'], 
+      ['retrak', 'retrak'], 
+      ['ręczny', 'ręczny'], 
+      ['piesek', 'piesek'], 
+      ['paleciak', 'paleciak'], 
+      ['transportowy', 'transportowy'], 
+      ['ciągnik', 'ciągnik'], 
+      ['pieszo', 'pieszo']], 
+      
+      1) ) %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :do_czas_zakr, "Czas zakrętu w [sek/1zakr]: " %></th>
+    <td><%= f.text_field :do_czas_zakr, :placeholder => '0.0' %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :do_czas_start_stop,  "Czas start/stop w [sek/1zakr]: " %></th>
+    <td><%= f.text_field :do_czas_start_stop, :placeholder => '0.0' %></td>
+  </tr>
+ 
+  <tr><td>
+    <%= f.hidden_field :do_aud_us_id, :value => current_user.id %>
+    </td>
+    </tr>
+
+
+</table>
+     <%= submit_tag("Dodaj dodatek" , :class => "szczegoly", :remote => true) %>

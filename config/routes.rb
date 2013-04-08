@@ -16,18 +16,29 @@ SimpleCms::Application.routes.draw do
     
     match 'import' => 'workers#import_render', :as => 'import_danych'
     match 'pracownik/szczegoly/:id' => 'workers#szczegoly', :as => 'szczegoly_po_id'
-    match 'pracownik/usun/:id' => 'workers#delete', :as => 'usun_po_id'
-    match 'typy-czynnosci/usun/:id' => 'typyczynnoscis#delete', :as => 'usun_po_id_czynnosc'
     match 'pracownik/dodaj' => 'workers#new', :as => 'nowy_pracownik'
     match '/searches/nowe', :controller => 'searches', :action => 'new'
     match '/pracownicy' => 'workers#index', :as => :index
     match '/workers/wyszukaj/:id', :controller => 'workers', :action => 'wyszukaj' , :as => :info_pracownik
+    match '/pomocnicze/nowa-predkosc' => 'pomocniczes#create' , :as => 'predkoscis'
+    match '/pomocnicze/nowy-dodatek' => 'pomocniczes#create' , :as => 'dodatkis'
+    match '/tabela-transportowa/nowy-transport' => 'tabelatransportowas#create' , :as => 'tabelatransportowas'
+    match '/pomocnicze' => 'pomocniczes#index' , :as => 'pomocnicze'
+  
 
-    match 'tabela-normatywow' => 'tabelanormatywow#index', :as => 'tabela_normatywow'
+    #TABELE
+    match 'tabela-normatywow' => 'tabelanormatywows#index', :as => 'tabela_normatywow'
+    match 'tabela-transportowa' => 'tabelatransportowas#index', :as => 'tabela_transportowa'
     match 'typy-czynnosci' => 'typyczynnoscis#index', :as => 'typy_czynnosci'
 
- 
- 
+    #USUWANIE
+    match 'pracownik/usun/:id' => 'workers#delete', :as => 'usun_po_id'
+    match 'typy-czynnosci/usun/:id' => 'typyczynnoscis#delete', :as => 'usun_po_id_czynnosc'
+    match 'tabela-czynnosci/usun/:id' => 'tabelanormatywows#delete', :as => 'usun_po_id_normatyw'
+    match 'tabela-transportowa/usun/:id' => 'tabelatransportowas#delete', :as => 'usun_po_id_transport'
+    match 'pomocnicze/usun/:id' => 'pomocniczes#delete', :as => 'usun_po_id_predkosc'
+    match 'pomocnicze/usun-dodatek/:id' => 'pomocniczes#delete_dodatek', :as => 'usun_po_id_dodatek'
+   
     resources :typyczynnoscis do
       collection {get :index}
     end
@@ -36,17 +47,20 @@ SimpleCms::Application.routes.draw do
     resources :sessions
     resources :users
     resources :celes
-    resources :tabelanormatywow
+    # resources :pomocniczes    
+    resources :tabelanormatywows
+    # resources :tabelatransportowas
     resources :effectivenes
     
     #EXPORTY
     match '/tabela-normatywow/export' => 'tabelanormatywow#export', :as => :export_normatywow
+    match '/tabela-transportowa/export' => 'tabelatransportowas#export', :as => :export_tabela_transportowa
     match '/typy-czynnosci/export' => 'typyczynnosci#export', :as => :export_czynnosci
 
 
     #IMPORTY
     resources :workers do 
-      collection {post :import , :import_tn, :import_tc}
+      collection {post :import , :import_tn, :import_tc, :import_tt}
     end
 
 

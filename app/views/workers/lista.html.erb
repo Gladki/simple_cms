@@ -32,8 +32,8 @@
       <td style="text-align:right"><%= minimum_effectivity(worker.id) %>%</td>
       <% 
       val1 = minimum_effectivity(worker.id)
-      val2 = effectivity_min(worker.id)[0].to_f
-      val3 = effectivity_max(worker.id)[0].to_f
+      val2 = cel_min(worker.id)[0].to_f
+      val3 = cel_max(worker.id)[0].to_f
      
           if val2 == 0 and val3 == 0
             val4 = 0

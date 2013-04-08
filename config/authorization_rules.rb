@@ -1,9 +1,11 @@
 authorization do
 	role :admin do	
-		has_permission_on :workers, :to => [:index, :show, :lista, :new ,:create,:delete,:pracownik,:szczegoly,:import_render,:import,:import_tn,:import_tc]
+		has_permission_on :workers, :to => [:index, :show, :lista, :new ,:create,:delete,:pracownik,:szczegoly,:import_render,:import,:import_tn,:import_tc, :import_tt]
 		has_permission_on :searches, :to => [:new,:index,:create,:show]
-		has_permission_on :tabelanormatywow, :to => [:index,:export]
+		has_permission_on :tabelanormatywows, :to => [:index,:export,:create,:new,:delete]
+		has_permission_on :tabelatransportowas, :to => [:index,:export,:create,:new,:delete]
 		has_permission_on :typyczynnoscis, :to => [:new,:create,:index,:export,:delete]
+		has_permission_on :pomocniczes, :to => [:new,:create,:create_dodatek,:index,:export,:delete,:delete_dodatek]
 	end
 
 	role :dyrektor do	

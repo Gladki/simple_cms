@@ -1,0 +1,37 @@
+<table summary="Section form fields">
+  <tr>
+    <th><%= f.label :tn_kod_czynnosci, "Kod czynności: " %></th>
+    <td><%= f.text_field :tn_kod_czynnosci %></td>
+ 
+    <th><%= f.label :tn_obszar, "Obszar: " %></th>
+    <td><%= f.text_field :tn_obszar %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :tn_jednostka_odniesienia, "Jednostka odniesienia: " %></th>
+    <td><%= f.text_field :tn_jednostka_odniesienia, :value => "0" %></td>
+  
+    <th><%= f.label :tn_czas, "Czas: " %></th>
+    <td><%= f.text_field :tn_czas, :placeholder => '0.0' %></td>
+  </tr>
+   <tr>
+    <th><%= f.label :tn_komentarz, "Komentarz: " %></th>
+    <td><%= f.text_field :tn_komentarz %></td>
+ 
+    <th><%= f.label :tn_import_file_info, "Informacja importowa: " %></th>
+    <td><%= f.text_field :tn_import_file_info, :value => "Dodana ręcznie" %></td>
+  </tr> 
+  <tr><td>
+  <tr>
+    <th><%= f.label :tn_opis_czynnosci, "Opis czynności: " %></th>
+    <td><%= f.text_field :tn_opis_czynnosci %></td>
+ 
+    <th><%= f.label :tn_opis_czynnosci_szczegolowy, "Opis czynności szczegółowy: " %></th>
+    <td><%= f.text_area :tn_opis_czynnosci_szczegolowy , :size => "50x5", :placeholder => "maksymalnie 255 znaków"%></td>
+  </tr>
+    <%= f.hidden_field :tn_aud_us_id, :value => current_user.id %>
+    </td>
+    </tr>
+
+
+</table>
+     <%= submit_tag("Dodaj normatyw" , :class => "szczegoly", :remote => true) %>

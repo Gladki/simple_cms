@@ -9,6 +9,7 @@ class AddTableForTabelaNormatywow < ActiveRecord::Migration
 	  t.decimal :tn_czas, :precision => 10 , :scale => 2
 	  t.string :tn_komentarz
 	  t.string :tn_import_file_info
+	  t.string :tn_aud_us_id
 	  t.timestamps
 	
   end

@@ -1,0 +1,35 @@
+<table summary="Section form fields">
+  <tr>
+    <th><%= f.label :pr_rodzaj_wozka, "Rodzaj wózka: " %></th>
+    <td><%= f.text_field :pr_rodzaj_wozka %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :pr_opis, "Opis prędkości: " %></th>
+    <td><%= f.text_field :pr_opis %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :pr_kod, "Kod dla prędkości: " %></th>
+    <td><%= f.select(:pr_kod, options_for_select([
+      ['F-MAX', 'F-MAX'], 
+      ['F-ŚREDNIA', 'F-ŚREDNIA'], 
+      ['F-PEŁZANIA', 'F-PEŁZANIA'], 
+      ['P-MAX', 'P-MAX'], 
+      ['P-MIN', 'P-MIN'], 
+      ['KA', 'KA']],
+      1) ) %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :pr_predkosc_km, "Prędkość w [km/h]: " %></th>
+    <td><%= f.text_field :pr_predkosc_km, :placeholder => '0.0' %></td>
+  </tr>
+ 
+  <tr><td>
+    <%= f.hidden_field :pr_aud_us_id, :value => current_user.id %>
+
+    </td>
+    </tr>
+
+
+</table>
+
+     <%= submit_tag("Dodaj prędkość" , :class => "szczegoly", :remote => true) %>

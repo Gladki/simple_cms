@@ -25,6 +25,14 @@
   <% end %>
 
 
+<p>Tabela Transportowa:</p>
+
+  <%= form_tag import_tt_workers_path, multipart: true do %>
+    <%= file_field_tag :file , :class => "szczegoly"%><br/><br/>
+    <%= submit_tag "Importuj!" , :class => "szczegoly"%>
+  <% end %>
+
+
 
   <p>Tabela Czynności:</p>
 

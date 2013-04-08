@@ -1,6 +1,12 @@
 class Tabelanormatywow < ActiveRecord::Base
 
 self.table_name = 'tabela_normatywow'
+ validates_presence_of [:tn_kod_czynnosci, 
+                 :tn_obszar, 
+                 :tn_opis_czynnosci, 
+                 :tn_jednostka_odniesienia, 
+                 :tn_czas,
+                 :tn_import_file_info], :on => :create
 
 
  attr_accessible :tn_id, 
@@ -11,7 +17,8 @@ self.table_name = 'tabela_normatywow'
                  :tn_jednostka_odniesienia, 
                  :tn_czas,
                  :tn_komentarz,
-                 :tn_import_file_info
+                 :tn_import_file_info,
+                 :tn_aud_us_id
     
  def self.to_csv (options = {})
    CSV.generate(options) do |csv|

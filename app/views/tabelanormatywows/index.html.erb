@@ -15,6 +15,7 @@
   border-spacing: 2px;
   border-style: hidden;
   border-color: #000;
+  width:100%;
   border-collapse: collapse;
   text-align:center;
   " border="1"class="listing" summary="Section list">
@@ -43,8 +44,23 @@
       <td><%= normatyw.tn_komentarz %></td>
       <td style="width:100px;"><%= normatyw.tn_import_file_info %></td>
       <td><%= normatyw.created_at.strftime("%d-%m-%Y") %></td>
-   
+      <% if permitted_to? :delete, :tabelanormatywows %>
+        <td><%= button_to("usuń", usun_po_id_normatyw_path(normatyw.id), :class=>"szczegoly" ) %></td>
+      <% end %>
       </tr>
           
      <% end %>
+
+
+
+</div>
    </table>
+     <div id="insert" >
+  <p>Dodaj nowy normatyw:</p>
+
+ <%= form_for @nowy_normatyw do |f| %>
+  
+    <%= render(:partial => 'form', :locals => {:f => f}) %>
+    
+    
+  <% end %>

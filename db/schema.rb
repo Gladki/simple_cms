@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130407111147) do
+ActiveRecord::Schema.define(:version => 20130407201339) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "first_name",      :limit => 25
@@ -40,6 +40,17 @@ ActiveRecord::Schema.define(:version => 20130407111147) do
     t.integer  "ce_aud_us_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "dodatki", :force => true do |t|
+    t.string   "do_rodzaj_wozka"
+    t.string   "do_opis"
+    t.string   "do_kod"
+    t.decimal  "do_czas_zakr",       :precision => 10, :scale => 2
+    t.decimal  "do_czas_start_stop", :precision => 10, :scale => 2
+    t.string   "do_aud_us_id"
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
   end
 
   create_table "effectivenes", :force => true do |t|
@@ -86,6 +97,18 @@ ActiveRecord::Schema.define(:version => 20130407111147) do
   create_table "positions_workers", :force => true do |t|
     t.integer "worker_id"
     t.integer "position_id"
+  end
+
+  create_table "predkosci", :force => true do |t|
+    t.string   "pr_rodzaj_wozka"
+    t.string   "pr_opis"
+    t.string   "pr_kod"
+    t.decimal  "pr_predkosc_km",    :precision => 10, :scale => 2
+    t.decimal  "pr_predkosc_metry", :precision => 10, :scale => 2
+    t.decimal  "pr_tmu",            :precision => 10, :scale => 2
+    t.string   "pr_aud_us_id"
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
   end
 
   create_table "searches", :force => true do |t|
@@ -140,8 +163,32 @@ ActiveRecord::Schema.define(:version => 20130407111147) do
     t.decimal  "tn_czas",                       :precision => 10, :scale => 2
     t.string   "tn_komentarz"
     t.string   "tn_import_file_info"
+    t.string   "tn_aud_us_id"
     t.datetime "created_at",                                                   :null => false
     t.datetime "updated_at",                                                   :null => false
+  end
+
+  create_table "tabela_transportowa", :force => true do |t|
+    t.string   "tt_nr_drogi"
+    t.string   "tt_nr_drogi_system"
+    t.string   "tt_przebieg_trasy"
+    t.string   "tt_opis_trasy"
+    t.string   "tt_typ_operacji"
+    t.string   "tt_obszar"
+    t.string   "tt_ruch_od"
+    t.string   "tt_ruch_do"
+    t.string   "tt_srodek_transportu"
+    t.decimal  "tt_dystans_od",        :precision => 10, :scale => 2
+    t.decimal  "tt_dystans_do",        :precision => 10, :scale => 2
+    t.integer  "tt_ilosc_zakretow"
+    t.integer  "tt_ilosc_start_stop"
+    t.string   "tt_rodzaj_pobrania"
+    t.string   "tt_komentarz"
+    t.string   "tt_predkosc_kod"
+    t.string   "tt_import_file_info"
+    t.string   "tt_aud_us_id"
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
   end
 
   create_table "typy_czynnosci", :force => true do |t|

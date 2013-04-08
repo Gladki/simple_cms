@@ -1,0 +1,13 @@
+<tr>
+
+<td style="width:100px;"><%= dodatek.do_rodzaj_wozka %></td>
+<td style="width:200px;"><%= dodatek.do_opis %></td>
+<td style="width:50px; padding:0 5px;"><%= dodatek.do_kod %></td>
+<td style="width:50px; padding:0 5px;"><%= dodatek.do_czas_zakr %></td>
+<td style="width:50px; padding:0 5px;"><%= dodatek.do_czas_start_stop %></td>
+
+<td><%= dodatek.created_at.strftime("%d-%m-%Y") %></td>
+<% if permitted_to? :delete_dodatek, :pomocniczes %>
+        <td><%= button_to("usuń", usun_po_id_dodatek_path(dodatek.id), :class=>"szczegoly" ) %></td>
+      <% end %>
+</tr>

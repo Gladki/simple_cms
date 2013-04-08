@@ -38,10 +38,10 @@ end
  def delete
     if @czynnosc.destroy
       redirect_to :action => "index" 
-      flash[:notice] = "Poprawnie usunieto pracownika z bazy"
+      flash[:notice] = "Poprawnie usunieto czynnosc z bazy"
     else
       redirect_to :action => "index" 
-      flash[:notice] = "Nie udalo sie usunac pracownika"
+      flash[:notice] = "Nie udalo sie usunac czynnosc"
     end
   end
 def export

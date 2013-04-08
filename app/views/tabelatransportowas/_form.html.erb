@@ -1,0 +1,97 @@
+<table id="ttrans" summary="Section form fields">
+  <tr>
+    <th><%= f.label :tt_nr_drogi, "Numer drogi: " %></th>
+    <td><%= f.text_field :tt_nr_drogi %></td>
+    <th><%= f.label :tt_nr_drogi_system, "Numer drogi z systemu: " %></th>
+    <td><%= f.text_field :tt_nr_drogi_system %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :tt_przebieg_trasy, "Przebieg trasy: " %></th>
+    <td><%= f.text_field :tt_przebieg_trasy %></td>
+  
+    <th><%= f.label :tt_opis_trasy, "Opis trasy: " %></th>
+    <td><%= f.text_field :tt_opis_trasy %></td>
+  </tr>
+   <tr>
+    <th><%= f.label :tt_typ_operacji, "Typ operacji: " %></th>
+    <td><%= f.select(:tt_typ_operacji, options_for_select([
+      ['kompletacja', 'kompletacja'], 
+      ['rozładunek', 'rozładunek'], 
+      ['przesunięcie', 'przesunięcie'], 
+      ['załadunek', 'załadunek'], 
+      ['przyjęcie', 'przyjęcie'], 
+      ['rozwożenie', 'rozwożenie']],
+      1) ) %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= f.label :tt_obszar, "Obszar: " %></th>
+    <td><%= f.text_field :tt_obszar %></td>
+  
+    <th><%= f.label :tt_ruch_od, "Ruch z: " %></th>
+    <td><%= f.text_field :tt_ruch_od %></td>
+  
+    <th><%= f.label :tt_ruch_do, "Ruch do: " %></th>
+    <td><%= f.text_field :tt_ruch_do %></td>
+  </tr> 
+  <tr>
+    <th><%= f.label :tt_srodek_transportu, "Środek transportu: " %></th>
+     <td><%= f.select(:tt_srodek_transportu, options_for_select([
+      ['czołowy', 'czołowy'], 
+      ['systemowy', 'systemowy'], 
+      ['retrak', 'retrak'], 
+      ['ręczny', 'ręczny'], 
+      ['piesek', 'piesek'], 
+      ['paleciak', 'paleciak'], 
+      ['transportowy', 'transportowy'], 
+      ['ciągnik', 'ciągnik'], 
+      ['pieszo', 'pieszo']], 
+      
+      1) ) %></td>
+  </tr>
+   
+    <tr>
+    <th><%= f.label :tt_dystans_od, "Dystans od: " %></th>
+    <td><%= f.text_field :tt_dystans_od, :placeholder => '0.0'  %></td>
+ 
+    <th><%= f.label :tt_dystans_do, "Dystans do: " %></th>
+    <td><%= f.text_field :tt_dystans_do, :placeholder => '0.0'  %></td>
+  </tr>
+   <tr>
+    <th><%= f.label :tt_ilosc_zakretow, "Ilość zakrętów: " %></th>
+    <td><%= f.text_field :tt_ilosc_zakretow %></td>
+  
+    <th><%= f.label :tt_ilosc_start_stop, "Ilość start/stop: " %></th>
+    <td><%= f.text_field :tt_ilosc_start_stop %></td>
+  </tr>
+   <tr>
+    <th><%= f.label :tt_rodzaj_pobrania, "Rodzaj pobrania: " %></th>
+    <td><%= f.text_field :tt_rodzaj_pobrania %></td>
+  
+    <th><%= f.label :tt_komentarz, "Komentarz: " %></th>
+    <td><%= f.text_field :tt_komentarz %></td>
+  </tr>
+   <tr>
+    <th><%= f.label :tt_predkosc_kod, "Kod prędkości: " %></th>
+    <td><%= f.select(:tt_predkosc_kod, options_for_select([
+      ['F-MAX', 'F-MAX'], 
+      ['F-ŚREDNIA', 'F-ŚREDNIA'], 
+      ['F-PEŁZANIA', 'F-PEŁZANIA'], 
+      ['P-MAX', 'P-MAX'], 
+      ['P-MIN', 'P-MIN'], 
+      ['KA', 'KA']],
+      1) ) %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= f.label :tt_import_file_info, "Informacja importowa: " %></th>
+    <td><%= f.text_field :tt_import_file_info, :value => "Dodana ręcznie" %></td>
+  </tr> 
+  <tr><td>
+    <%= f.hidden_field :tt_aud_us_id, :value => current_user.id %>
+    </td>
+    </tr>
+
+
+</table>
+     <%= submit_tag("Dodaj transport" , :class => "szczegoly", :remote => true) %>
