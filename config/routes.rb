@@ -48,7 +48,7 @@ SimpleCms::Application.routes.draw do
     resources :users
     resources :celes
     # resources :pomocniczes    
-    resources :tabelanormatywows
+    # resources :tabelanormatywows
     # resources :tabelatransportowas
     resources :effectivenes
     

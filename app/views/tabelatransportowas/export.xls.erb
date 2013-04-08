@@ -4,33 +4,55 @@
 <table border="1">
     <border="1"class="listing" summary="Section list">
     <tr class="header">
-      <th>Kod<br/>Czynności</th>
+      <th>Nr.<br/>drogi</th>
+      <th>Nr.<br/>z systemu</th>
+      <th>Przebieg trasy</th>
+      <th>Opis trasy</th>
+      <th>Typ<br/>operacji</th>
       <th>Obszar</th>
-      <th>Opis czynności</th>
-      <th>Dodatkowy opis czynności</th>
-      <th>Jednostka<br/>odniesienia</th>
-      <th>Czas[s]</th>
-      <th>Czas[min]</th>
+      <th>Ruch od</th>
+      <th>Ruch do</th>
+      <th>Środek<br/>transporu</th>
+      <th>Dystans od</th>
+      <th>Dystans do</th>
+      <th>Ilość zakrętów</th>
+      <th>Ilość start/stop</th>
+      <th>Rodzaj pobrania</th>
       <th>Komentarz</th>
+      <th>Kod prędkości</th>
       <th>Pochodzenie</th>
-      <th>Data utworzenia</th>
+      <th>Data dodania</th>
+     
     </tr>
- <% @normatywy.each do |normatyw| %>
-<tr >
+ <% @transporty.each do |transport| %>
+ <tr >
  
-      <td><%= normatyw.tn_kod_czynnosci %></td>
-      <td><%= normatyw.tn_obszar %></td>
-      <td><%= normatyw.tn_opis_czynnosci %></td>
-      <td><%= normatyw.tn_opis_czynnosci_szczegolowy %></td>
-      <td><%= normatyw.tn_jednostka_odniesienia %></td>
-      <td><%= normatyw.tn_czas.to_f.round(2) %></td>
-      <td><%= (normatyw.tn_czas.to_f/60).round(2) %></td>
-      <td><%= normatyw.tn_komentarz %></td>
-      <td style="width:100px;"><%= normatyw.tn_import_file_info %></td>
-      <td><%= normatyw.created_at.strftime("%d-%m-%Y") %></td>
-   
+      <td><%= transport.tt_nr_drogi %></td>
+      <td><%= transport.tt_nr_drogi_system %></td>
+      <td><%= transport.tt_przebieg_trasy %></td>
+      <td><%= transport.tt_opis_trasy %></td>
+      <td><%= transport.tt_typ_operacji %></td>
+      <td><%= transport.tt_obszar %></td>
+      <td><%= transport.tt_ruch_od %></td>
+      <td><%= transport.tt_ruch_do %></td>
+      <td><%= transport.tt_srodek_transportu %></td>
+      <td><%= transport.tt_dystans_od.to_f.round(2) %></td>
+      <td><%= transport.tt_dystans_do.to_f.round(2) %></td>
+      <td><%= transport.tt_ilosc_zakretow %></td>
+      <td><%= transport.tt_ilosc_start_stop %></td>
+      <td><%= transport.tt_rodzaj_pobrania %></td>
+      <td><%= transport.tt_komentarz %></td>
+      <td><%= transport.tt_predkosc_kod %></td>
+      <td><%= transport.tt_import_file_info %>
+      <td><%= transport.created_at.strftime("%d-%m-%Y") %>
+      <% if permitted_to? :delete, :tabelatransportowas %>
+        <td><%= button_to("usuń", usun_po_id_transport_path(transport.id), :class=>"szczegoly" ) %></td>
+      <% end %>
       </tr>
           
      <% end %>
-   </table>
 
+
+
+
+   </table>
