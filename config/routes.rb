@@ -22,6 +22,7 @@ SimpleCms::Application.routes.draw do
     match '/workers/wyszukaj/:id', :controller => 'workers', :action => 'wyszukaj' , :as => :info_pracownik
     match '/pomocnicze/nowa-predkosc' => 'pomocniczes#create' , :as => 'predkoscis'
     match '/pomocnicze/nowy-dodatek' => 'pomocniczes#create' , :as => 'dodatkis'
+    match '/tabela-normatywow/nowy-normatyw' => 'tabelanormatywows#create' , :as => 'tabelanormatywows'
     match '/tabela-transportowa/nowy-transport' => 'tabelatransportowas#create' , :as => 'tabelatransportowas'
     match '/pomocnicze' => 'pomocniczes#index' , :as => 'pomocnicze'
   
