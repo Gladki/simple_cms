@@ -23,6 +23,13 @@ module ApplicationHelper
     content_for(:title) { page_title }
   end
 
+  def imie_nazwisko_worker(worker_id)
+
+    @imie = Worker.where("id = ?", worker_id).pluck(:first_name) 
+    @nazwisko = Worker.where("id = ?", worker_id).pluck(:last_name)
+    return @imie + @nazwisko
+  end
+
   def maximum_effectivity(worker_id)
     @maximum_effectivity = Effectivenes.maximum(:effectivity, :conditions => ["worker_id = ?", worker_id])
     return @maximum_effectivity.to_f

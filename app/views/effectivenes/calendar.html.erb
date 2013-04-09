@@ -4,18 +4,35 @@
     <%= h(@date.strftime("%B %Y")) %>
     <%= link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-%d") %>
   </h2>
-<%= calendar_for(@efectivenes, :year => @date.year, :month => @date.month) do |t| %>
+<%= calendar_for(@effectivenes, :year => @date.year, :month => @date.month) do |t| %>
   <%= t.head('Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota') %>
-    <%= t.day(:day_method => :created_at) do |day, effectivenes| %>
+
+    <%= t.day(:day_method => :created_at, :class =>"test")  do |day, effectivenes| %>
        <%= day.day %>
-       <ul>
-          <% effectivenes.each do |t|  %>
-          <% if t.effectivity > 40  %>
-        <li> <%= t.effectivity %></li>
-          <% end %>
+
+      
+
+          <% effectivenes.each do |efec| 
+          val1 = minimum_effectivity(efec.worker_id)
+          val2 = cel_min(efec.worker_id)[0].to_f
+          val3 = cel_max(efec.worker_id)[0].to_f
+
+          if val2 == 0 and val3 == 0
+            val4 = 0
+          else
+            val4 = (((val1-val2)/(val3-val2))*100).round
+          end
+          if val4 <60
+            @test = "bad"
+          else
+            @test = "ok"
+          end
+          %>
+           <div class="<%= @test %>"> <%= link_to(" #{imie_nazwisko_worker(efec.worker_id)[0]}  #{imie_nazwisko_worker(efec.worker_id)[1]}", szczegoly_po_id_path(efec.worker_id)) %></div>
+
         <% end %>
         </ul>
-      
+
     <% end %>
   <% end %>
 </div>

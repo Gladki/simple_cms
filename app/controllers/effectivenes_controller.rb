@@ -12,9 +12,9 @@ layout 'worker'
     end
   end
   def calendar
-  	 @efectivenes = Effectivenes.all
+  	 @effectivenes = Effectivenes.all
     @date = params[:month] ? Date.parse(params[:month]) : Date.today
-  	
+  	@workers = Worker.includes(:effectivenes).all
   end
 
 def javascript

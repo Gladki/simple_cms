@@ -8,6 +8,7 @@ $blue:#0000ff;
 $red: #ff0000;
 $light-blue:#00FFFF;
 $white: #fff;
+$green:#00ff00;
 @font-face
 {
 font-family:Helvetica Neue Light;
@@ -295,6 +296,9 @@ float: left;
 #calendar .notmonth {
   color: #CCC;
 }
+#calendar .weekend {
+  background-color: lighten($gray, 0%);
+}
 
 #calendar #month {
   margin: 0;
@@ -302,7 +306,20 @@ float: left;
   padding-bottom: 10px;
   text-align: center;
 }
-
+#calendar div {
+	font-size: 10px;
+	color:$white;
+	padding:1px 5px;
+	margin-top: 2px;
+	opacity: 0.5;
+	&:hover{
+		opacity: 1;
+	}
+	a {
+		text-decoration: none;
+		color:$white;
+	}
+}
 #calendar #month a, #calendar #month a:hover {
   text-decoration: none;
   padding: 0 10px;
