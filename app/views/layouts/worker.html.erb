@@ -19,7 +19,7 @@
 
         <div id="navigation">
         <ul>
-            Jesteś zalogowany jako: <%= current_user.login %>.
+            Witaj: <%= current_user.login.humanize %>.
             
             <% if permitted_to? :szczegoly, :workers %>
             <li><%= link_to "Dashboard", szczegoly_po_id_path(current_user.id) %></li>
@@ -29,6 +29,12 @@
           <% if permitted_to? :new, :searches %>
           <li><%= link_to "Szukaj pracownika", nowe_szukanie_path %></li>
           <% end %>
+          <% if permitted_to? :calendar, :effectivenes %>
+          
+          <li><%= link_to "kalendarz", effectivenes_calendar_path %></li>
+          <% end %>
+        
+         
           <% if permitted_to? :new, :workers %>
 
           <li><%= link_to "Dodaj nowego pracownika", nowy_pracownik_path %></li>

@@ -1,5 +1,5 @@
 class EffectivenesController < ApplicationController
-# filter_resource_access
+   filter_access_to :all
 layout 'worker'
 
   def index
@@ -13,7 +13,7 @@ layout 'worker'
   end
   def calendar
   	 @efectivenes = Effectivenes.all
-  @date = params[:month] ? Date.parse(params[:month]) : Date.today
+    @date = params[:month] ? Date.parse(params[:month]) : Date.today
   	
   end
 
