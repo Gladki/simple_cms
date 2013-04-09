@@ -61,6 +61,21 @@ module ApplicationHelper
     end
   end  
 
+  def predkosc_po_kodzie(predkosc_kod)
+    @predkosc = Predkosci.where("pr_kod = ?" , predkosc_kod).limit(1).pluck(:pr_predkosc_km)
+    return @predkosc
+  end
+
+  def dodatek_po_kodzie(dodatek_kod)
+    @dodatek = Dodatki.where("do_kod = ?" , dodatek_kod).limit(1).pluck(:do_czas_zakr)
+    return @dodatek
+  end 
+  
+  def dodatek_start_po_kodzie(dodatek_kod_start)
+    @dodatek_start = Dodatki.where("do_kod = ?" , dodatek_kod_start).limit(1).pluck(:do_czas_start_stop)
+    return @dodatek_start
+  end
+
  def last_update_effectivity(worker_id)
     @last_update_effectivity = Effectivenes.maximum(:created_at, :conditions => ["worker_id = ?", worker_id])
     return @last_update_effectivity

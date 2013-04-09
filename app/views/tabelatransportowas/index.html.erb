@@ -11,24 +11,19 @@
 </b>
 </p>
 <br/>
-<table style="font-size:11px;border-width: 1px;
-  border-spacing: 2px;
-  border-style: hidden;
-  border-color: #000;
-  width:100%;
-  border-collapse: collapse;
-  text-align:center;
-  " border="1"class="listing" summary="Section list">
+<div id="tabela-div">
+  
+<table  border="1"class="listing" summary="Section list">
     <tr class="header">
-      <th>Nr.<br/>drogi</th>
-      <th>Nr.<br/>z systemu</th>
+      <th>Nr. drogi</th>
+      <th>Nr. z systemu</th>
       <th>Przebieg trasy</th>
       <th>Opis trasy</th>
-      <th>Typ<br/>operacji</th>
+      <th>Typ operacji</th>
       <th>Obszar</th>
       <th>Ruch od</th>
       <th>Ruch do</th>
-      <th>Środek<br/>transporu</th>
+      <th>Środek transporu</th>
       <th>Dystans od</th>
       <th>Dystans do</th>
       <th>Ilość zakrętów</th>
@@ -37,12 +32,21 @@
       <th>Komentarz</th>
       <th>Kod prędkości</th>
       <th>Pochodzenie</th>
+      <th>Czas przejazdu bez pobrania <br/>i umiesczenia [sek/1kurs]</th>
       <th>Data dodania</th>
-     
+
+
+
+      <th>Data dodania</th>
     </tr>
  <% @transporty.each do |transport| %>
  <tr >
- 
+      <% @predkosc_kod_km = predkosc_po_kodzie(transport.tt_predkosc_kod)[0]
+         @predkosc_kod_m = (1/(@predkosc_kod_km*10/36)).to_f
+         @dodatek_czas_zakr ||=  dodatek_po_kodzie(transport.tt_srodek_transportu)[0].to_f
+         @dodatek_czas_start_stop ||=  dodatek_start_po_kodzie(transport.tt_srodek_transportu)[0].to_f
+
+      %>
       <td><%= transport.tt_nr_drogi %></td>
       <td><%= transport.tt_nr_drogi_system %></td>
       <td><%= transport.tt_przebieg_trasy %></td>
@@ -60,6 +64,23 @@
       <td><%= transport.tt_komentarz %></td>
       <td><%= transport.tt_predkosc_kod %></td>
       <td><%= transport.tt_import_file_info %>
+
+      <% if (transport.tt_dystans_od.to_f + transport.tt_dystans_do.to_f) > 0  %>
+
+      <td><%= ((transport.tt_dystans_od.to_f + transport.tt_dystans_do.to_f) * @predkosc_kod_m  +
+              if transport.tt_ilosc_zakretow == nil || transport.tt_ilosc_start_stop == nil 
+                  0
+              else
+                  (transport.tt_ilosc_zakretow.to_i * @dodatek_czas_zakr) + (transport.tt_ilosc_start_stop.to_i * @dodatek_czas_start_stop)
+              end
+             
+              ).round(2)
+
+      %>
+      
+
+        <% end %>
+
       <td><%= transport.created_at.strftime("%d-%m-%Y") %>
       <% if permitted_to? :delete, :tabelatransportowas %>
         <td><%= button_to("usuń", usun_po_id_transport_path(transport.id), :class=>"szczegoly" ) %></td>
@@ -72,6 +93,7 @@
 
 
    </table>
+</div>
      <div id="insert" >
   <p>Dodaj nowy Transport:</p>
 

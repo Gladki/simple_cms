@@ -14,6 +14,7 @@ layout 'admin'
   end
   
   def other_hello
+
     render(:text => 'Hello Everyone!')
   end
 

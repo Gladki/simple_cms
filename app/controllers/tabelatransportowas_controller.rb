@@ -11,7 +11,7 @@ def normatywy_by_id
     @transport = Tabelatransportowa.find(params[:id])
  end
 def normatywy_all
-    @transporty = Tabelatransportowa.find(:all, :order => "id desc")
+    @transporty = Tabelatransportowa.find(:all, order: "id desc")
 end
 
 def index
@@ -19,7 +19,8 @@ def index
 end
 
 def new
-	@nowy_transport = Tabelatransportowa.new	
+	@nowy_transport = Tabelatransportowa.new
+
 end
 
 def create

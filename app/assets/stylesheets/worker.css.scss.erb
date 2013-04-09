@@ -235,3 +235,32 @@ float: left;
 	}
 
 }
+#tabela-div {
+    width: 1000px;   
+    overflow: auto;    
+    scrollbar-base-color:transparent;
+    table {
+		font-size:11px;
+		border-width: 1px;
+		border-spacing: 2px;
+		border-style: hidden;
+		border-color: #000;
+		border-collapse: collapse;
+		text-align:center;
+    	width:1500px;
+    	th {
+    		padding-top:5px;
+    		background-color: darken($gray,20%);
+    	}
+    	td {
+    		padding:5px;
+    	}
+		tr {@include transition(.50s, ease-in-out);
+			&:hover {
+			background-color: lighten($red,40%);
+			}
+		}
+    }
+    
+
+}
