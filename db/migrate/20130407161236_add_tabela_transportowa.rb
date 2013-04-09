@@ -21,7 +21,8 @@ class AddTabelaTransportowa < ActiveRecord::Migration
 	  t.string :tt_rodzaj_pobrania
 
 	  t.string :tt_komentarz
-
+	  
+	  t.string :tt_dodatek_kod
 	  t.string :tt_predkosc_kod
 
 	  t.string :tt_import_file_info

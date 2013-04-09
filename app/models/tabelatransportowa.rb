@@ -27,6 +27,7 @@ has_one :predkosc
                   :tt_rodzaj_pobrania,
                   :tt_komentarz,
                   :tt_predkosc_kod,
+                  :tt_dodatek_kod,
                   :tt_import_file_info,
                   :tt_aud_us_id
     
@@ -71,6 +72,7 @@ end
                 'tt_rodzaj_pobrania',
                 'tt_komentarz',
                 'tt_predkosc_kod',
+                'tt_dodatek_kod',
                 'tt_import_file_info']
       (5..ex.last_row).each do |i|
 
@@ -90,6 +92,7 @@ end
       tt_rodzaj_pobrania = ex.cell(i,'N')
       tt_komentarz = ex.cell(i,'O')
       tt_predkosc_kod = ex.cell(i,'P')
+      tt_dodatek_kod = ex.cell(i,'Q')
       row = Hash[[header,[tt_nr_drogi,
                           tt_nr_drogi_system,
                           tt_przebieg_trasy,
@@ -106,6 +109,7 @@ end
                           tt_rodzaj_pobrania,
                           tt_komentarz,
                           tt_predkosc_kod,
+                          tt_dodatek_kod,
                           tt_import_file_info]].transpose]
       Tabelatransportowa.create row 
     end
