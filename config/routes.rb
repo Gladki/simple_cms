@@ -25,7 +25,8 @@ SimpleCms::Application.routes.draw do
     match '/tabela-normatywow/nowy-normatyw' => 'tabelanormatywows#create' , :as => 'tabelanormatywows'
     match '/tabela-transportowa/nowy-transport' => 'tabelatransportowas#create' , :as => 'tabelatransportowas'
     match '/pomocnicze' => 'pomocniczes#index' , :as => 'pomocnicze'
-  
+    #EFEKTYWNOSCI
+    match 'efektywnosci/kalendarz' => 'effectivenes#calendar' , :as => 'effectivenes_calendar'
 
     #TABELE
     match 'tabela-normatywow' => 'tabelanormatywows#index', :as => 'tabela_normatywow'

@@ -1,0 +1,21 @@
+<div id="calendar">
+  <h2 id="month">
+    <%= link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m-%d") %>
+    <%= h(@date.strftime("%B %Y")) %>
+    <%= link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-%d") %>
+  </h2>
+<%= calendar_for(@efectivenes, :year => @date.year, :month => @date.month) do |t| %>
+  <%= t.head('Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota') %>
+    <%= t.day(:day_method => :created_at) do |day, effectivenes| %>
+       <%= day.day %>
+       <ul>
+          <% effectivenes.each do |t|  %>
+          <% if t.effectivity > 40  %>
+        <li> <%= t.effectivity %></li>
+          <% end %>
+        <% end %>
+        </ul>
+      
+    <% end %>
+  <% end %>
+</div>

@@ -1,7 +1,7 @@
 class Effectivenes < ActiveRecord::Base
 
  belongs_to :worker
- attr_accessible :effectivity, :effectivity_max, :effectivity_min, :id, :worker_id
+ attr_accessible :effectivity, :effectivity_max, :effectivity_min, :id, :worker_id, :created_at
  
  def self.to_csv (options = {})
    CSV.generate(options) do |csv|

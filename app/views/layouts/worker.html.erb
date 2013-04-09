@@ -6,7 +6,7 @@
     <title>Aplikacja - <%= yield(:title) || "Aplikacja" %></title>
     <%= stylesheet_link_tag('worker') %>
     <%= javascript_include_tag('application','jquery-1.8.2.min', 'highcharts')%> 
-
+    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js" %>
   
     <meta name="author" content="Aleksander Gładysz">
 

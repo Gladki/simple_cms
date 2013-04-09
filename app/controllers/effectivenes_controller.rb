@@ -1,6 +1,6 @@
 class EffectivenesController < ApplicationController
 # filter_resource_access
-layout 'admin'
+layout 'worker'
 
   def index
   @effectivenes = Effectivenes.order(:id)
@@ -10,6 +10,11 @@ layout 'admin'
     format.xls # { send_data @effectivenes.to_csv(col_sep: "\t") }
       #send_data   
     end
+  end
+  def calendar
+  	 @efectivenes = Effectivenes.all
+  @date = params[:month] ? Date.parse(params[:month]) : Date.today
+  	
   end
 
 def javascript

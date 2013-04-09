@@ -26,6 +26,8 @@ end
 #import
 gem 'roo'
 
+#calendar
+gem "watu_table_builder", :require => "table_builder"
 #inne
 gem 'jquery-rails'
 gem 'newrelic_rpm'
