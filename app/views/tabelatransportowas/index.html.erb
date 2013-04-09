@@ -68,12 +68,22 @@
       <% if (transport.tt_dystans_od.to_f + transport.tt_dystans_do.to_f) > 0  %>
 
       <td><%= ((transport.tt_dystans_od.to_f + transport.tt_dystans_do.to_f) * @predkosc_kod_m  +
-              if transport.tt_ilosc_zakretow == nil || transport.tt_ilosc_start_stop == nil 
+              
+              (
+                if transport.tt_ilosc_zakretow == nil || @dodatek_czas_zakr == nil 
                   0
               else
-                  (transport.tt_ilosc_zakretow.to_i * @dodatek_czas_zakr) + (transport.tt_ilosc_start_stop.to_i * @dodatek_czas_start_stop)
+                  (transport.tt_ilosc_zakretow.to_i * @dodatek_czas_zakr)  
+              end 
+
+              +
+
+              if transport.tt_ilosc_zakretow == nil || @dodatek_czas_zakr == nil 
+                  0
+              else
+                   (transport.tt_ilosc_start_stop.to_i * @dodatek_czas_start_stop)
               end
-             
+              )
               ).round(2)
 
       %>
