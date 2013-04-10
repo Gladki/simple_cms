@@ -166,7 +166,7 @@ end
 
     <h1>Cele</h1>
     
-    <table class="tabela-cele" >
+    <table class="tabela-cele" style="float:left;" >
       <thead>
         <tr>
           <th>Cel minimum</th>
@@ -189,7 +189,9 @@ end
         <td><%= cel.ce_minimum %>%</td>
         <td><%= cel.ce_maximum %>%</td>
         <td><%= cel.created_at.strftime("%d-%m-%Y") %></td>
-        
+          <% if permitted_to? :delete_cele, :workers %>
+        <td><%= button_to("usuń", usun_po_id_cel_path(cel.id), :class=>"szczegoly" ) %></td>
+      <% end %>
       </tr>
          <% end %> 
      <% end %>
@@ -197,7 +199,7 @@ end
       </tbody>
     </table>
 
-     <div id="insert">
+<div id="insert" style="margin-top:-12px;margin-left:20px;width:400px;float:left;">
   <p>Dodaj nowy cel:</p>
 
  <%= form_for @nowy_cel do |f| %>

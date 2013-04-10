@@ -17,6 +17,23 @@ layout 'worker'
   	@workers = Worker.includes(:effectivenes).all
   end
 
+  
+def new
+  @nowa_efektywnosc =  Effectivenes.new
+end
+
+def create 
+    @worker = Worker.find(params[:effectivenes][:worker_id])
+    @nowa_efektywnosc =  Effectivenes.new(params[:effectivenes])
+    if @nowa_efektywnosc.save 
+      flash[:notice] = "Poprawnie dodano efektywnosc"
+      redirect_to szczegoly_po_id_path(@worker.id)
+    else
+      flash[:notice] = "Nie udalo sie dodac celu sprawdz poprawnosc wypelnionych pol."
+      redirect_to szczegoly_po_id_path(@worker.id)
+
+  end
+end
 def javascript
   
 end

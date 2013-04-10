@@ -27,7 +27,7 @@ SimpleCms::Application.routes.draw do
     match '/pomocnicze' => 'pomocniczes#index' , :as => 'pomocnicze'
     #EFEKTYWNOSCI
     match 'efektywnosci/kalendarz' => 'effectivenes#calendar' , :as => 'effectivenes_calendar'
-
+    match 'efektywnosc/nowa' => 'effectivenes#create', :as => 'nowa_efektywnosc'
     #TABELE
     match 'tabela-normatywow' => 'tabelanormatywows#index', :as => 'tabela_normatywow'
     match 'tabela-transportowa' => 'tabelatransportowas#index', :as => 'tabela_transportowa'
@@ -40,7 +40,8 @@ SimpleCms::Application.routes.draw do
     match 'tabela-transportowa/usun/:id' => 'tabelatransportowas#delete', :as => 'usun_po_id_transport'
     match 'pomocnicze/usun/:id' => 'pomocniczes#delete', :as => 'usun_po_id_predkosc'
     match 'pomocnicze/usun-dodatek/:id' => 'pomocniczes#delete_dodatek', :as => 'usun_po_id_dodatek'
-   
+    match 'pracownik/:id2/cel/usun/:id' => 'celes#delete', :as => 'usun_po_id_cel'
+
     resources :typyczynnoscis do
       collection {get :index}
     end
@@ -49,10 +50,11 @@ SimpleCms::Application.routes.draw do
     resources :sessions
     resources :users
     resources :celes
+    resources :effectivenes
     # resources :pomocniczes    
     # resources :tabelanormatywows
     # resources :tabelatransportowas
-    resources :effectivenes
+
     
     #EXPORTY
     match '/tabela-normatywow/export' => 'tabelanormatywow#export', :as => :export_normatywow

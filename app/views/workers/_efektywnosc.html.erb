@@ -1,0 +1,19 @@
+<table summary="Section form fields">
+  <tr>
+    <th><%= f.label :effectivity, "Efektywność: " %></th>
+    <td><%= f.text_field :effectivity %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :ef_data, "Data efektywności: " %></th>
+    <td><%= f.text_field :ef_data %></td>
+  </tr>
+  <tr>
+    <td>
+    <%= f.hidden_field :worker_id, :value => @worker.id %>
+    <%= f.hidden_field :ef_aud_us_id, :value => current_user.id %>
+    </td>
+    </tr>
+  
+
+</table>
+     <%= submit_tag("Dodaj efektywność" , :class => "szczegoly", :remote => true) %>

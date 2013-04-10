@@ -53,16 +53,18 @@ class WorkersController < ApplicationController
       redirect_to :action => "lista" 
       flash[:notice] = "Nie udalo sie usunac pracownika"
     end
-  end
+  end 
+ 
 
   def pracownik
   end
 
   def szczegoly
-    @effec = Effectivenes.find(:all, :conditions => ["worker_id = ?" , @worker.id])
+    @effec = Effectivenes.find(:all, :conditions => ["worker_id = ?" , @worker.id], :order => "id DESC")
     @worker_count = Worker.count
     @cele = Cele.find(:all,:conditions => ["ce_worker_id = ?" , @worker.id], :order => "id DESC")
     @nowy_cel = Cele.new
+    @nowa_efektywnosc = nowa_efektywnosc_path
   end
 
   def import_render
