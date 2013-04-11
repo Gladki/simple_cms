@@ -6,6 +6,7 @@ class CreateEffectivenes < ActiveRecord::Migration
       t.decimal :effectivity
       t.decimal :effectivity_min
       t.decimal :effectivity_max
+      t.datetime :ef_data
       t.integer :ef_aud_us_id
       t.timestamps
     end

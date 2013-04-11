@@ -15,3 +15,6 @@
 //= require jquery-ui
 //= require_tree .
 
+$(function (){
+ $('#effectivenes_ef_data').datepicker( {dateFormat: 'dd-mm-yy'});
+ });

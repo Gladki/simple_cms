@@ -4,7 +4,7 @@
    @effec.each do |a| 
 
    @array_of_effectivities << a.effectivity
-   @array_of_dates << [a.created_at.year ,a.created_at.month, a.created_at.day]
+   @array_of_dates << [a.ef_data.year ,a.ef_data.month, a.ef_data.day]
   
 end
 
@@ -82,7 +82,7 @@ end
 </div>
   
   <h1>Dane o pracowniku: </h1>
-    <table class="listing" >
+    <table class="dane-pracownik" >
     	  <tr>
     	  	<td class="header">Id pracownika: </td><td><%= @worker.id_worker %></td>
     	  </tr><tr>
@@ -118,12 +118,19 @@ end
     	  	<td class="header">Effektywność maximum:</td><td><%= val3 %>%</td>
     	  </tr>
     	  <tr>
-    	  	<td class="header">Data ostatniego update:</td><td><%= last_update_effectivity(params[:id]).strftime("%d-%m-%Y r. ") %></td>
-    	  </tr>
+    	  	<td class="header">Data ostatniego update:</td><td>
+
+          <% if last_update_effectivity(@worker.id_worker) != nil %>
+          <%= last_update_effectivity(@worker.id_worker).strftime("%d-%m-%Y r. ") %>
+          <% else  %>
+          0
+          <% end %>
+        </td>
+         </tr>
     </table>
 
   <h1>Efektywności</h1>
-    <table class="tabela-efektywnosci">
+    <table class="tabela-efektywnosci" >
       <thead>
         <tr>
           <th>Efektywność</th>
@@ -139,13 +146,13 @@ end
           val1 = f.effectivity
           val2 = cel_min(params[:id])[0].to_f
           val3 = cel_max(params[:id])[0].to_f
-         
+              if  val1 != nil
               if val2 == 0 and val3 == 0
                 val4 = 0
               else
                 val4 = (((val1-val2)/(val3-val2))*100).round
               end
-
+              end
             if val4 < 0
               @klasa = "bad"
             else
@@ -155,18 +162,33 @@ end
            %>
           <td><%= f.effectivity %>%</td>
           <td class="<%= @klasa %>"><%= val4 %>%</td>
-          <td><%= f.created_at.strftime("%d-%m-%Y r. ")%></td>
+          <td><%= f.ef_data.strftime("%d-%m-%Y r. ")%></td>
+          <% if permitted_to? :delete, :effectivenes %>
+          <td><%= button_to("usuń", usun_po_id_efektywnosc_path(f.id), :class=>"szczegoly" ) %></td>
+          <% end %>
+
           </tr>
           <% end %>
         </tr>
       </tbody>
     </table>
 
+<div id="insert" style="margin-top:20px;margin-left:20px;width:400px;float:right;">
 
 
-    <h1>Cele</h1>
+ <%= form_for @nowa_efektywnosc do |f| %>
+  
+    <%= render(:partial => 'efektywnosc', :locals => {:f => f}) %>
     
-    <table class="tabela-cele" style="float:left;" >
+    
+  <% end %>
+  
+</div>
+
+
+    <h1 style="clear:left;">Cele</h1>
+    
+  <table class="tabela-efektywnosci" >
       <thead>
         <tr>
           <th>Cel minimum</th>
@@ -188,8 +210,8 @@ end
       <tr>
         <td><%= cel.ce_minimum %>%</td>
         <td><%= cel.ce_maximum %>%</td>
-        <td><%= cel.created_at.strftime("%d-%m-%Y") %></td>
-          <% if permitted_to? :delete_cele, :workers %>
+        <td><%= cel.created_at.strftime("%d-%m-%Y r.") %></td>
+          <% if permitted_to? :delete, :celes %>
         <td><%= button_to("usuń", usun_po_id_cel_path(cel.id), :class=>"szczegoly" ) %></td>
       <% end %>
       </tr>
@@ -199,8 +221,9 @@ end
       </tbody>
     </table>
 
-<div id="insert" style="margin-top:-12px;margin-left:20px;width:400px;float:left;">
-  <p>Dodaj nowy cel:</p>
+<div id="insert" style="margin-top:20px;width:400px;float:right;">
+  
+
 
  <%= form_for @nowy_cel do |f| %>
   

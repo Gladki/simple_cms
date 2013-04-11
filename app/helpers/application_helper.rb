@@ -84,7 +84,7 @@ module ApplicationHelper
   end
 
  def last_update_effectivity(worker_id)
-    @last_update_effectivity = Effectivenes.maximum(:created_at, :conditions => ["worker_id = ?", worker_id])
+    @last_update_effectivity = Effectivenes.maximum(:ef_data, :conditions => ["worker_id = ?", worker_id])
     return @last_update_effectivity
   end
 

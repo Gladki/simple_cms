@@ -1,7 +1,13 @@
 class EffectivenesController < ApplicationController
    filter_access_to :all
 layout 'worker'
+before_filter :ef_id , :only => [:delete]
 
+
+def ef_id
+    @ef = Effectivenes.find(params[:id2])
+
+end
   def index
   @effectivenes = Effectivenes.order(:id)
   respond_to do |format|
@@ -34,6 +40,19 @@ def create
 
   end
 end
+
+def delete
+
+    if @ef.destroy
+    flash[:notice] = "Poprawnie usunieto cel."
+        redirect_to szczegoly_po_id_path(params[:id])
+    else
+    flash[:notice] = "Nie udalo sie usunac celu."
+        redirect_to szczegoly_po_id_path(params[:id])
+    end
+end
+
+
 def javascript
   
 end

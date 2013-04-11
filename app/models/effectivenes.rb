@@ -1,8 +1,9 @@
 class Effectivenes < ActiveRecord::Base
 
  belongs_to :worker
- attr_accessible :effectivity, :effectivity_max, :effectivity_min, :id, :worker_id, :created_at
- 
+ attr_accessible :effectivity, :effectivity_max, :effectivity_min, :id, :worker_id, :created_at, :ef_aud_us_id, :ef_data  
+  validates_presence_of [:effectivity,  :ef_data], :on => :create
+
  def self.to_csv (options = {})
    CSV.generate(options) do |csv|
      csv << column_names
