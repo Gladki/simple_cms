@@ -58,10 +58,10 @@
      
     
       </td>
-      <td><%= button_to("szczegóły", szczegoly_po_id_path(worker.id), :class=>"szczegoly" ) %></td>
+      <td><%= button_to("", szczegoly_po_id_path(worker.id), :class=>"details" ) %></td>
       
       <% if permitted_to? :delete, :workers %>
-        <td><%= button_to("usuń", usun_po_id_path(worker.id), :class=>"szczegoly" ) %></td>
+        <td><%= button_to("", usun_po_id_path(worker.id), :class=>"delete" ) %></td>
       <% end %>
 
 

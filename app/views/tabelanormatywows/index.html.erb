@@ -45,7 +45,7 @@
       <td style="width:100px;"><%= normatyw.tn_import_file_info %></td>
       <td><%= normatyw.created_at.strftime("%d-%m-%Y") %></td>
       <% if permitted_to? :delete, :tabelanormatywows %>
-        <td><%= button_to("usuń", usun_po_id_normatyw_path(normatyw.id), :class=>"szczegoly" ) %></td>
+        <td><%= button_to("", usun_po_id_normatyw_path(normatyw.id), :class=>"delete" ) %></td>
       <% end %>
       </tr>
           

@@ -123,6 +123,20 @@ opacity: 0.5;
 		opacity: 1.0;
 	}
 }
+.details {
+width:23px;
+height:23px;
+clear:right;
+border: 0;
+padding: 0;
+background-color: transparent;
+	background-image: url(<%= asset_path('details.png') %>);
+cursor: pointer;
+opacity: 0.5;
+	&:hover{
+		opacity: 1.0;
+	}
+}
 .add {
 width:32px;
 height:32px;
@@ -238,6 +252,7 @@ float: left;
 
 }
 #ttrans {
+	float:left;
 	tr {}
 	td input {
 		width:150px;
@@ -278,7 +293,7 @@ width:100%;
 
 }
 #insert{
-	width:30%;
+	width:auto;
 	border: 1px dashed darken($gray,20%);
 	padding: 0;
 	text-align: center;

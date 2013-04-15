@@ -6,6 +6,6 @@
 <td style="width:100px;"><%= czynnosc.tc_zrodlo_pochodzenia %></td>
 <td><%= czynnosc.created_at.strftime("%d-%m-%Y") %></td>
 <% if permitted_to? :delete, :typyczynnoscis %>
-        <td><%= button_to("usuń", usun_po_id_czynnosc_path(czynnosc.id), :class=>"szczegoly" ) %></td>
+        <td style="border:0;"><%= button_to("", usun_po_id_czynnosc_path(czynnosc.id), :class=>"delete" ) %></td>
       <% end %>
 </tr>

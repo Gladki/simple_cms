@@ -1,4 +1,5 @@
 <% title "Tabela Transportowa" %>
+<div style="middle-content">
 
 <div class="section list">
   <h1>Tabela Transportowa</h1>
@@ -93,7 +94,7 @@
       <td style="width:80px"><%= transport.created_at.strftime("%d-%m-%Y") %>
       <td><%= transport.tt_import_file_info %>
       <% if permitted_to? :delete, :tabelatransportowas %>
-        <td><%= button_to("usuń", usun_po_id_transport_path(transport.id), :class=>"szczegoly" ) %></td>
+        <td><%= button_to("", usun_po_id_transport_path(transport.id), :class=>"delete" ) %></td>
       <% end %>
       </tr>
           
@@ -104,6 +105,9 @@
 
    </table>
 </div>
+</div>
+<div style="middle-content">
+  
      <div id="insert" >
   <p>Dodaj nowy Transport:</p>
 
@@ -113,3 +117,4 @@
     
     
   <% end %>
+</div>
