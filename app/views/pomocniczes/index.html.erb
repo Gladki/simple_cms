@@ -1,16 +1,11 @@
 <% title "Typy czynnosci" %>
-  
+  <div id="1" class="middle-content">
+    
+ 
   <h1>Typy Predkosci</h1>
 
 <br/>
-<table id="tczynnosci" style="
-width:600px;font-size:11px;border-width: 1px;
-  border-spacing: 2px;
-  border-style: hidden;
-  border-color: #000;
-  border-collapse: collapse;
-  text-align:center;
-  " border="1"class="listing" summary="Section list">
+<table id="tczynnosci" border="1"class="listing" summary="Section list">
     <tr class="header">
       <th>Rodzaj<br/>wózka</th>
       <th>Opis</th>
@@ -38,19 +33,13 @@ width:600px;font-size:11px;border-width: 1px;
   <% end %>
 
 </div>
-
-
+ </div>
+  <div id="2" class="middle-content">
+    
  <h1>Dodatki</h1>
 
 <br/>
-<table id="tczynnosci" style="
-width:600px;font-size:11px;border-width: 1px;
-  border-spacing: 2px;
-  border-style: hidden;
-  border-color: #000;
-  border-collapse: collapse;
-  text-align:center;
-  " border="1"class="listing" summary="Section list">
+<table id="tczynnosci" border="1"class="listing" summary="Section list">
     <tr class="header">
       <th>Rodzaj<br/>wózka</th>
       <th>Opis</th>
@@ -77,4 +66,40 @@ width:600px;font-size:11px;border-width: 1px;
     
   <% end %>
 
+</div>
+</div>
+  <div id="3" class="middle-content">
+
+ <h1>Obszary</h1>
+
+<br/>
+<table id="tczynnosci" border="1"class="listing" summary="Section list">
+    <tr class="header">
+      <th>Miejsce zastosowania</th>
+      <th>Magazyn</th>
+    
+      <th>Kod</th>
+      <th>Wartość dodatku</th>
+      <th>Opis<br/>obszaru</th>
+    
+      
+      <!-- <th>Data utworzenia</th> -->
+    </tr>
+ <% @obszary.each do |obszar| %>
+ <%= render(:partial =>'obszar', :locals => {:obszar => obszar}) %>
+          
+     <% end %>
+   </table>
+
+<div id="insert">
+  <p>Dodaj nowy obszar:</p>
+
+ <%= form_for @nowy_obszar do |f| %>
+  
+    <%= render(:partial => 'formo', :locals => {:f => f}) %>
+    
+    
+  <% end %>
+
+</div>
 </div>

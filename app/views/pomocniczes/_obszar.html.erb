@@ -1,0 +1,17 @@
+<tr>
+
+<td style="width:100px;"><%= obszar.ob_nazwa %></td>
+<td style="width:100px;"><%= obszar.ob_magazyn %></td>
+<td style="width:100px;"><%= obszar.ob_kod %></td>
+<td style="width:100px;"><%= obszar.ob_wartosc %></td>
+<td style="width:200px; padding:0 5px;"><%= obszar.ob_opis %></td>
+
+<% if permitted_to? :delete_obszar, :pomocniczes %>
+        <td style="border:0;"><%= button_to("", edit_obszar_path(obszar.id), :class=>"edit" ) %></td>
+      <% end %>
+
+<% if permitted_to? :delete_obszar, :pomocniczes %>
+        <td style="border:0;"><%= button_to("", usun_po_id_obszar_path(obszar.id), :class=>"delete" ) %></td>
+      <% end %>
+
+</tr>

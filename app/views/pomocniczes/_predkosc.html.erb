@@ -15,7 +15,16 @@
 <td>0</td>
 <% end %>
 <td><%= predkosc.created_at.strftime("%d-%m-%Y") %></td>
-<% if permitted_to? :delete, :pomocniczes %>
-        <td><%= button_to("usuń", usun_po_id_predkosc_path(predkosc.id), :class=>"szczegoly" ) %></td>
-      <% end %>
+     
+
+	<% if permitted_to? :delete, :pomocniczes %>
+		<td style="border:0"><%= button_to("", edit_predkosc_path(predkosc.id), :class=>"edit" ) %></td>
+	<% end %>
+
+
+	<% if permitted_to? :delete, :pomocniczes %>
+		<td style="border:0"><%= button_to("", usun_po_id_predkosc_path(predkosc.id), :class=>"delete" ) %></td>
+	<% end %>
+
+
 </tr>

@@ -7,7 +7,8 @@ authorization do
 		has_permission_on :tabelanormatywows, :to => [:index,:export,:create,:new,:delete]
 		has_permission_on :tabelatransportowas, :to => [:index,:export,:create,:new,:delete]
 		has_permission_on :typyczynnoscis, :to => [:new,:create,:index,:export,:delete]
-		has_permission_on :pomocniczes, :to => [:new,:create,:create_dodatek,:index,:export,:delete,:delete_dodatek]
+		has_permission_on :pomocniczes, :to => [:new,:create,:create_dodatek,:index,:export,:delete,:delete_obszar,:delete_dodatek,
+												:edit_obszar,:update_obszar, :edit_predkosc,:update_predkosc,:edit_dodatek,:update_dodatek]
 	end
 
 	role :dyrektor do	

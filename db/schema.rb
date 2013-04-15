@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130407201339) do
+ActiveRecord::Schema.define(:version => 20130414162237) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "first_name",      :limit => 25
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(:version => 20130407201339) do
     t.decimal  "effectivity",     :precision => 10, :scale => 0
     t.decimal  "effectivity_min", :precision => 10, :scale => 0
     t.decimal  "effectivity_max", :precision => 10, :scale => 0
+    t.datetime "ef_data"
+    t.integer  "ef_aud_us_id"
     t.datetime "created_at",                                     :null => false
     t.datetime "updated_at",                                     :null => false
   end
@@ -73,6 +75,16 @@ ActiveRecord::Schema.define(:version => 20130407201339) do
     t.integer  "group_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "obszary", :force => true do |t|
+    t.string   "ob_nazwa"
+    t.string   "ob_magazyn"
+    t.string   "ob_opis"
+    t.string   "ob_kod"
+    t.string   "ob_aud_us_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "pages", :force => true do |t|
@@ -178,17 +190,18 @@ ActiveRecord::Schema.define(:version => 20130407201339) do
     t.string   "tt_ruch_od"
     t.string   "tt_ruch_do"
     t.string   "tt_srodek_transportu"
-    t.decimal  "tt_dystans_od",        :precision => 10, :scale => 2
-    t.decimal  "tt_dystans_do",        :precision => 10, :scale => 2
+    t.decimal  "tt_dystans_od",                      :precision => 10, :scale => 2
+    t.decimal  "tt_dystans_do",                      :precision => 10, :scale => 2
     t.integer  "tt_ilosc_zakretow"
     t.integer  "tt_ilosc_start_stop"
     t.string   "tt_rodzaj_pobrania"
     t.string   "tt_komentarz"
     t.string   "tt_predkosc_kod"
+    t.string   "tt_dodatek_kod",       :limit => 45
     t.string   "tt_import_file_info"
     t.string   "tt_aud_us_id"
-    t.datetime "created_at",                                          :null => false
-    t.datetime "updated_at",                                          :null => false
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
   end
 
   create_table "typy_czynnosci", :force => true do |t|

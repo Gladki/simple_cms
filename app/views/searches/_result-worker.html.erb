@@ -1,8 +1,98 @@
 
 <div class="section list">
   <h1>Wyszukiwanie pracowników</h2>
+<% title "Szczegóły pracownika" %>
+<% @array_of_effectivities =[]
+   @array_of_dates =[]  
+   @workers.each do |worker| 
+     @effec = Effectivenes.find(:all, :conditions => ["worker_id = ?" , worker.id], :order => "id DESC") 
+   
+     @imie_nazwisko = imie_nazwisko_worker(worker.id)[0] +" "+ imie_nazwisko_worker(worker.id)[1]
+     @cel_min = cel_min(worker.id)[0].to_f
+     @cel_max = cel_max(worker.id)[0].to_f
 
-<p>
+   end
+   @effec.each do |a| 
+
+   @array_of_effectivities << a.effectivity
+   @array_of_dates << [a.ef_data.to_date]
+  
+end
+
+  %>
+
+<script>
+   $(document).ready(function() {
+    var chart = new Highcharts.Chart({
+
+        chart: {
+            renderTo: 'container_chart',
+        },
+        title: {
+            text: 'Wykres Efektywności'
+        },
+        xAxis: {
+            type: "datetime",
+            tickInterval: 24 * 3600 * 1000,        },
+        yAxis: {
+             max: <%= @cel_min.to_f + 60%>,
+            title: {
+                text: 'Efektywność w procentach'
+            }, 
+            plotLines : [{
+            value : <%= @cel_min.to_f %> ,
+            color : 'red',
+            dashStyle : 'shortdash',
+            width : 2,
+            label : {
+            text : 'minimum'
+            }
+        },
+          {
+            value : <%= @cel_max.to_f %> ,
+            color : 'green',
+            dashStyle : 'shortdash',
+            width : 2,
+            label : {
+            text : 'maximum'
+            }
+
+        }]
+
+
+        },
+
+        series: [{
+          
+
+            type: 'column',
+            name: '<%= @imie_nazwisko %>',
+            data: [
+            <% 
+            i = 0
+            @array_of_dates.each do |f| %>
+            [Date.UTC(<%= f.join(",") %>),  <%= @array_of_effectivities[i] %>],
+            <% i = i + 1 %>
+            <% end %>
+            ]
+
+            
+                
+        
+          },
+        
+   
+        ],
+    });
+});
+
+   </script>
+
+
+<div id="container_chart" class="wykres-efektywnosc">
+
+</div>
+   <%= @array_of_dates%>
 <b>Pobierz listę w formacie: 
 <%= link_to "Excel (.xls)" ,lista_pracownikow_path(format: "xls") %>
 
@@ -26,8 +116,7 @@
  
    <td><%= worker.id_worker %></td>
    <% @@lista_id << worker.id %>
-     <td><%= worker.id_worker %></td>
-   <% @@lista_id << worker.id %>
+   
       <td><%= worker.id_worker_merx %></td>
       <td><%= worker.last_name %></td>
       <td><%= worker.first_name %></td>
@@ -35,8 +124,8 @@
       <td style="text-align:right"><%= minimum_effectivity(worker.id) %>%</td>
       <% 
       val1 = minimum_effectivity(worker.id)
-      val2 = effectivity_min(worker.id)[0].to_f
-      val3 = effectivity_max(worker.id)[0].to_f
+      val2 = cel_min(worker.id)[0].to_f
+      val3 = cel_max(worker.id)[0].to_f
      
           if val2 == 0 and val3 == 0
             val4 = 0

@@ -32,6 +32,9 @@ gem "watu_table_builder", :require => "table_builder"
 gem 'jquery-rails'
 gem 'newrelic_rpm'
 
+#editing
+gem 'best_in_place'
+
 #search
 gem 'rails-simple-search'
 # gem 'authlogic'

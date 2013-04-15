@@ -14,7 +14,5 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require_tree .
-
-$(function (){
- $('#effectivenes_ef_data').datepicker( {dateFormat: 'dd-mm-yy'});
- });
+//= require jquery.purr
+//= require best_in_place

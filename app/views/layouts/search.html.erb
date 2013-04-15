@@ -24,30 +24,53 @@ $(function() {
 </script>
 
   </head>
- 
   <body>
     <div class="header-pipe-bar">
       <% if current_user %>
 
         <div id="navigation">
         <ul>
-            Jesteś zalogowany jako: <%= current_user.login %>.
+            Witaj: <%= current_user.login.humanize %>.
+            
             <% if permitted_to? :szczegoly, :workers %>
             <li><%= link_to "Dashboard", szczegoly_po_id_path(current_user.id) %></li>
-          <% end %>
+            <% end %>
+
+
           <% if permitted_to? :new, :searches %>
           <li><%= link_to "Szukaj pracownika", nowe_szukanie_path %></li>
           <% end %>
+          <% if permitted_to? :calendar, :effectivenes %>
+          
+          <li><%= link_to "Kalendarz", effectivenes_calendar_path %></li>
+          <% end %>
+        
+         
           <% if permitted_to? :new, :workers %>
 
           <li><%= link_to "Dodaj nowego pracownika", nowy_pracownik_path %></li>
           <% end %>
+        
+         
 
           <% if permitted_to? :lista, :workers %>
             <li><%= link_to "Lista pracowników", lista_pracownikow_path %></li>
           <% end %>
+          <% if permitted_to? :index, :tabelanormatywows %>
+            <li><%= link_to "Tabela normatywów", tabela_normatywow_path %></li>
+          <% end %> 
+           <% if permitted_to? :index, :tabelatransportowas %>
+            <li><%= link_to "Tabela transportowa", tabela_transportowa_path %></li>
+          <% end %>
+          <% if permitted_to? :index, :typyczynnoscis %>
+            <li><%= link_to "Typy czynności", typy_czynnosci_path %></li>
+          <% end %>
           <% if permitted_to? :import_render, :workers %>
             <li><%= link_to "Import danych", import_danych_path %></li>
+          <% end %>
+
+          <% if permitted_to? :index, :pomocniczes %>
+            <li><%= link_to "Pomocnicze Dane", pomocnicze_path %></li>
           <% end %>
            
 
@@ -66,7 +89,9 @@ $(function() {
 
     
       <div id="content">
-
+        <div id="container">
+          
+     
      <% if !flash[:notice].blank? %>
       <div class="notice">
          
@@ -78,10 +103,9 @@ $(function() {
 
         <%= yield %>
       </div>
-      
+         </div>
     <!-- <div id="footer">
       
     </div> -->
   </body>
 </html>
-

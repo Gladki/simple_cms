@@ -22,6 +22,7 @@ SimpleCms::Application.routes.draw do
     match '/workers/wyszukaj/:id', :controller => 'workers', :action => 'wyszukaj' , :as => :info_pracownik
     match '/pomocnicze/nowa-predkosc' => 'pomocniczes#create' , :as => 'predkoscis'
     match '/pomocnicze/nowy-dodatek' => 'pomocniczes#create' , :as => 'dodatkis'
+    match '/pomocnicze/nowy-dodatek' => 'pomocniczes#create' , :as => 'obszars'
     match '/tabela-normatywow/nowy-normatyw' => 'tabelanormatywows#create' , :as => 'tabelanormatywows'
     match '/tabela-transportowa/nowy-transport' => 'tabelatransportowas#create' , :as => 'tabelatransportowas'
     match '/pomocnicze' => 'pomocniczes#index' , :as => 'pomocnicze'
@@ -33,6 +34,14 @@ SimpleCms::Application.routes.draw do
     match 'tabela-transportowa' => 'tabelatransportowas#index', :as => 'tabela_transportowa'
     match 'typy-czynnosci' => 'typyczynnoscis#index', :as => 'typy_czynnosci'
 
+    #EDYCJA
+    match 'obszar/edytuj/:id' => 'pomocniczes#edit_obszar', :as => 'edit_obszar'
+    match 'obszar/update/:id' => 'pomocniczes#update_obszar', :as => 'obszar'
+    match 'dodatek/edytuj/:id' => 'pomocniczes#edit_dodatek', :as => 'edit_dodatek'
+    match 'dodatek/update/:id' => 'pomocniczes#update_dodatek', :as => 'dodatki'
+    match 'predkosc/edytuj/:id' => 'pomocniczes#edit_predkosc', :as => 'edit_predkosc'
+    match 'predkosc/update/:id' => 'pomocniczes#update_predkosc', :as => 'predkosci'
+
     #USUWANIE
     match 'pracownik/usun/:id' => 'workers#delete', :as => 'usun_po_id'
     match 'typy-czynnosci/usun/:id' => 'typyczynnoscis#delete', :as => 'usun_po_id_czynnosc'
@@ -40,6 +49,7 @@ SimpleCms::Application.routes.draw do
     match 'tabela-transportowa/usun/:id' => 'tabelatransportowas#delete', :as => 'usun_po_id_transport'
     match 'pomocnicze/usun/:id' => 'pomocniczes#delete', :as => 'usun_po_id_predkosc'
     match 'pomocnicze/usun-dodatek/:id' => 'pomocniczes#delete_dodatek', :as => 'usun_po_id_dodatek'
+    match 'pomocnicze/usun-obszar/:id' => 'pomocniczes#delete_obszar', :as => 'usun_po_id_obszar'
     match 'pracownik/:id2/cel/usun/:id' => 'celes#delete', :as => 'usun_po_id_cel'
     match 'pracownik/:id2/efektywnosc/usun/:id' => 'effectivenes#delete', :as => 'usun_po_id_efektywnosc'
 
