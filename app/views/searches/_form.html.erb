@@ -21,11 +21,11 @@
   </p>
   <p>
     <%= f.label "Od: " %><br />
-    <%= f.date_select :date_from, :prompt => {:day => "Dzień", :month => "Miesiąc", :year => "Rok" } , :class=>"input-small"  %>
+    <%= f.text_field :date_from, :class=>"input-small"  %>
   </p>
   <p>
     <%= f.label "Do: " %><br />
-    <%= f.date_select :date_to , :prompt => {:day => "Dzień", :month => "Miesiąc", :year => "Rok" } , :class=>"input-small"%>
+    <%= f.text_field :date_to , :class=>"input-small"%>
   </p>
   <p><%= f.submit "Szukaj" , :class => "szukaj"%></p>
 <% end %>
