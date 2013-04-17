@@ -3,4 +3,70 @@
 <div class="section list">
   <h1>Wyszukiwanie pracownika</h1>
 </div>
-<%= render 'form' %>
+
+
+<%= form_for @search do |f|  %>
+
+  <table cellpadding="5" style="float:left;">
+  	<tbody>
+  		<tr>
+  			<td><%= f.label "Imie, Nazwisko: " %></td>
+	  		<td colspan="3"><%= f.text_field :keywords , :class=>"input-search big" %></td>
+	  		
+			
+  		</tr>
+  		<tr >
+  			<td ><%= f.label "ID Pracownika: " %> </td>
+			<td style="width:50px;"> <%= f.text_field :id_worker , :class=>"input-search small"%></td>
+			<td><%= f.label "ID MERX Pracownika: " %></td>
+			<td><%= f.text_field :id_worker_merx, :class=>"input-search small" %></td>
+  		</tr>
+  		<tr>
+  			<td style="width:50px;"><%= f.label "Minimalna efektywność: " %></td>
+  			<td style="width:50px;"><%= f.number_field :min_effectivity, :class=>"input-search small" %></td>
+  			<td style="width:50px;"><%= f.label "Maksymalna efektywność: " %></td>
+  			<td><%= f.number_field :max_effectivity , :class=>"input-search small"%></td>
+
+
+  		</tr>
+  	</tbody>
+  </table>
+   
+
+   
+ 
+   
+   <table id="table-for-calendar" >
+    		<tr>
+    				<td><%= f.label "Data od: " %></td>
+    				<td><%= f.label "Data do: " %></td>
+    			</tr>
+    		<tr >
+    			<td ><div id="date_from_div"></div></td>
+    			<td ><div id="date_to_div"></div></td>
+    		</tr>
+    		<tr>
+    			<td>    <%= f.text_field :date_from, :class=>"input-search middle "  %></td>
+    			<td>    <%= f.text_field :date_to , :class=>"input-search middle"%></td>
+    		</tr>
+    		<tr>
+
+    		</tr>
+    			
+
+    </table> 
+<div id="timestamp" style="float:right">
+	
+    <input type="radio" id="radio1" name="radio" /><label for="radio1">Kwartał</label>
+    <input type="radio" id="radio2" name="radio" /><label for="radio2">Miesiąc</label>
+    <input type="radio" id="radio3" name="radio" checked="checked" /><label for="radio3">Tydzień</label>
+  </div>
+
+ 
+
+ 
+
+  <%= f.submit "Szukaj" , :class => "szukaj"%>
+<% end %>
+
+

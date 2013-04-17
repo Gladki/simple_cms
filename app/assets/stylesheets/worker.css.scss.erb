@@ -94,11 +94,23 @@ font-size: 11px;
 margin: 5px 0 ;
 text-transform: uppercase;
 }
-.input-small{
+#timestamp {
+	float:right;
+margin-right: 48px;	
+}
+#table-for-calendar {
+	margin-left: 70px;
+	margin-top: 0px;
+	float:left;
+	thead td {
+		text-align: left !important;
+		line-height: 0;
+	}
+}
+.input-search{
   overflow: hidden; 
   height: 20px;
   padding-left:10px;
-  width: 70px;
   border: 1px solid #8496ba;
   cursor: text;
   font-size: 12px;
@@ -106,6 +118,21 @@ text-transform: uppercase;
   font-family: Verdana;
   background-color: #fff;
   list-style-type: none;
+  outline: none;
+  opacity: 0.4;
+  &:focus{
+  	opacity: 1.0;
+  }
+ 
+}
+.small {
+	width: 107px;
+}
+.middle {
+	width: 77%;
+}
+.big {
+	width:100%;
 }
 .new_search select{
 height:23px;
