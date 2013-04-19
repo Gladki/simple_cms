@@ -1,6 +1,6 @@
 class WorkersController < ApplicationController
 
-    filter_access_to :all
+ filter_access_to :all
  before_filter :worker_by_id , :only => [:edit, :update, :delete, :szczegoly]
  before_filter :workers_all , :only => [:lista,:index]
   

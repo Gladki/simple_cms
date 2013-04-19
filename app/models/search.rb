@@ -41,11 +41,11 @@ def maximum_effectivity_conditions
 end
 
 def date_from_conditions
-  ["workers.created_at >= ?", date_from] unless date_from.blank?
+  ["effectivenes.ef_data >= ?", date_from] unless date_from.blank?
 end
 
 def date_to_conditions
-  ["workers.created_at <= ?", date_to] unless date_to.blank?
+  ["effectivenes.ef_data <= ?", date_to] unless date_to.blank?
 end
 
 
