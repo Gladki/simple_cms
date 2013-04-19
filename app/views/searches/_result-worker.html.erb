@@ -2,103 +2,97 @@
 <div class="section list">
   <h1>Wyszukiwanie pracowników</h2>
 <% title "Szczegóły pracownika" %>
-<% @array_of_effectivities =[]
+<% 
    @array_of_dates =[]  
+   i = 0
+   j = 1
+    @array_of_effectivenes = []
+   @array_of_dates << ['Dzień', 'Cel minimum','Cel maximum']
    @workers.each do |worker| 
-     @effec = Effectivenes.find(:all, :conditions => ["worker_id = ?" , worker.id], :order => "id DESC") 
-   
+     @effec = Effectivenes.find(:all, :conditions => ["worker_id in (?)" , worker.id], :order => "id DESC") 
      @imie_nazwisko = imie_nazwisko_worker(worker.id)[0] +" "+ imie_nazwisko_worker(worker.id)[1]
+     @array_of_dates[0].append  @imie_nazwisko      
      @cel_min = cel_min(worker.id)[0].to_f
      @cel_max = cel_max(worker.id)[0].to_f
+     # @array_of_dates << [@imie_nazwisko]
+     
 
+     @effec.each do |a| 
+    
+     # a.effectivity, val2,val3, a.effectivity,a.effectivity,a.effectivity
+     # @array_of_dates[i+1] <<  a.effectivity
+     # @array_of_dates << [a.ef_data.strftime("%d-%m-%Y")]
+      val2 = cel_min(worker.id)[0].to_f
+     val3 = cel_max(worker.id)[0].to_f
+     indx = 0
+     if @array_of_dates.flatten.include? a.ef_data.strftime("%d-%m-%Y")
+      indx += @array_of_dates.flatten.index(a.ef_data.strftime("%d-%m-%Y")).to_i
+      @array_of_dates.at(indx+j+2) == a.effectivity
+     # # @array_of_dates.insert(indx+j+2,a.effectivity)
+     # # @array_of_dates.delete_at(indx+j+3) 
+     else
+     @test = Array.new(@workers.size,0)
+
+      @test.insert(0,a.ef_data.strftime("%d-%m-%Y"),val2,val3)
+     @test.insert(j+2,a.effectivity)
+     @test.delete_at(j+3) 
+      end
+    
+     
+     @array_of_dates << @test
    end
-   @effec.each do |a| 
-
-   @array_of_effectivities << a.effectivity
-   @array_of_dates << [a.ef_data.to_date]
-  
+   j = j + 1
+   i += 1 
 end
-
+  
   %>
 
-<script>
-   $(document).ready(function() {
-    var chart = new Highcharts.Chart({
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+    <script type="text/javascript">
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+        var data = google.visualization.arrayToDataTable(
+         <%= raw @array_of_dates %>);
 
-        chart: {
-            renderTo: 'container_chart',
-        },
-        title: {
-            text: 'Wykres Efektywności'
-        },
-        xAxis: {
-            type: "datetime",
-            tickInterval: 24 * 3600 * 1000,        },
-        yAxis: {
-             max: <%= @cel_min.to_f + 60%>,
-            title: {
-                text: 'Efektywność w procentach'
-            }, 
-            plotLines : [{
-            value : <%= @cel_min.to_f %> ,
-            color : 'red',
-            dashStyle : 'shortdash',
-            width : 2,
-            label : {
-            text : 'minimum'
-            }
-        },
-          {
-            value : <%= @cel_max.to_f %> ,
-            color : 'green',
-            dashStyle : 'shortdash',
-            width : 2,
-            label : {
-            text : 'maximum'
-            }
+        var options = {
 
-        }]
+          vAxis: {title: "Efektywność"},
+          hAxis: {title: "Dzień"},
+          seriesType: "bars",
 
+          chartArea: { 
+            left:50,
+            top: 50,
+            width:800,
+            height:350
 
-        },
-
-        series: [{
-          
-
-            type: 'column',
-            name: '<%= @imie_nazwisko %>',
-            data: [
-            <% 
-            i = 0
-            @array_of_dates.each do |f| %>
-            [Date.UTC(<%= f.join(",") %>),  <%= @array_of_effectivities[i] %>],
-            <% i = i + 1 %>
-            <% end %>
-            ]
-
-            
-                
-        
           },
-        
-   
-        ],
-    });
-});
+          bar: {groupWidth: 60},
+          series: {0: {type: "line"}
+          , 1:{type: "line"}
+          , 3:{barWidth: 124}
+         }
+        };
 
-   </script>
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+      google.setOnLoadCallback(drawVisualization);
+    </script>
+  
 
 
-<div id="container_chart" class="wykres-efektywnosc">
+<div id="chart_div" class="chart">
 
 </div>
-   <%= @array_of_dates%>
+   
 <b>Pobierz listę w formacie: 
 <%= link_to "Excel (.xls)" ,lista_pracownikow_path(format: "xls") %>
 
-</b>
-</p>
-<br/>
+
 <table class="listing" summary="Section list">
   <tr class="header">
       <th>ID<br/>Pracownika</th>
@@ -150,7 +144,7 @@ end
      
     
       </td>
-      <td><%= button_to("szczegóły", szczegoly_po_id_path(worker.id), :class=>"szczegoly" ) %></td>
+      <td><%= button_to("", szczegoly_po_id_path(worker.id), :class=>"details" ) %></td>
 
 
 
@@ -160,3 +154,12 @@ end
    </table>
  <%= @lista_id %>
 <br/>
+
+
+<%= @test.index("02-04-2013") %>
+<br>
+<br>
+<%= raw @array_of_dates.uniq  %>
+<br>
+<br>
+<%= @array_of_dates.flatten.index("02-04-2013")  %>
