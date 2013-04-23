@@ -52,6 +52,7 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     ffi (1.4.0)
+    google_visualr (2.1.7)
     heroku (2.35.0)
       heroku-api (~> 0.3.7)
       launchy (>= 0.3.2)
@@ -160,6 +161,7 @@ DEPENDENCIES
   best_in_place
   coffee-rails (~> 3.2.1)
   declarative_authorization
+  google_visualr
   heroku
   heroku-forward
   jquery-rails

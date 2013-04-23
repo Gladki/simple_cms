@@ -16,7 +16,7 @@ class SearchesController < ApplicationController
 
   def show
     @search = Search.find(params[:id])
-  
+ 
 
   end
 
@@ -57,4 +57,14 @@ class SearchesController < ApplicationController
     @search.destroy
     redirect_to searches_url, :notice => "Successfully destroyed search."
   end
+
+ def lista
+    @search = Search.find(params[:id])
+    respond_to do |format|
+    format.html
+    format.xls 
+    end
+  end
+
+
 end

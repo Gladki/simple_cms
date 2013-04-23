@@ -6,7 +6,7 @@ SimpleCms::Application.routes.draw do
     match '/pracownicy/lista' => 'workers#lista', :as => :lista_pracownikow
     match '/tabela-normatywow/export' => 'tabelanormatywow#export', :as => :export_normatywow
     match '/typy-czynnosci/export' => 'typyczynnosci#export', :as => :export_czynnosci
-
+    match 'wyszukiwanie/:id/raport' => 'searches#lista', :as => :raport_pracownicy_efektywnosc
     match '/szukaj/nowe', :controller => 'searches', :action => 'new', :as => 'nowe_szukanie'
     match '/szukaj/:id' => 'searches#show', :as => 'szukaj_po_id'
 

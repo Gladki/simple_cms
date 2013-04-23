@@ -1,0 +1,54 @@
+<% data = DateTime.now.to_date.strftime("%d-%m-%Y") %>
+<% headers["Content-Disposition"] = "attachment; filename=\"lista-pracownikow-i-efektywnosci-#{data}.xls\""  %>
+<% @workers = @search.workers %>
+<table class="listing" summary="Section list">
+  <tr class="header">
+      <th>ID<br/>Pracownika</th>
+      <th>ID<br/>Merx<br/>Pracownika</th>
+      <th>Nazwisko</th>
+      <th>Imie</th>
+      <th>Najlepsza<br/>Efektywność</th>
+      <th>Najgorsza<br/>Efektywność</th>
+      <th>Realizacja<br/>Celu</th>
+    </tr>
+    <% @@lista_id = [] %>
+
+ <% @workers.each do |worker| %>
+ <tr>
+ 
+   <td><%= worker.id_worker %></td>
+   <% @@lista_id << worker.id %>
+   
+      <td><%= worker.id_worker_merx %></td>
+      <td><%= worker.last_name %></td>
+      <td><%= worker.first_name %></td>
+      <td style="text-align:right"><%= maximum_effectivity(worker.id) %>%</td>
+      <td style="text-align:right"><%= minimum_effectivity(worker.id) %>%</td>
+      <% 
+      val1 = minimum_effectivity(worker.id)
+      val2 = cel_min(worker.id)[0].to_f
+      val3 = cel_max(worker.id)[0].to_f
+     
+          if val2 == 0 and val3 == 0
+            val4 = 0
+          else
+            val4 = (((val1-val2)/(val3-val2))*100).round
+          end
+
+        if val4 < 0
+          @klasa = "bad"
+        else
+          @klasa = "ok"
+        end
+
+       %>
+      <td class="<%= @klasa %>" style="text-align:right;"><%= val4 %>%</td>
+      
+      </td>
+
+
+      </tr>
+          
+     <% end %>
+   </table>
+<br>

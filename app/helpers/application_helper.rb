@@ -59,6 +59,26 @@ module ApplicationHelper
 
 
   end  
+   def cel_min_by_date(worker_id,data)
+    if Cele.all.include?(worker_id) == false
+    @cel_min = Cele.where("ce_worker_id = ? and created_at >= ?", worker_id,data).order('created_at desc').limit(1).pluck(:ce_minimum)
+    return @cel_min
+    else
+      @cel_min = 0
+    end
+
+
+  end   
+  def cel_max_by_date(worker_id,data)
+    if Cele.all.include?(worker_id) == false
+    @cel_min = Cele.where("ce_worker_id = ? and created_at >= ?", worker_id,data).order('created_at desc').limit(1).pluck(:ce_maximum)
+    return @cel_min
+    else
+      @cel_min = 0
+    end
+
+
+  end  
    def cel_max(worker_id)
     if Cele.all.include?(worker_id) == false
     @cel_max = Cele.where("ce_worker_id = ?", worker_id).order('id desc').limit(1).pluck(:ce_maximum)
