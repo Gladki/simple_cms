@@ -8,10 +8,10 @@
 
 <td><%= dodatek.created_at.strftime("%d-%m-%Y") %></td>
 <% if permitted_to? :delete_dodatek, :pomocniczes %>
-        <td style="border:0;"><%= button_to("", edit_dodatek_path(dodatek.id), :class=>"edit" ) %></td>
+        <td style="border:0;"><%= button_to("", edit_dodatek_path(dodatek.id), :class=>"edit" ,:title=>"Edytuj dodatek nr. #{dodatek.id}") %></td>
       <% end %>
 
       <% if permitted_to? :delete_dodatek, :pomocniczes %>
-        <td style="border:0;"><%= button_to("", usun_po_id_dodatek_path(dodatek.id), :class=>"delete" ) %></td>
+        <td style="border:0;"><%= button_to("", usun_po_id_dodatek_path(dodatek.id), :class=>"delete" ,:title=>"Usuń dodatek nr. #{dodatek.id}") %></td>
       <% end %>
 </tr>

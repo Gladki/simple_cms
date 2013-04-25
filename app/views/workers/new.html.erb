@@ -2,14 +2,14 @@
 
 
 <div class="section new">
-  <h1>Create Section</h1>
+  <h1>Dodaj nowego pracownika</h1>
 
   <%= form_for @new_worker  do |f| %>
   
     <%= render(:partial => 'form', :locals => {:f => f}) %>
     
     <div class="form-buttons">
-      <%= submit_tag("Dodaj pracownika" , :class => "szczegoly") %>
+      <%= submit_tag("" , :class => "add", title: "Dodaj nowego pracownika") %>
     </div>
     
   <% end %>

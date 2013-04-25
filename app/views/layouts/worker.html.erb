@@ -26,9 +26,9 @@ $(function (){
         <ul>
             Witaj: <%= current_user.login.humanize %>.
             
-            <% if permitted_to? :szczegoly, :workers %>
+          <!--   <% if permitted_to? :szczegoly, :workers %>
             <li><%= link_to "Dashboard", szczegoly_po_id_path(current_user.id) %></li>
-            <% end %>
+            <% end %> -->
 
 
           <% if permitted_to? :new, :searches %>
@@ -39,17 +39,6 @@ $(function (){
           <li><%= link_to "Kalendarz", effectivenes_calendar_path %></li>
           <% end %>
         
-         
-          <% if permitted_to? :new, :workers %>
-
-          <li><%= link_to "Dodaj nowego pracownika", nowy_pracownik_path %></li>
-          <% end %>
-        
-         
-
-          <% if permitted_to? :lista, :workers %>
-            <li><%= link_to "Lista pracowników", lista_pracownikow_path %></li>
-          <% end %>
           <% if permitted_to? :index, :tabelanormatywows %>
             <li><%= link_to "Tabela normatywów", tabela_normatywow_path %></li>
           <% end %> 
@@ -67,8 +56,19 @@ $(function (){
             <li><%= link_to "Pomocnicze Dane", pomocnicze_path %></li>
           <% end %>
            
+         
+          <% if permitted_to? :new, :workers %>
 
-           <%= link_to "Wyloguj", wyloguj_path %>
+          <li><%= link_to "Dodaj nowego pracownika", nowy_pracownik_path %></li>
+          <% end %>
+        
+         
+
+          <% if permitted_to? :lista, :workers %>
+            <li><%= link_to "Lista pracowników", lista_pracownikow_path %></li>
+          <% end %>
+
+           <%= button_to "", wyloguj_path, :class=>"exit", :title =>"Wyloguj" %>
 
 
       <% else %>

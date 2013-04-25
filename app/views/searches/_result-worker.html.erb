@@ -14,7 +14,7 @@
   @workers.each do |worker| 
   @workers_id_table << worker.id
   @imie_nazwisko = imie_nazwisko_worker(worker.id)[0] +" "+ imie_nazwisko_worker(worker.id)[1]
-  data_table.new_column('number', @imie_nazwisko )
+  data_table.new_column('number', @imie_nazwisko.humanize )
     cmin = cel_min(worker.id)[0].to_f
     cmax = cel_max(worker.id)[0].to_f
     @effec = Effectivenes.find(:all, :conditions => ["worker_id in (?)" , worker.id], :order => "ef_data asc") 
@@ -90,15 +90,15 @@
 <%= button_to "" ,raport_pracownicy_efektywnosc_path(format: "xls"), :class => "export-excel" %>
 
 
-<table class="listing" summary="Section list">
+<table class="result-search" cellspacing="" summary="Section list">
   <tr class="header">
-      <th>ID<br/>Pracownika</th>
-      <th>ID<br/>Merx<br/>Pracownika</th>
+      <th>ID </th>
+      <th>ID Merx </th>
       <th>Nazwisko</th>
       <th>Imie</th>
-      <th>Najlepsza<br/>Efektywność</th>
-      <th>Najgorsza<br/>Efektywność</th>
-      <th>Realizacja<br/>Celu</th>
+      <th>Najlepsza Efektywność</th>
+      <th>Najgorsza Efektywność</th>
+      <th>Realizacja Celu</th>
     </tr>
     <% @@lista_id = [] %>
 
@@ -109,8 +109,8 @@
    <% @@lista_id << worker.id %>
    
       <td><%= worker.id_worker_merx %></td>
-      <td><%= worker.last_name %></td>
-      <td><%= worker.first_name %></td>
+      <td style="width:150px;"><%= worker.last_name %></td>
+      <td style="width:150px;"><%= worker.first_name %></td>
       <td style="text-align:right"><%= maximum_effectivity(worker.id) %>%</td>
       <td style="text-align:right"><%= minimum_effectivity(worker.id) %>%</td>
       <% 
@@ -141,7 +141,7 @@
      
     
       </td>
-      <td><%= button_to("", szczegoly_po_id_path(worker.id), :class=>"details" ) %></td>
+      <td><%= button_to("", szczegoly_po_id_path(worker.id), :class=>"details", :title=>"Szczegóły pracownika #{worker.last_name.humanize} #{worker.first_name.humanize}" ) %></td>
 
 
 

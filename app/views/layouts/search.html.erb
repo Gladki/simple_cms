@@ -18,10 +18,10 @@
         <div id="navigation">
         <ul>
             Witaj: <%= current_user.login.humanize %>.
-            
+           <!--  
             <% if permitted_to? :szczegoly, :workers %>
             <li><%= link_to "Dashboard", szczegoly_po_id_path(current_user.id) %></li>
-            <% end %>
+            <% end %> -->
 
 
           <% if permitted_to? :new, :searches %>
@@ -61,7 +61,7 @@
           <% end %>
            
 
-           <%= link_to "Wyloguj", wyloguj_path %>
+           <%= button_to "", wyloguj_path, :class=>"exit", :title =>"Wyloguj" %>
 
 
       <% else %>

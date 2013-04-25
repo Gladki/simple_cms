@@ -52,7 +52,7 @@ background-image: url(<%= asset_path('gray_jean.png') %>);
 
 }
 .login {
-	@include rounded-corners(10px);
+	@include rounded-corners(2px);
 	width:200px;
 	margin: 10px auto 120px auto;
 
@@ -61,7 +61,7 @@ background-image: url(<%= asset_path('gray_jean.png') %>);
 	color:darken($gray,40%);
 	background-color: $gray;
 	border: solid 5px darken($gray, 5%);
-	box-shadow: 0px 0px 10px 6px hsla(0,0%,0%,.19);
+	box-shadow: 0px 0px 3px 3px hsla(0,0%,0%,.19);
 	font-size: 12px;
 	font-family: Helvetica Neue Pro;
 	h1{
@@ -90,6 +90,23 @@ background-image: url(<%= asset_path('gray_jean.png') %>);
 		font-size: 13px;
 		border: 1px solid lighten($light-blue, 30%);
 		padding-left: 5px;
+	}
+
+	.logon {
+		background: url('<%= asset_path('login.png') %>');
+		width:32px;
+		background-color: transparent;
+		height:32px;
+		border: none;
+		cursor: pointer;
+		float: left;
+		margin-top:-80px;
+		opacity: 0.5;
+		margin-left: 200px;
+		@include transition(.50s);
+		&:hover {
+			opacity: 1.0;
+		}
 	}
 	.button {
 		float: left;
