@@ -28,7 +28,7 @@
             @test = "ok"
           end
           %>
-           <div class="<%= @test %>"> <%= link_to(" #{imie_nazwisko_worker(efec.worker_id)[0]}  #{imie_nazwisko_worker(efec.worker_id)[1]}", szczegoly_po_id_path(efec.worker_id)) %></div>
+           <div class="<%= @test %>"> <%= link_to(" #{imie_nazwisko_worker(efec.worker_id)[0].humanize}  #{imie_nazwisko_worker(efec.worker_id)[1].humanize}", szczegoly_po_id_path(efec.worker_id)) %></div>
 
         <% end %>
         </ul>
