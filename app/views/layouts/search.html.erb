@@ -8,65 +8,66 @@
     <%= stylesheet_link_tag('worker', 'token-input-facebook', 'jquery-ui-1.10.2.custom.css') %>
     <%= javascript_include_tag  "jquery-ui-1.10.2.custom.js" %>
     <%= javascript_include_tag :application, "jquery.tokeninput","calendar.js", "moment.js" %>
-    <meta name="author" content="Aleksander Gładysz">
 
+    <meta name="author" content="Aleksander Gładysz">
+<script type="text/javascript">
+$(function() {
+  $("#search_keywords").tokenInput("/searches.json", {
+    crossDomain: false,
+    prePopulate: $("#search_keywords").data("pre"),
+    theme: "facebook"
+  });
+});
+</script>
   </head>
   <body>
     <div class="header-pipe-bar">
       <% if current_user %>
 
-        <div id="navigation">
+    <div id="navigation">
         <ul>
-            Witaj: <%= current_user.login.humanize %>.
-           <!--  
-            <% if permitted_to? :szczegoly, :workers %>
+           <li style="padding-top:5px; ">Witaj: <%= current_user.login.humanize %>.</li>
+            
+          <!--   <% if permitted_to? :szczegoly, :workers %>
             <li><%= link_to "Dashboard", szczegoly_po_id_path(current_user.id) %></li>
             <% end %> -->
 
+          <% if permitted_to? :lista, :workers %>
+            <li style="margin-left:20px;"><%= button_to "", lista_pracownikow_path,  :class => "ico pracownik_nav", :title => "Lista pracowników" %></li>
+          <% end %>
 
           <% if permitted_to? :new, :searches %>
-          <li><%= link_to "Szukaj pracownika", nowe_szukanie_path %></li>
+          <li><%= button_to "", nowe_szukanie_path, :class => "ico search_nav", :title => "Szukaj pracownika" %></li>
           <% end %>
           <% if permitted_to? :calendar, :effectivenes %>
           
-          <li><%= link_to "Kalendarz", effectivenes_calendar_path %></li>
+          <li><%= button_to "", effectivenes_calendar_path,  :class => "ico calendar_nav", :title => "Kalendarz efektywności"  %></li>
           <% end %>
         
-         
-          <% if permitted_to? :new, :workers %>
-
-          <li><%= link_to "Dodaj nowego pracownika", nowy_pracownik_path %></li>
-          <% end %>
-        
-         
-
-          <% if permitted_to? :lista, :workers %>
-            <li><%= link_to "Lista pracowników", lista_pracownikow_path %></li>
-          <% end %>
           <% if permitted_to? :index, :tabelanormatywows %>
-            <li><%= link_to "Tabela normatywów", tabela_normatywow_path %></li>
+            <li><%= button_to "", tabela_normatywow_path,  :class => "ico tn_nav", :title => "Tabela normatywów"%></li>
           <% end %> 
            <% if permitted_to? :index, :tabelatransportowas %>
-            <li><%= link_to "Tabela transportowa", tabela_transportowa_path %></li>
+            <li><%= button_to "", tabela_transportowa_path,  :class => "ico tt_nav", :title => "Tabela transportowa" %></li>
           <% end %>
           <% if permitted_to? :index, :typyczynnoscis %>
-            <li><%= link_to "Typy czynności", typy_czynnosci_path %></li>
-          <% end %>
-          <% if permitted_to? :import_render, :workers %>
-            <li><%= link_to "Import danych", import_danych_path %></li>
+            <li><%= button_to "", typy_czynnosci_path ,  :class => "ico tc_nav", :title => "Tabela czynności"%></li>
           <% end %>
 
           <% if permitted_to? :index, :pomocniczes %>
-            <li><%= link_to "Pomocnicze Dane", pomocnicze_path %></li>
+            <li><%= button_to "", pomocnicze_path,  :class => "ico dodatki_nav", :title => "Dane dodatkowe" %></li>
           <% end %>
            
+        
+          <% if permitted_to? :import_render, :workers %>
+            <li ><%= button_to "", import_danych_path,  :class => "ico imp_nav", :title => "Import danych" %></li>
+          <% end %>
 
-           <%= button_to "", wyloguj_path, :class=>"exit", :title =>"Wyloguj" %>
+
+            <li style="float:right; margin-right:20px;"> <%= button_to "", wyloguj_path, :class=>"ico exit_nav", :title =>"Wyloguj" %></li>
 
 
-      <% else %>
-      <%= link_to "Zarejestruj", rejestruj_path %> or
-      <%= link_to "Zaloguj",  zaloguj_path %>
+
       <% end %>
         </ul>
       </div>

@@ -4,6 +4,7 @@ authorization do
 		has_permission_on :searches, :to => [:new,:index,:create,:show,:combo_chart,:lista]
 		has_permission_on :effectivenes, :to => [:index,:new,:delete,:create,:calendar]
 		has_permission_on :celes, :to => [:new,:create,:delete]
+		has_permission_on :premies, :to => [:new,:create,:delete]
 		has_permission_on :tabelanormatywows, :to => [:index,:export,:create,:new,:delete]
 		has_permission_on :tabelatransportowas, :to => [:index,:export,:create,:new,:delete]
 		has_permission_on :typyczynnoscis, :to => [:new,:create,:index,:export,:delete]

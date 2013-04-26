@@ -38,6 +38,10 @@ module ApplicationHelper
   def minimum_effectivity(worker_id)
     @minimum_effectivity = Effectivenes.minimum(:effectivity, :conditions => ["worker_id = ?", worker_id])
     return @minimum_effectivity.to_f
+  end  
+  def minimum_effectivity_data(worker_id,data)
+    @minimum_effectivity_data = Effectivenes.minimum(:effectivity, :conditions => ["worker_id = ? and ef_data like ?", worker_id,"%#{data}%"])
+    return @minimum_effectivity_data.to_f
   end 
 
   # def effectivity_min(worker_id)
@@ -61,7 +65,7 @@ module ApplicationHelper
   end  
    def cel_min_by_date(worker_id,data)
     if Cele.all.include?(worker_id) == false
-    @cel_min = Cele.where("ce_worker_id = ? and created_at >= ?", worker_id,data).order('created_at desc').limit(1).pluck(:ce_minimum)
+    @cel_min = Cele.where("ce_worker_id = ? and ce_data like ?", worker_id,"%#{data}%").order('ce_data asc').limit(1).pluck(:ce_minimum)
     return @cel_min
     else
       @cel_min = 0
@@ -71,7 +75,7 @@ module ApplicationHelper
   end   
   def cel_max_by_date(worker_id,data)
     if Cele.all.include?(worker_id) == false
-    @cel_min = Cele.where("ce_worker_id = ? and created_at >= ?", worker_id,data).order('created_at desc').limit(1).pluck(:ce_maximum)
+    @cel_min = Cele.where("ce_worker_id = ? and ce_data like ?", worker_id,"%#{data}%").order('ce_data asc').limit(1).pluck(:ce_maximum)
     return @cel_min
     else
       @cel_min = 0

@@ -8,6 +8,7 @@ class Cele < ActiveRecord::Base
 	attr_accessible :id, 
 	             :ce_minimum, 
 	             :ce_maximum,
+	             :ce_data,
 	             :ce_worker_id,
 	             :ce_aud_us_id	
 

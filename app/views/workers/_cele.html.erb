@@ -1,4 +1,4 @@
-<table summary="Section form fields">
+<table style="padding-top:20px;" summary="Section form fields">
   <tr>
     <th><%= f.label :ce_minimum, "Cel minimum: " %></th>
     <td><%= f.text_field :ce_minimum %></td>
@@ -6,6 +6,10 @@
   <tr>
     <th><%= f.label :ce_maximum, "Cel maximum: " %></th>
     <td><%= f.text_field :ce_maximum %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :ce_data, "Data celu: " %></th>
+    <td><%= f.text_field :ce_data %></td>
   </tr>
   <tr>
     <td>
@@ -18,5 +22,5 @@
 </table>
 <div style="width:100%; margin:0 auto; text-align:center;">
   
-     <%= submit_tag("Dodaj Cel" , :class => "szczegoly", :remote => true) %>
+     <%= submit_tag("" , :class => "add", :remote => true, title: "Dodaj cel") %>
 </div>

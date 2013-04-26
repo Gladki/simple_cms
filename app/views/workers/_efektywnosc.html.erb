@@ -1,4 +1,4 @@
-<table summary="Section form fields">
+<table style="padding-top:20px;" summary="Section form fields">
   <tr>
     <th><%= f.label :effectivity, "Efektywność: " %></th>
     <td><%= f.text_field :effectivity %></td>
@@ -18,5 +18,5 @@
 </table>
 <div style="width:100%; margin:0 auto; text-align:center;">
 
-     <%= submit_tag("Dodaj efektywność" , :class => "szczegoly", :remote => true) %>
+     <%= submit_tag("" , :class => "add", :remote => true, title: "Dodaj efektywność") %>
 </div>

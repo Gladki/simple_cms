@@ -1,0 +1,27 @@
+<table style="padding-top:20px;" summary="Section form fields">
+  <tr>
+    <th><%= f.label :pe_tytul, "Tytuł premii: " %></th>
+    <td><%= f.text_field :pe_tytul %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :pe_data_od, "Premia obowiązuje od: " %></th>
+    <td><%= f.text_field :pe_data_od %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :pe_data_do, "Premia obowiązuje od: " %></th>
+    <td><%= f.text_field :pe_data_do %></td>
+  </tr>
+  
+  <tr>
+    <td>
+    <%= f.hidden_field :pe_worker_id, :value => @worker.id %>
+    <%= f.hidden_field :pe_aud_us_id, :value => current_user.id %>
+    </td>
+    </tr>
+  
+
+</table>
+<div style="width:100%; margin:0 auto; text-align:center;">
+  
+     <%= submit_tag("" , :class => "add", :remote => true, title: "Dodaj premie") %>
+</div>

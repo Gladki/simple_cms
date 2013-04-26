@@ -21,10 +21,10 @@
     @effec.each do |a|
   
      @narray = Array.new(@workers.size,0)
-     @narray.insert(0,a.ef_data.strftime('%d-%m-%Y'),cmin,cmax)
+     @narray.insert(0,a.ef_data.strftime('%Y-%m-%d'),cmin,cmax)
      @narray.insert(j+2,a.effectivity)
      @narray.delete_at(j+3) 
-     @tabela_dat << [worker.id, a.ef_data.strftime('%d-%m-%Y')]
+     @tabela_dat << [worker.id, a.ef_data.strftime('%Y-%m-%d')]
      @tmp <<  @narray
 
     end
@@ -55,7 +55,13 @@
   opts   = { 
         :width => '100%', 
         :height => '100%', 
-        :vAxis => {:title => 'Efektywność'}, 
+        :vAxis => {:title => 'Efektywność',
+           viewWindowMode: 'explicit',
+              viewWindow:{
+                min:0
+              }
+
+          }, 
         :hAxis => {:title => 'Dzień'},
        
         :chartArea => { :left => 50,  

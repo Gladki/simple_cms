@@ -1,86 +1,98 @@
-<% title "Szczegóły pracownika" %>
+<% title "Szczegóły pracownika nr. #{params[:id]}" %>
 <% @array_of_effectivities =[]
    @array_of_dates =[]  
-   @effec.each do |a| 
-
-   @array_of_effectivities << a.effectivity
-   @array_of_dates << [a.ef_data.year ,a.ef_data.month, a.ef_data.day]
+   
   
-end
+     @tmp =[]
+     @tabela_dat = []
+     @workers_id_table =[]
+  data_table = GoogleVisualr::DataTable.new
+  data_table.new_column('string', 'Dzień')
+  data_table.new_column('number', 'Minimum')
+  data_table.new_column('number', 'Maximum')
+  j = 1
+
+  @workers_id_table << params[:id]
+  @imie_nazwisko = imie_nazwisko_worker(params[:id])[0] +" "+ imie_nazwisko_worker(params[:id])[1]
+  data_table.new_column('number', @imie_nazwisko.humanize )
+    cmin = cel_min(params[:id])[0].to_f
+    cmax = cel_max(params[:id])[0].to_f
+    @test = []
+    @effec.each do |a|
+     @test << a.ef_data.strftime('%d-%m-%Y')
+     @narray = Array.new(1,0)
+     @narray.insert(0,a.ef_data,cmin,cmax)
+     @narray.insert(j+2,a.effectivity)
+     @narray.delete_at(j+3) 
+     @tabela_dat << [params[:id], a.ef_data]
+     @tmp <<  @narray
+
+    end
+   j = j + 1
+
+
+  @celes = []
+  k =0
+  @tabela_dat.sort.uniq.each do |td|
+      @celes << [td[1],cel_min_by_date(td[0],td[1].strftime('%Y-%m-%d'))[0].to_f,cel_max_by_date(td[0],td[1].strftime('%Y-%m-%d'))[0].to_f ]
+      k = k+1
+  end
+  @cele_tabela = @celes.group_by(&:first).map do |date, rs|
+  values = rs[0].zip(*rs[1..-1]).drop(1).map { |xs| xs.reduce(:+) }
+  [values].flatten
+
+  end
+    @aggregated_rows = @tmp.group_by(&:first).map do |date, rs|
+  values = rs[0].zip(*rs[1..-1]).drop(3).map { |xs| xs.reduce(:+)}
+
+  [date.strftime('%d-%m-%Y'), values].flatten
+  end 
+  i=0
+  @aggregated_rows.each do |ar|
+    ar.insert(1,@celes[i][1], @celes[i][2] )
+    i+=1
+  end
+  data_table.add_rows(@aggregated_rows.sort)
+ 
+  opts   = { 
+        :width => '100%', 
+        :height => '100%', 
+        :vAxis => {:title => 'Efektywność'}, 
+         :vAxis => {:title => 'Efektywność',
+           viewWindowMode: 'explicit',
+              viewWindow:{
+                min:0
+              }
+
+          }, 
+       
+        :chartArea => { :left => 50,  
+                        :top => 50,
+                        :width => 800,
+                        :height => 350
+                        }, 
+        :seriesType => 'bars', 
+        :bar => {groupWidth: 80},
+
+        :series => {
+          '1' => {:type => 'line'}, 
+          '0' => {:type => 'line'}
+          } 
+
+        }
+  @chart = GoogleVisualr::Interactive::ComboChart.new(data_table, opts)
 
   %>
 
-<script>
-   $(document).ready(function() {
-    var chart = new Highcharts.Chart({
-
-        chart: {
-            renderTo: 'container_chart',
-        },
-        title: {
-            text: 'Wykres Efektywności'
-        },
-        xAxis: {
-            type: "datetime"        },
-        yAxis: {
-             max: <%= cel_min(params[:id])[0].to_f + 60%>,
-            title: {
-                text: 'Efektywność w procentach'
-            }, 
-            plotLines : [{
-            value : <%= cel_min(params[:id])[0].to_f %> ,
-            color : 'red',
-            dashStyle : 'shortdash',
-            width : 2,
-            label : {
-            text : 'minimum'
-            }
-        },
-          {
-            value : <%= cel_max(params[:id])[0].to_f %> ,
-            color : 'green',
-            dashStyle : 'shortdash',
-            width : 2,
-            label : {
-            text : 'maximum'
-            }
-
-        }]
-
-
-        },
-
-        series: [{
-          
-
-            type: 'column',
-            name: '<%= @worker.first_name + " " + @worker.last_name %>',
-            data: [
-            <% 
-            i = 0
-            @array_of_dates.each do |f| %>
-            [Date.UTC(<%= f.join(",") %>),  <%= @array_of_effectivities[i] %>],
-            <% i = i + 1 %>
-            <% end %>
-               ]
-
-            
-                
-        
-          },
-        
-   
-        ],
-    });
-});
-
-   </script>
-
-
-<div id="container_chart" class="wykres-efektywnosc">
-
-</div>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    
   
+
+
+
+<div id='chart' class="chart"></div>
+<%= render_chart @chart, 'chart' %>
+
   <h1>Dane o pracowniku: </h1>
     <table class="dane-pracownik" >
     	  <tr>
@@ -92,22 +104,22 @@ end
     	  </tr><tr>
     	  	<td class="header">Nazwisko:</td><td><%= @worker.last_name %></td>
     	  </tr><tr>
-    	    <% 
-      val1 = minimum_effectivity(params[:id])
-      val2 = cel_min(params[:id])[0].to_f
-      val3 = cel_max(params[:id])[0].to_f
-     
-          if val2 == 0 and val3 == 0
-            val4 = 0
-          else
-            val4 = (((val1-val2)/(val3-val2))*100).round
-          end
+	    <% 
+        val1 = minimum_effectivity(params[:id])
+        val2 = cel_min(params[:id])[0].to_f
+        val3 = cel_max(params[:id])[0].to_f
+       
+            if val2 == 0 and val3 == 0
+              val4 = 0
+            else
+              val4 = (((val1-val2)/(val3-val2))*100).round
+            end
 
-        if val4 < 0
-          @klasa = "bad"
-        else
-          @klasa = "ok"
-        end
+          if val4 < 0
+            @klasa = "bad"
+          else
+            @klasa = "ok"
+          end
 
        %>
        <td>Najmniejszy poziom<br/>zrealizowania celu:</td><td class="<%= @klasa %>"><%= val4 %>%</td>
@@ -120,17 +132,18 @@ end
     	  <tr>
     	  	<td class="header">Data ostatniego update:</td><td>
 
-          <% if last_update_effectivity(@worker.id_worker) != nil %>
-          <%= last_update_effectivity(@worker.id_worker).strftime("%d-%m-%Y r. ") %>
+          <% if last_update_effectivity(params[:id]) != nil %>
+          <%= last_update_effectivity(params[:id]).strftime("%d-%m-%Y r. ") %>
           <% else  %>
           0
           <% end %>
         </td>
          </tr>
     </table>
+  <div id="1" class="middle-content">
 
   <h1>Efektywności</h1>
-    <table class="tabela-efektywnosci" >
+    <table style="margin-bottom:40px;" class="tabela-efektywnosci" >
       <thead>
         <tr>
           <th>Efektywność</th>
@@ -144,8 +157,8 @@ end
           <tr>
             <% 
           val1 = f.effectivity
-          val2 = cel_min(params[:id])[0].to_f
-          val3 = cel_max(params[:id])[0].to_f
+          val2 = cel_min_by_date(params[:id],f.ef_data.strftime('%Y-%m-%d'))[0].to_f
+          val3 = cel_max_by_date(params[:id],f.ef_data.strftime('%Y-%m-%d'))[0].to_f
               if  val1 != nil
               if val2 == 0 and val3 == 0
                 val4 = 0
@@ -164,7 +177,7 @@ end
           <td class="<%= @klasa %>"><%= val4 %>%</td>
           <td><%= f.ef_data.strftime("%d-%m-%Y r. ")%></td>
           <% if permitted_to? :delete, :effectivenes %>
-          <td><%= button_to("usuń", usun_po_id_efektywnosc_path(f.id), :class=>"szczegoly" ) %></td>
+            <td><%= button_to("", usun_po_id_efektywnosc_path(f.id), :class=>"delete" ) %></td>
           <% end %>
 
           </tr>
@@ -184,16 +197,18 @@ end
   <% end %>
   
 </div>
+</div>
+  <div id="1" class="middle-content">
 
 
     <h1 style="clear:left;">Cele</h1>
     
-  <table class="tabela-efektywnosci" >
+  <table style="margin-bottom:40px;" class="tabela-efektywnosci" >
       <thead>
         <tr>
           <th>Cel minimum</th>
           <th>Cel maximum</th>
-          <th>Data dodania</th>
+          <th>Data celu</th>
         </tr>
       </thead>
       <tbody>
@@ -210,9 +225,14 @@ end
       <tr>
         <td><%= cel.ce_minimum %>%</td>
         <td><%= cel.ce_maximum %>%</td>
-        <td><%= cel.created_at.strftime("%d-%m-%Y r.") %></td>
+          
+          <% if cel.ce_data != nil %>
+          <td><%= cel.ce_data.strftime("%d-%m-%Y r.") %></td>
+        <% else %>
+          <td>-</td>
+        <% end %>
           <% if permitted_to? :delete, :celes %>
-        <td><%= button_to("usuń", usun_po_id_cel_path(cel.id), :class=>"szczegoly" ) %></td>
+        <td><%= button_to("", usun_po_id_cel_path(cel.id), :class=>"delete" ) %></td>
       <% end %>
       </tr>
          <% end %> 
@@ -232,5 +252,51 @@ end
     
   <% end %>
 
+</div>
+</div>
+    <div id="1" class="middle-content">
+
+  <h1 style="clear:left;">Premie</h1>
+    
+  <table style="margin-bottom:40px;" class="tabela-efektywnosci" >
+      <thead>
+        <tr>
+          <th>Tytułem</th>
+          <th>Wartość premii</th>
+          <th>Obowiązuje od</th>
+          <th>Obowiązuje do</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+         <% @premie.each do |premia| %>
+      <tr>
+        <td><%= premia.pe_tytul %></td>
+        <td><%= premia.pe_wartosc %></td>
+        <td><%= premia.pe_data_od %></td>
+        <td><%= premia.pe_data_do %></td>
+         
+          <% if permitted_to? :delete, :premies %>
+        <td><%= button_to("", usun_po_id_premia_path(premia.id), :class=>"delete" ) %></td>
+      <% end %>
+      </tr>
+
+     <% end %>
+     
+      </tbody>
+    </table>
+
+<div id="insert" style="margin-top:20px;width:400px;float:right;">
+  
+
+
+ <%= form_for @nowa_premia do |f| %>
+  
+    <%= render(:partial => 'premia', :locals => {:f => f}) %>
+    
+    
+  <% end %>
+
+</div>
 </div>
 

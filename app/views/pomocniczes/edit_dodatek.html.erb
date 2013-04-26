@@ -1,3 +1,11 @@
+ <% title "Edycja dodatku nr. #{params[:id]}" %>
+
+ <div id="1" class="middle-content">
+    
+ 
+  <h1>Edycja dodatku nr. <%= "#{params[:id]}" %></h1>
+<div id="insert" style="width:400px; float:left; margin:0; padding:20px 0;">
+
 <%= form_for @dodatek do |f| %>
   <table summary="Section form fields">
   <tr>
@@ -43,3 +51,5 @@
 
     
   <% end %>
+</div>
+</div>

@@ -7,7 +7,12 @@
 <p>
 <b>Pobierz listę w formacie: 
 <%= button_to("Excel (.xls)" , lista_pracownikow_path(format: "xls"), :class => "szczegoly") %>
-
+ 
+          <% if permitted_to? :new, :workers %>
+<%= button_to "", nowy_pracownik_path, :class=> "add", title: "Dodaj nowego pracownika" %>
+          <% end %>
+        
+         
 </b>
 </p>
 <br/>
@@ -31,21 +36,25 @@
       <td style="text-align:right"><%= maximum_effectivity(worker.id) %>%</td>
       <td style="text-align:right"><%= minimum_effectivity(worker.id) %>%</td>
       <% 
-      val1 = minimum_effectivity(worker.id)
-      val2 = cel_min(worker.id)[0].to_f
-      val3 = cel_max(worker.id)[0].to_f
+      val1 ||= minimum_effectivity(worker.id)
+      val2 ||= cel_min(worker.id)[0].to_f
+      val3 ||= cel_max(worker.id)[0].to_f
      
+            if ((val3-val2) == 0 )
+            tmpval = 1
+          else
+            tmpval = (val3-val2)
+          end
           if val2 == 0 and val3 == 0
             val4 = 0
           else
-            val4 = (((val1-val2)/(val3-val2))*100).round
+            val4 = (((val1-val2)/(tmpval))*100).round
           end
-
-        if val4 < 0
-          @klasa = "bad"
-        else
-          @klasa = "ok"
-        end
+          if val4 <30
+            @klasa = "bad"
+          else
+            @klasa = "ok"
+          end
 
        %>
       <td class="<%= @klasa %>" style="text-align:right;"><%= val4 %>%</td>

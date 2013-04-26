@@ -5,7 +5,7 @@ class AddCeleTabel < ActiveRecord::Migration
    	t.string :ce_maximum
    	t.integer :ce_worker_id
     t.integer :ce_aud_us_id
-   	
+   	t.data :ce_data
     t.timestamps
    end
   end

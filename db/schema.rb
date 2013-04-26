@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130414162237) do
+ActiveRecord::Schema.define(:version => 20130425215943) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "first_name",      :limit => 25
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20130414162237) do
     t.string   "ce_maximum"
     t.integer  "ce_worker_id"
     t.integer  "ce_aud_us_id"
+    t.datetime "ce_data"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
@@ -83,8 +84,9 @@ ActiveRecord::Schema.define(:version => 20130414162237) do
     t.string   "ob_opis"
     t.string   "ob_kod"
     t.string   "ob_aud_us_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.decimal  "ob_wartosc",   :precision => 10, :scale => 2
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
   end
 
   create_table "pages", :force => true do |t|
@@ -123,10 +125,21 @@ ActiveRecord::Schema.define(:version => 20130414162237) do
     t.datetime "updated_at",                                       :null => false
   end
 
+  create_table "premie", :force => true do |t|
+    t.string   "pe_tytul"
+    t.string   "pe_worker_id"
+    t.string   "pe_data_od"
+    t.string   "pe_data_do"
+    t.decimal  "pe_wartosc",   :precision => 10, :scale => 2
+    t.string   "pe_aud_us_id"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+  end
+
   create_table "searches", :force => true do |t|
     t.string   "keywords"
-    t.integer  "id_worker"
-    t.integer  "id_worker_merx"
+    t.string   "id_worker"
+    t.string   "id_worker_merx"
     t.integer  "min_effectivity"
     t.integer  "max_effectivity"
     t.datetime "date_from"

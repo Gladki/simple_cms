@@ -63,8 +63,10 @@ class WorkersController < ApplicationController
     @effec = Effectivenes.find(:all, :conditions => ["worker_id = ?" , @worker.id], :order => "id DESC")
     @worker_count = Worker.count
     @cele = Cele.find(:all,:conditions => ["ce_worker_id = ?" , @worker.id], :order => "id DESC")
+    @premie = Premie.find(:all,:conditions => ["pe_worker_id = ?" , @worker.id], :order => "id DESC")
     @nowy_cel = Cele.new
     @nowa_efektywnosc = Effectivenes.new
+    @nowa_premia = Premie.new
   end
 
   def import_render

@@ -1,25 +1,17 @@
 <% title "Typy czynnosci" %>
-
-<div class="middle=content">
+ <div id="1" class="middle-content">
     
   <h1>Typy czynności</h1>
- <br/>
- <p id=""></p>
 <p>
 <b>Pobierz listę w formacie: 
 <%= button_to("Excel (.xls)" , export_czynnosci_path(format: "xls"), :class => "szczegoly") %>
 
 </b>
 </p>
-<br/>
 
-<table id="tczynnosci" style="font-size:11px;border-width: 1px;
-  border-spacing: 2px;
-  border-style: hidden;
-  border-color: #000;
-  border-collapse: collapse;
-  text-align:center;
-  " border="1"class="listing" summary="Section list">
+
+
+<table id="tczynnosci" border="1"class="listing" summary="Section list">
     <tr class="header">
       <th>Kod<br/>Czynności</th>
       <th>Opis</th>
@@ -27,14 +19,12 @@
       <th>Pochodzenie</th>
       <th>Data utworzenia</th>
     </tr>
+    
  <% @czynnosci.each do |czynnosc| %>
  <%= render(:partial =>'czynnosc', :locals => {:czynnosc => czynnosc}) %>
           
      <% end %>
    </table>
-
-  </div>
-  <div class="middle-content">
       
 <div id="insert">
   <p>Dodaj nową czynność:</p>
@@ -47,5 +37,7 @@
   <% end %>
 
 
-</div>
+
     </div>  
+ </div>
+

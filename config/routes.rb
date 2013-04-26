@@ -12,7 +12,7 @@ SimpleCms::Application.routes.draw do
 
     get "rejestruj" => "users#new", :as => "rejestruj"
     get "zaloguj" => "sessions#new", :as => "zaloguj"
-    get "wyloguj" => "sessions#destroy", :as => "wyloguj"
+    post "wyloguj" => "sessions#destroy", :as => "wyloguj"
     
     match 'import' => 'workers#import_render', :as => 'import_danych'
     match 'pracownik/szczegoly/:id' => 'workers#szczegoly', :as => 'szczegoly_po_id'
@@ -51,6 +51,7 @@ SimpleCms::Application.routes.draw do
     match 'pomocnicze/usun-dodatek/:id' => 'pomocniczes#delete_dodatek', :as => 'usun_po_id_dodatek'
     match 'pomocnicze/usun-obszar/:id' => 'pomocniczes#delete_obszar', :as => 'usun_po_id_obszar'
     match 'pracownik/:id2/cel/usun/:id' => 'celes#delete', :as => 'usun_po_id_cel'
+    match 'pracownik/:id2/premia/usun/:id' => 'premies#delete', :as => 'usun_po_id_premia'
     match 'pracownik/:id2/efektywnosc/usun/:id' => 'effectivenes#delete', :as => 'usun_po_id_efektywnosc'
 
     resources :typyczynnoscis do
@@ -61,6 +62,7 @@ SimpleCms::Application.routes.draw do
     resources :sessions
     resources :users
     resources :celes
+    resources :premies
     resources :effectivenes
     resources :effectivene
 
