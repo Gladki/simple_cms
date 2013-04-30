@@ -1,0 +1,44 @@
+<% title "Czasy dostępne" %>
+ <div id="1" class="middle-content">
+    
+  <h1>Czasy dostępne</h1>
+<p>
+<b>Pobierz listę w formacie: 
+<%= button_to("Excel (.xls)" , export_czasy_dostepne_path(format: "xls"), :class => "szczegoly") %>
+
+</b>
+</p>
+
+
+
+<table id="tczynnosci" border="1"class="listing" summary="Section list">
+    <tr class="header">
+      <th>Id pracownika </th>
+      <th>Id pracownika merx</th>
+    
+      <th>Data</th>
+      <th>Godziny przepracowane</th>
+      <th>Godziny netto</th>
+    </tr>
+    
+ <% @czasy.each do |czas| %>
+ <%= render(:partial =>'czas', :locals => {:czas => czas}) %>
+          
+     <% end %>
+   </table>
+      
+<div id="insert">
+  <p>Dodaj nowy czas:</p>
+
+ <%= form_for @nowy_czas do |f| %>
+  
+    <%= render(:partial => 'form', :locals => {:f => f}) %>
+    
+    
+  <% end %>
+
+
+
+    </div>  
+ </div>
+

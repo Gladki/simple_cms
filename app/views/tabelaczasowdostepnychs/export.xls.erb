@@ -1,0 +1,28 @@
+
+<% data = DateTime.now.to_date.strftime("%d-%m-%Y") %>
+<% headers["Content-Disposition"] = "attachment; filename=\"tabela-czasow-dostepnych-#{data}.xls\""  %>
+<table id="tczynnosci" border="1"class="listing" summary="Section list">
+    <tr class="header">
+      <th>Id pracownika </th>
+      <th>Id pracownika merx</th>
+    
+      <th>Data</th>
+      <th>Godziny przepracowane</th>
+      <th>Godziny chorobowe</th>
+    </tr>
+    
+ <% @czasy.each do |czas| %>
+<tr>
+
+<td><%= czas.tcd_id_worker %></td>
+<td><%= czas.tcd_id_worker_merx %></td>
+
+<td style="width:100px;"><%= czas.tcd_data.strftime("%d-%m-%Y") %></td>
+<td style="width:100px;"><%= czas.tcd_sum_godz_przep %></td>
+<td style="width:100px;"><%= czas.tcd_sum_godz_chor %></td>
+
+</tr>
+          
+     <% end %>
+   </table>
+      

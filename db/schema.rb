@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425215943) do
+ActiveRecord::Schema.define(:version => 20130426111746) do
 
   create_table "admin_users", :force => true do |t|
     t.string   "first_name",      :limit => 25
@@ -177,6 +177,18 @@ ActiveRecord::Schema.define(:version => 20130425215943) do
     t.boolean  "visible",    :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+  end
+
+  create_table "tabela_czasow_dostepnych", :force => true do |t|
+    t.integer  "tcd_id_worker"
+    t.integer  "tcd_id_worker_merx"
+    t.date     "tcd_data"
+    t.decimal  "tcd_sum_godz_przep",   :precision => 10, :scale => 2
+    t.decimal  "tcd_sum_godz_chor",    :precision => 10, :scale => 2
+    t.string   "tcd_import_file_info"
+    t.string   "tcd_aud_us_id"
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
   end
 
   create_table "tabela_normatywow", :force => true do |t|

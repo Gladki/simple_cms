@@ -1,6 +1,6 @@
 class Tabelanormatywow < ActiveRecord::Base
 
-self.table_name = 'tabela_normatywow'
+ self.table_name = 'tabela_normatywow'
  validates_presence_of [:tn_kod_czynnosci, 
                  :tn_opis_czynnosci, 
                  :tn_jednostka_odniesienia, 

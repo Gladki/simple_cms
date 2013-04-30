@@ -1,0 +1,30 @@
+<table summary="Section form fields">
+  <tr>
+    <th><%= f.label :tcd_id_worker, "Id pracownika" %></th>
+    <td><%= f.text_field :tcd_id_worker %></td>
+   </tr><tr>
+
+    <th><%= f.label :tcd_id_worker_merx, "Id pracownika merx" %></th>
+    <td><%= f.text_field :tcd_id_worker_merx %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :tcd_data, "Data: " %></th>
+    <td><%= f.text_field :tcd_data %></td>
+  </tr><tr>
+    <th><%= f.label :tcd_sum_godz_przep, "Suma godzin przepracowanych: " %></th>
+    <td><%= f.text_field :tcd_sum_godz_przep, :placeholder => '0.0' %></td>
+  </tr>
+   <tr>
+    <th><%= f.label :tcd_sum_godz_chor, "Suma godzin chorobowych: " %></th>
+    <td><%= f.text_field :tcd_sum_godz_chor, :placeholder => '0.0' %></td>
+   </tr><tr>
+
+    <th><%= f.label :tcd_import_file_info, "Informacja importowa: " %></th>
+    <td><%= f.text_field :tcd_import_file_info, :value => "Dodana ręcznie" %></td>
+  </tr> 
+ 
+    <%= f.hidden_field :tcd_aud_us_id, :value => current_user.id %>
+   
+
+</table>
+     <%= submit_tag("" , :class => "add", :remote => true) %>

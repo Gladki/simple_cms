@@ -1,0 +1,15 @@
+<tr>
+
+<td><%= czas.tcd_id_worker %></td>
+<td><%= czas.tcd_id_worker_merx %></td>
+
+<td style="width:100px;"><%= czas.tcd_data.strftime("%d-%m-%Y") %></td>
+<td style="width:100px;"><%= czas.tcd_sum_godz_przep %> h</td>
+<td style="width:100px;"><%= czas.tcd_sum_godz_przep - (((czas.tcd_sum_godz_przep)/8)*0.5).round(2)  %> h</td>
+<!-- <td style="width:100px;"><%= czas.tcd_sum_godz_chor %></td> -->
+
+
+<% if permitted_to? :delete, :tabelaczasowdostepnychs %>
+        <td style="border:0;"><%= button_to("", usun_po_id_czas_dostepny_path(czas.id), :class=>"delete" ) %></td>
+      <% end %>
+</tr>

@@ -1,0 +1,31 @@
+<tr>
+
+<td> <%= norma.rn_id_worker %> </td>
+<td> <%= norma.rn_id_worker_merx %> </td>
+
+<td> <%= norma.rn_data.strftime("%d-%m-%Y") %> </td>
+
+<td> <%= norma.rn_obszar %> </td>
+<td> <%= norma.rn_magazyn %> </td>
+<td> <%= norma.rn_typ_operacji %> </td>
+<td> <%= norma.rn_komentarz %> </td>
+
+<td> <%= norma.rn_normatywy_czas_suma_tg %> </td>
+<td> <%= norma.rn_normatywy_czas_suma_tj %> </td>
+<td> <%= norma.rn_tabela_transportowa_suma_tg %> </td>
+<td> <%= norma.rn_tabela_transportowa_suma_tj %> </td>
+<td> <%= norma.rn_suma_tj %> </td>
+
+<td> <%= norma.rn_import_file_info %> </td>
+
+
+<td style="width:100px;"><%= norma.tcd_data.strftime("%d-%m-%Y") %></td>
+<td style="width:100px;"><%= norma.tcd_sum_godz_przep %> h</td>
+<td style="width:100px;"><%= norma.tcd_sum_godz_przep - (((norma.tcd_sum_godz_przep)/8)*0.5).round(2)  %> h</td>
+<!-- <td style="width:100px;"><%= czas.tcd_sum_godz_chor %></td> -->
+
+
+<% if permitted_to? :delete, :realizacjanorms %>
+        <td style="border:0;"><%= button_to("", usun_po_id_czas_dostepny_path(norma.id), :class=>"delete" ) %></td>
+      <% end %>
+</tr>

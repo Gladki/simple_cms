@@ -25,6 +25,7 @@ SimpleCms::Application.routes.draw do
     match '/pomocnicze/nowy-dodatek' => 'pomocniczes#create' , :as => 'obszars'
     match '/tabela-normatywow/nowy-normatyw' => 'tabelanormatywows#create' , :as => 'tabelanormatywows'
     match '/tabela-transportowa/nowy-transport' => 'tabelatransportowas#create' , :as => 'tabelatransportowas'
+    match '/tabela-czasow-dostepnych/nowy-czas' => 'tabelaczasowdostepnychs#create' , :as => 'tabelaczasowdostepnyches'
     match '/pomocnicze' => 'pomocniczes#index' , :as => 'pomocnicze'
     #EFEKTYWNOSCI
     match 'efektywnosci/kalendarz' => 'effectivenes#calendar' , :as => 'effectivenes_calendar'
@@ -33,6 +34,7 @@ SimpleCms::Application.routes.draw do
     match 'tabela-normatywow' => 'tabelanormatywows#index', :as => 'tabela_normatywow'
     match 'tabela-transportowa' => 'tabelatransportowas#index', :as => 'tabela_transportowa'
     match 'typy-czynnosci' => 'typyczynnoscis#index', :as => 'typy_czynnosci'
+    match 'tabela-czasow-dostepnych' => 'tabelaczasowdostepnychs#index', :as => 'tabela_czasow_dostepnych'
 
     #EDYCJA
     match 'obszar/edytuj/:id' => 'pomocniczes#edit_obszar', :as => 'edit_obszar'
@@ -47,6 +49,7 @@ SimpleCms::Application.routes.draw do
     match 'typy-czynnosci/usun/:id' => 'typyczynnoscis#delete', :as => 'usun_po_id_czynnosc'
     match 'tabela-czynnosci/usun/:id' => 'tabelanormatywows#delete', :as => 'usun_po_id_normatyw'
     match 'tabela-transportowa/usun/:id' => 'tabelatransportowas#delete', :as => 'usun_po_id_transport'
+    match 'tabela-czasow-dostepnych/usun/:id' => 'tabelaczasowdostepnychs#delete', :as => 'usun_po_id_czas_dostepny'
     match 'pomocnicze/usun/:id' => 'pomocniczes#delete', :as => 'usun_po_id_predkosc'
     match 'pomocnicze/usun-dodatek/:id' => 'pomocniczes#delete_dodatek', :as => 'usun_po_id_dodatek'
     match 'pomocnicze/usun-obszar/:id' => 'pomocniczes#delete_obszar', :as => 'usun_po_id_obszar'
@@ -75,11 +78,12 @@ SimpleCms::Application.routes.draw do
     match '/tabela-normatywow/export' => 'tabelanormatywow#export', :as => :export_normatywow
     match '/tabela-transportowa/export' => 'tabelatransportowas#export', :as => :export_tabela_transportowa
     match '/typy-czynnosci/export' => 'typyczynnosci#export', :as => :export_czynnosci
+    match '/tabela-czasow-dostepnych/export' => 'tabelaczasowdostepnychs#export', :as => :export_czasy_dostepne
 
 
     #IMPORTY
     resources :workers do 
-      collection {post :import , :import_tn, :import_tc, :import_tt}
+      collection {post :import , :import_tn, :import_tc, :import_tt,:import_tdc}
     end
 
 

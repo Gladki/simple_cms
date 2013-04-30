@@ -52,14 +52,17 @@
     ar.insert(1,@celes[i][1], @celes[i][2] )
     i+=1
   end
+   # @aggregated_rows << ["11-04-2013", 100.0, 120.0, 120]
   data_table.add_rows(@aggregated_rows.sort)
  
   opts   = { 
         :width => '100%', 
         :height => '100%', 
-        :vAxis => {:title => 'Efektywność'}, 
+      
+
          :vAxis => {:title => 'Efektywność',
            viewWindowMode: 'explicit',
+    
               viewWindow:{
                 min:0
               }
@@ -92,7 +95,7 @@
 
 <div id='chart' class="chart"></div>
 <%= render_chart @chart, 'chart' %>
-
+<%= @aggregated_rows %>
   <h1>Dane o pracowniku: </h1>
     <table class="dane-pracownik" >
     	  <tr>
