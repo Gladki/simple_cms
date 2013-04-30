@@ -1,37 +1,39 @@
-<table summary="Section form fields">
+<table id="ttrans" summary="Section form fields">
   <tr>
     <th><%= f.label :rn_id_worker, "Id pracownika" %></th>
     <td><%= f.text_field :rn_id_worker %></td>
-   </tr><tr>
-
+  
     <th><%= f.label :rn_id_worker_merx, "Id pracownika merx" %></th>
     <td><%= f.text_field :rn_id_worker_merx %></td>
-  </tr>
-  <tr>
+  
     <th><%= f.label :rn_data, "Data: " %></th>
     <td><%= f.text_field :rn_data %></td>
   </tr>
   <tr>
     <th><%= f.label :rn_obszar, "Obszar: " %></th>
-    <td><%= f.text_field :rn_obszar %></td>
-  </tr>
-  <tr>
+    <td><%= f.collection_select :rn_obszar, Obszar.find(:all), :id, :ob_kod, :prompt => "Wybierz obszar" %></td>
+
     <th><%= f.label :rn_magazyn, "Magazyn: " %></th>
     <td><%= f.text_field :rn_magazyn %></td>
-  </tr> 
-  <tr>
+
     <th><%= f.label :rn_typ_operacji, "Typ operacji: " %></th>
-    <td><%= f.text_field :rn_typ_operacji %></td>
+      <td><%= f.select(:rn_typ_operacji, options_for_select([
+      ['kompletacja', 'kompletacja'], 
+      ['rozładunek', 'rozładunek'], 
+      ['przesunięcie', 'przesunięcie'], 
+      ['załadunek', 'załadunek'], 
+      ['przyjęcie', 'przyjęcie'], 
+      ['rozwożenie', 'rozwożenie']],
+      1) ) %>
+    </td>
   </tr> 
    <tr>
     <th><%= f.label :rn_komentarz, "Komentarz:  " %></th>
     <td><%= f.text_field :rn_komentarz %></td>
-  </tr>
-  <tr>
+  </tr><tr>
     <th><%= f.label :rn_normatywy_czas_suma_tg, "Suma godzin normatywnych  przepracowanych [tg]: " %></th>
     <td><%= f.text_field :rn_normatywy_czas_suma_tg, :placeholder => '0.0' %></td>
-  </tr>
-  <tr>
+  
     <th><%= f.label :rn_normatywy_czas_suma_tj, "Suma godzin normatywnych przepracowanych [tj]: " %></th>
     <td><%= f.text_field :rn_normatywy_czas_suma_tj, :placeholder => '0.0' %></td>
   </tr>
@@ -39,13 +41,12 @@
    <tr>
     <th><%= f.label :rn_tabela_transportowa_suma_tg, "Suma godzin z tabeli transportowej[tg]: " %></th>
     <td><%= f.text_field :rn_tabela_transportowa_suma_tg, :placeholder => '0.0' %></td>
-   </tr><tr>
 
-    <th><%= f.label :tcd_import_file_info, "Informacja importowa: " %></th>
-    <td><%= f.text_field :tcd_import_file_info, :value => "Dodana ręcznie" %></td>
+    <th><%= f.label :rn_import_file_info, "Informacja importowa: " %></th>
+    <td><%= f.text_field :rn_import_file_info, :value => "Dodana ręcznie" %></td>
   </tr> 
  
-    <%= f.hidden_field :tcd_aud_us_id, :value => current_user.id %>
+    <%= f.hidden_field :rn_aud_us_id, :value => current_user.id %>
    
 
 </table>

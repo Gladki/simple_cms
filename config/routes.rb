@@ -26,6 +26,7 @@ SimpleCms::Application.routes.draw do
     match '/tabela-normatywow/nowy-normatyw' => 'tabelanormatywows#create' , :as => 'tabelanormatywows'
     match '/tabela-transportowa/nowy-transport' => 'tabelatransportowas#create' , :as => 'tabelatransportowas'
     match '/tabela-czasow-dostepnych/nowy-czas' => 'tabelaczasowdostepnychs#create' , :as => 'tabelaczasowdostepnyches'
+    match '/tabela-realizacji-norm/nowa-realizacja' => 'realizacjanorms#create' , :as => 'realizacjanorms'
     match '/pomocnicze' => 'pomocniczes#index' , :as => 'pomocnicze'
     #EFEKTYWNOSCI
     match 'efektywnosci/kalendarz' => 'effectivenes#calendar' , :as => 'effectivenes_calendar'
@@ -35,6 +36,7 @@ SimpleCms::Application.routes.draw do
     match 'tabela-transportowa' => 'tabelatransportowas#index', :as => 'tabela_transportowa'
     match 'typy-czynnosci' => 'typyczynnoscis#index', :as => 'typy_czynnosci'
     match 'tabela-czasow-dostepnych' => 'tabelaczasowdostepnychs#index', :as => 'tabela_czasow_dostepnych'
+    match 'tabela-realizacji-norm' => 'realizacjanorms#index', :as => 'tabela_realizacji_norm'
 
     #EDYCJA
     match 'obszar/edytuj/:id' => 'pomocniczes#edit_obszar', :as => 'edit_obszar'
@@ -50,6 +52,7 @@ SimpleCms::Application.routes.draw do
     match 'tabela-czynnosci/usun/:id' => 'tabelanormatywows#delete', :as => 'usun_po_id_normatyw'
     match 'tabela-transportowa/usun/:id' => 'tabelatransportowas#delete', :as => 'usun_po_id_transport'
     match 'tabela-czasow-dostepnych/usun/:id' => 'tabelaczasowdostepnychs#delete', :as => 'usun_po_id_czas_dostepny'
+    match 'tabela-realizacji-norm/usun/:id' => 'realizacjanorms#delete', :as => 'usun_po_id_realizacja_norm'
     match 'pomocnicze/usun/:id' => 'pomocniczes#delete', :as => 'usun_po_id_predkosc'
     match 'pomocnicze/usun-dodatek/:id' => 'pomocniczes#delete_dodatek', :as => 'usun_po_id_dodatek'
     match 'pomocnicze/usun-obszar/:id' => 'pomocniczes#delete_obszar', :as => 'usun_po_id_obszar'
@@ -83,7 +86,7 @@ SimpleCms::Application.routes.draw do
 
     #IMPORTY
     resources :workers do 
-      collection {post :import , :import_tn, :import_tc, :import_tt,:import_tdc}
+      collection {post :import , :import_tn, :import_tc, :import_tt,:import_tdc, :import_rn}
     end
 
 

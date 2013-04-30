@@ -111,6 +111,14 @@ class WorkersController < ApplicationController
       redirect_to import_danych_path, notice: "Plik o podanej nazwie zostal juz poprawnie wgrany!"
     end
   end
+ def import_rn
+    Realizacjanorm.import(params[:file])
+    if Realizacjanorm.create.new_record? == true  
+      redirect_to import_danych_path, notice: "Tabela realizacji norm dostepnych zostala poprawnie dodana"
+    else
+      redirect_to import_danych_path, notice: "Plik o podanej nazwie zostal juz poprawnie wgrany!"
+    end
+  end
 
 
 end

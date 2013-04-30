@@ -22,6 +22,8 @@ GEM
       activesupport (= 3.2.11)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
+    activerecord-postgresql-adapter (0.0.1)
+      pg
     activeresource (3.2.11)
       activemodel (= 3.2.11)
       activesupport (= 3.2.11)
@@ -31,6 +33,7 @@ GEM
     addressable (2.3.3)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.0.1-x86-mingw32)
     best_in_place (2.1.0)
       jquery-rails
       rails (~> 3.1)
@@ -42,16 +45,11 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
-    daemons (1.1.9)
     declarative_authorization (0.5.7)
-    em-proxy (0.1.8)
-      eventmachine
     erubis (2.7.0)
-    eventmachine (1.0.0)
     excon (0.16.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    ffi (1.4.0)
     google_visualr (2.1.7)
     heroku (2.35.0)
       heroku-api (~> 0.3.7)
@@ -61,11 +59,6 @@ GEM
       rubyzip
     heroku-api (0.3.7)
       excon (~> 0.16.10)
-    heroku-forward (0.3.1)
-      em-proxy (>= 0.1.8)
-      ffi
-      i18n (~> 0.6)
-      spoon (~> 0.0.1)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -79,17 +72,17 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    metaclass (0.0.1)
     mime-types (1.19)
-    mocha (0.13.2)
-      metaclass (~> 0.0.1)
     multi_json (1.5.0)
     mysql2 (0.3.11)
+    mysql2 (0.3.11-x86-mingw32)
     netrc (0.7.7)
     newrelic_rpm (3.5.7.59)
     nifty-generators (0.4.6)
     nokogiri (1.5.6)
+    nokogiri (1.5.6-x86-mingw32)
     pg (0.14.1)
+    pg (0.14.1-x86-mingw32)
     polyglot (0.3.3)
     rack (1.4.4)
     rack-cache (1.2)
@@ -130,7 +123,6 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    spoon (0.0.1)
     spreadsheet (0.8.2)
       ruby-ole (>= 1.0)
     sprockets (2.2.2)
@@ -138,10 +130,6 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    thin (1.5.0)
-      daemons (>= 1.0.9)
-      eventmachine (>= 0.12.6)
-      rack (>= 1.0.0)
     thor (0.17.0)
     tilt (1.3.3)
     treetop (1.4.12)
@@ -155,17 +143,17 @@ GEM
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
-  bcrypt-ruby
+  activerecord-postgresql-adapter
+  bcrypt-ruby (~> 3.0.0)
   best_in_place
   coffee-rails (~> 3.2.1)
   declarative_authorization
   google_visualr
   heroku
-  heroku-forward
   jquery-rails
-  mocha
   mysql2
   newrelic_rpm
   nifty-generators
@@ -174,6 +162,5 @@ DEPENDENCIES
   rails-simple-search
   roo
   sass-rails (~> 3.2.3)
-  thin
   uglifier (>= 1.0.3)
   watu_table_builder

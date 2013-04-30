@@ -11,14 +11,23 @@
 
 
 
-<table id="tczynnosci" border="1"class="listing" summary="Section list">
+<table id="tczynnosci" style="width:100%" border="1"class="listing" summary="Section list">
     <tr class="header">
       <th>Id pracownika </th>
       <th>Id pracownika merx</th>
     
       <th>Data</th>
-      <th>Godziny przepracowane</th>
-      <th>Godziny netto</th>
+      <th>Obszar</th>
+      <th>Magazyn</th>
+      <th>Typ operacji</th>
+   
+      <th>Czas normatywy [tg]</th>
+      <th>Czas normatywy [tj]</th>
+      <th>Czas tabela-transportowa [tg]</th>
+      <th>Czas tabela-transportowa [tj]</th>
+      <th>Suma czasów [tj]</th>
+      <th>Źródło</th>
+      <th>Komentarz</th>
     </tr>
     
  <% @normy.each do |norma| %>
@@ -26,7 +35,9 @@
           
      <% end %>
    </table>
-      
+
+</div>
+   <div id="1" class="middle-content">
 <div id="insert">
   <p>Dodaj nowy czas:</p>
 
@@ -39,6 +50,5 @@
 
 
 
-    </div>  
- </div>
+ </div> 
 

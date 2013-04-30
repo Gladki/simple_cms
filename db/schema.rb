@@ -11,34 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426111746) do
-
-  create_table "admin_users", :force => true do |t|
-    t.string   "first_name",      :limit => 25
-    t.string   "last_name",       :limit => 50
-    t.string   "email",           :limit => 100, :default => "", :null => false
-    t.string   "hashed_password", :limit => 40
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
-    t.string   "username",        :limit => 25
-    t.string   "salt",            :limit => 40
-  end
-
-  add_index "admin_users", ["username"], :name => "index_admin_users_on_username"
-
-  create_table "admin_users_pages", :id => false, :force => true do |t|
-    t.integer "admin_user_id"
-    t.integer "page_id"
-  end
-
-  add_index "admin_users_pages", ["admin_user_id", "page_id"], :name => "index_admin_users_pages_on_admin_user_id_and_page_id"
+ActiveRecord::Schema.define(:version => 20130426133221) do
 
   create_table "cele", :force => true do |t|
     t.string   "ce_minimum"
     t.string   "ce_maximum"
     t.integer  "ce_worker_id"
     t.integer  "ce_aud_us_id"
-    t.datetime "ce_data"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
@@ -72,10 +51,8 @@ ActiveRecord::Schema.define(:version => 20130426111746) do
   end
 
   create_table "groups_users", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "group_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer "user_id"
+    t.integer "group_id"
   end
 
   create_table "obszary", :force => true do |t|
@@ -83,26 +60,14 @@ ActiveRecord::Schema.define(:version => 20130426111746) do
     t.string   "ob_magazyn"
     t.string   "ob_opis"
     t.string   "ob_kod"
-    t.string   "ob_aud_us_id"
     t.decimal  "ob_wartosc",   :precision => 10, :scale => 2
+    t.string   "ob_aud_us_id"
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
   end
 
-  create_table "pages", :force => true do |t|
-    t.integer  "subject_id"
-    t.string   "name"
-    t.string   "permalink"
-    t.integer  "position"
-    t.boolean  "visible",    :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-  end
-
-  add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
-  add_index "pages", ["subject_id"], :name => "index_pages_on_subject_id"
-
   create_table "positions", :force => true do |t|
+    t.integer  "worker_id"
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -136,47 +101,35 @@ ActiveRecord::Schema.define(:version => 20130426111746) do
     t.datetime "updated_at",                                  :null => false
   end
 
+  create_table "realizacja_norm", :force => true do |t|
+    t.integer  "rn_id_worker"
+    t.integer  "rn_id_worker_merx"
+    t.date     "rn_data"
+    t.string   "rn_obszar"
+    t.string   "rn_magazyn"
+    t.string   "rn_typ_operacji"
+    t.string   "rn_komentarz"
+    t.decimal  "rn_normatywy_czas_suma_tg",      :precision => 10, :scale => 2
+    t.decimal  "rn_normatywy_czas_suma_tj",      :precision => 10, :scale => 2
+    t.decimal  "rn_tabela_transportowa_suma_tg", :precision => 10, :scale => 2
+    t.decimal  "rn_tabela_transportowa_suma_tj", :precision => 10, :scale => 2
+    t.decimal  "rn_suma_tj",                     :precision => 10, :scale => 2
+    t.string   "rn_import_file_info"
+    t.string   "rn_aud_us_id"
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
+  end
+
   create_table "searches", :force => true do |t|
     t.string   "keywords"
-    t.string   "id_worker"
-    t.string   "id_worker_merx"
+    t.integer  "id_worker"
+    t.integer  "id_worker_merx"
     t.integer  "min_effectivity"
     t.integer  "max_effectivity"
     t.datetime "date_from"
     t.datetime "date_to"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-  end
-
-  create_table "section_edits", :force => true do |t|
-    t.integer  "admin_user_id"
-    t.integer  "section_id"
-    t.string   "summary"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "section_edits", ["admin_user_id", "section_id"], :name => "index_section_edits_on_admin_user_id_and_section_id"
-
-  create_table "sections", :force => true do |t|
-    t.integer  "page_id"
-    t.string   "name"
-    t.integer  "position"
-    t.boolean  "visible",      :default => false
-    t.string   "content_type"
-    t.text     "content"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-  end
-
-  add_index "sections", ["page_id"], :name => "index_sections_on_page_id"
-
-  create_table "subjects", :force => true do |t|
-    t.string   "name"
-    t.integer  "position"
-    t.boolean  "visible",    :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
   end
 
   create_table "tabela_czasow_dostepnych", :force => true do |t|
@@ -215,18 +168,18 @@ ActiveRecord::Schema.define(:version => 20130426111746) do
     t.string   "tt_ruch_od"
     t.string   "tt_ruch_do"
     t.string   "tt_srodek_transportu"
-    t.decimal  "tt_dystans_od",                      :precision => 10, :scale => 2
-    t.decimal  "tt_dystans_do",                      :precision => 10, :scale => 2
+    t.decimal  "tt_dystans_od",        :precision => 10, :scale => 2
+    t.decimal  "tt_dystans_do",        :precision => 10, :scale => 2
     t.integer  "tt_ilosc_zakretow"
     t.integer  "tt_ilosc_start_stop"
     t.string   "tt_rodzaj_pobrania"
     t.string   "tt_komentarz"
+    t.string   "tt_dodatek_kod"
     t.string   "tt_predkosc_kod"
-    t.string   "tt_dodatek_kod",       :limit => 45
     t.string   "tt_import_file_info"
     t.string   "tt_aud_us_id"
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
   end
 
   create_table "typy_czynnosci", :force => true do |t|

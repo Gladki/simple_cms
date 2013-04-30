@@ -10,6 +10,18 @@
 
 
   <p><b>Import danych z pliku EXCEL</b></p>
+
+  <div class="left_auto_div">
+ <p>Tabela wymiany czasów:</p>
+
+  <%= form_tag import_rn_workers_path, multipart: true do %>
+    <%= file_field_tag :file , :class => "szczegoly"%><br/><br/>
+    <%= submit_tag "Importuj!" , :class => "szczegoly"%>
+  <% end %>
+
+
+</div>
+<!-- <div style="float:left; padding:10px; width: auto; height: auto;">
 <p>Efektywności:</p>
 
   <%= form_tag import_workers_path, multipart: true do %>
@@ -18,6 +30,8 @@
   <% end %> 
 
 
+</div> -->
+<div class="left_auto_div">
 
 <p>Tabela Normatywów:</p>
 
@@ -27,6 +41,9 @@
   <% end %>
 
 
+
+</div>
+<div class="left_auto_div">
 <p>Tabela Transportowa:</p>
 
   <%= form_tag import_tt_workers_path, multipart: true do %>
@@ -36,6 +53,9 @@
 
 
 
+</div>
+<div class="left_auto_div">
+
   <p>Tabela Czynności:</p>
 
   <%= form_tag import_tc_workers_path, multipart: true do %>
@@ -43,9 +63,14 @@
     <%= submit_tag "Importuj!" , :class => "szczegoly"%>
   <% end %>
 
+
+</div>
+<div class="left_auto_div">
   <p>Tabela Czasow dostepnych:</p>
 
   <%= form_tag import_tdc_workers_path, multipart: true do %>
     <%= file_field_tag :file , :class => "szczegoly"%><br/><br/>
     <%= submit_tag "Importuj!" , :class => "szczegoly"%>
   <% end %>
+
+</div>

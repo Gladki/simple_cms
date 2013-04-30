@@ -64,7 +64,7 @@ end
       row = Hash[[header,[rn_id_worker,rn_id_worker_merx,rn_data,rn_obszar,
                           rn_magazyn,rn_typ_operacji, rn_komentarz,
                           rn_normatywy_czas_suma_tg, rn_normatywy_czas_suma_tj, 
-                          rn_tabela_transportowa_suma_tg, rn_tabela_transportowa_suma_tj, rn_suma_tj
+                          rn_tabela_transportowa_suma_tg, rn_tabela_transportowa_suma_tj, rn_suma_tj,
                           rn_import_file_info]].transpose]
       Realizacjanorm.create row 
     end
