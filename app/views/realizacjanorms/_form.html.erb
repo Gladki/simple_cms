@@ -1,21 +1,25 @@
 <table id="ttrans" summary="Section form fields">
   <tr>
     <th><%= f.label :rn_id_worker, "Id pracownika" %></th>
-    <td><%= f.text_field :rn_id_worker %></td>
-  
-    <th><%= f.label :rn_id_worker_merx, "Id pracownika merx" %></th>
-    <td><%= f.text_field :rn_id_worker_merx %></td>
-  
+    <td style="width:60px;"><%= f.text_field :rn_id_worker, :style=> 'width:60px;' %></td>
     <th><%= f.label :rn_data, "Data: " %></th>
-    <td><%= f.text_field :rn_data %></td>
+    <td ><%= f.text_field :rn_data %></td>
+   
+  
   </tr>
   <tr>
-    <th><%= f.label :rn_obszar, "Obszar: " %></th>
-    <td><%= f.collection_select :rn_obszar, Obszar.find(:all), :id, :ob_kod, :prompt => "Wybierz obszar" %></td>
+ <th><%= f.label :rn_id_worker_merx, "Id pracownika merx" %></th>
+    <td style="width:60px;"><%= f.text_field :rn_id_worker_merx,  :style=>"width:60px;" %></td>   
 
     <th><%= f.label :rn_magazyn, "Magazyn: " %></th>
     <td><%= f.text_field :rn_magazyn %></td>
 
+    
+  </tr> 
+  <tr>
+    <th><%= f.label :rn_obszar, "Obszar: " %></th>
+    <td><%= f.collection_select :rn_obszar, Obszar.find(:all), :id, :ob_kod, :prompt => "Wybierz obszar" %></td>
+   
     <th><%= f.label :rn_typ_operacji, "Typ operacji: " %></th>
       <td><%= f.select(:rn_typ_operacji, options_for_select([
       ['kompletacja', 'kompletacja'], 
@@ -24,27 +28,22 @@
       ['załadunek', 'załadunek'], 
       ['przyjęcie', 'przyjęcie'], 
       ['rozwożenie', 'rozwożenie']],
-      1) ) %>
+      1) , :prompt => "Wybierz operacje") %>
     </td>
-  </tr> 
-   <tr>
-    <th><%= f.label :rn_komentarz, "Komentarz:  " %></th>
-    <td><%= f.text_field :rn_komentarz %></td>
-  </tr><tr>
-    <th><%= f.label :rn_normatywy_czas_suma_tg, "Suma godzin normatywnych  przepracowanych [tg]: " %></th>
-    <td><%= f.text_field :rn_normatywy_czas_suma_tg, :placeholder => '0.0' %></td>
-  
-    <th><%= f.label :rn_normatywy_czas_suma_tj, "Suma godzin normatywnych przepracowanych [tj]: " %></th>
-    <td><%= f.text_field :rn_normatywy_czas_suma_tj, :placeholder => '0.0' %></td>
+
   </tr>
 
    <tr>
-    <th><%= f.label :rn_tabela_transportowa_suma_tg, "Suma godzin z tabeli transportowej[tg]: " %></th>
-    <td><%= f.text_field :rn_tabela_transportowa_suma_tg, :placeholder => '0.0' %></td>
+  
+  </tr><tr>
+    <th><%= f.label :rn_normatywy_czas_suma_tg, "Suma godzin przepracowanych [tg]: " %></th>
+    <td style="width:60px;"><%= f.text_field :rn_normatywy_czas_suma_tg, :placeholder => '0.0',  :style=>"width:60px;" %></td>
+   <th><%= f.label :rn_komentarz, "Komentarz:  " %></th>
+    <td colspan="4"><%= f.text_area :rn_komentarz , :size => "50x5", :placeholder => "maksymalnie 255 znaków"%></td>
+    <!-- <th><%= f.label :rn_normatywy_czas_suma_tj, "Suma godzin  przepracowanych [tj]: " %></th>
+    <td><%= f.text_field :rn_normatywy_czas_suma_tj, :placeholder => '0.0' %></td> -->
+  </tr>
 
-    <th><%= f.label :rn_import_file_info, "Informacja importowa: " %></th>
-    <td><%= f.text_field :rn_import_file_info, :value => "Dodana ręcznie" %></td>
-  </tr> 
  
     <%= f.hidden_field :rn_aud_us_id, :value => current_user.id %>
    

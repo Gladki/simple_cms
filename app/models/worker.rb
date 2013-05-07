@@ -3,6 +3,7 @@ class Worker < ActiveRecord::Base
  belongs_to :search
  has_many :effectivenes, :class_name => "Effectivenes"
  has_many :cele, :class_name => "Cele"
+ has_many :realizacjanorm, :class_name => "Realizacjanorm"
 
 
  has_and_belongs_to_many :positions

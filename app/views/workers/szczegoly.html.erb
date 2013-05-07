@@ -4,6 +4,7 @@
    
   
      @tmp =[]
+     @czas_dostepny =[]
      @tabela_dat = []
      @workers_id_table =[]
   data_table = GoogleVisualr::DataTable.new
@@ -18,22 +19,28 @@
     cmin = cel_min(params[:id])[0].to_f
     cmax = cel_max(params[:id])[0].to_f
     @test = []
-    @effec.each do |a|
-     @test << a.ef_data.strftime('%d-%m-%Y')
-     @narray = Array.new(1,0)
-     @narray.insert(0,a.ef_data,cmin,cmax)
-     @narray.insert(j+2,a.effectivity)
-     @narray.delete_at(j+3) 
-     @tabela_dat << [params[:id], a.ef_data]
-     @tmp <<  @narray
+    @rn.each do |a|
+    if czas_dostepny_data(a.rn_id_worker_merx, a.rn_data.strftime('%Y-%m-%d')) != 0
+      czas_dostepny ||= czas_dostepny_data(a.rn_id_worker_merx, a.rn_data.strftime('%Y-%m-%d'))*60
+    else
+      czas_dostepny = 450
+    end
+     @test << czas_dostepny
 
+     @narray = Array.new(1,0)
+     @narray.insert(0,a.rn_data,cmin,cmax)
+     @narray.insert(j+2,(a.rn_normatywy_czas_suma_tg/czas_dostepny).round(2)*100)
+     @narray.delete_at(j+3) 
+     @tabela_dat << [params[:id], a.rn_data]
+     @tmp <<  @narray
+     
     end
    j = j + 1
 
 
   @celes = []
   k =0
-  @tabela_dat.sort.uniq.each do |td|
+  @tabela_dat.uniq.each do |td|
       @celes << [td[1],cel_min_by_date(td[0],td[1].strftime('%Y-%m-%d'))[0].to_f,cel_max_by_date(td[0],td[1].strftime('%Y-%m-%d'))[0].to_f ]
       k = k+1
   end
@@ -42,6 +49,7 @@
   [values].flatten
 
   end
+
     @aggregated_rows = @tmp.group_by(&:first).map do |date, rs|
   values = rs[0].zip(*rs[1..-1]).drop(3).map { |xs| xs.reduce(:+)}
 
@@ -88,14 +96,16 @@
   %>
 
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    
+  <%  @array = @tmp.group_by(&:first).map do |date, rs|
+  values = rs[0].zip(*rs[1..-1]).drop(3).map { |xs| xs.reduce(:+)}
   
-
-
+  [date.strftime('%Y-%m-%d'), values].flatten
+  end 
+  %>
 
 <div id='chart' class="chart"></div>
 <%= render_chart @chart, 'chart' %>
-<%= @aggregated_rows %>
+
   <h1>Dane o pracowniku: </h1>
     <table class="dane-pracownik" >
     	  <tr>
@@ -145,8 +155,8 @@
     </table>
   <div id="1" class="middle-content">
 
-  <h1>Efektywności</h1>
-    <table style="margin-bottom:40px;" class="tabela-efektywnosci" >
+  <h1>Zrealizowane cele</h1>
+    <table id="zrealizowane-cele" style="margin-bottom:40px;" class="tabela-efektywnosci" >
       <thead>
         <tr>
           <th>Efektywność</th>
@@ -156,12 +166,13 @@
       </thead>
       <tbody>
         <tr>
-          <% @effec.each do |f| %>
+        <% @array.each do |f| %>
           <tr>
+
             <% 
-          val1 = f.effectivity
-          val2 = cel_min_by_date(params[:id],f.ef_data.strftime('%Y-%m-%d'))[0].to_f
-          val3 = cel_max_by_date(params[:id],f.ef_data.strftime('%Y-%m-%d'))[0].to_f
+          val1 = f[1]
+          val2 = cel_min_by_date(params[:id],f[0])[0].to_f
+          val3 = cel_max_by_date(params[:id],f[0])[0].to_f
               if  val1 != nil
               if val2 == 0 and val3 == 0
                 val4 = 0
@@ -174,15 +185,12 @@
             else
               @klasa = "ok"
             end
-
            %>
-          <td><%= f.effectivity %>%</td>
+          <td><%= f[1]%>%</td>
           <td class="<%= @klasa %>"><%= val4 %>%</td>
-          <td><%= f.ef_data.strftime("%d-%m-%Y r. ")%></td>
-          <% if permitted_to? :delete, :effectivenes %>
-            <td><%= button_to("", usun_po_id_efektywnosc_path(f.id), :class=>"delete" ) %></td>
-          <% end %>
-
+          <td><%= f[0]%></td>
+         
+  
           </tr>
           <% end %>
         </tr>

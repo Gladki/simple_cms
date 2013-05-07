@@ -5,26 +5,27 @@
 <% 
      @tmp =[]
      @tabela_dat = []
-     @workers_id_table =[]
+     # @workers_id_table =[]
  data_table = GoogleVisualr::DataTable.new
   data_table.new_column('string', 'Dzień')
   data_table.new_column('number', 'Minimum')
   data_table.new_column('number', 'Maximum')
   j = 1
   @workers.each do |worker| 
-  @workers_id_table << worker.id
+  # @workers_id_table << worker.id
   @imie_nazwisko = imie_nazwisko_worker(worker.id)[0] +" "+ imie_nazwisko_worker(worker.id)[1]
   data_table.new_column('number', @imie_nazwisko.humanize )
     cmin = cel_min(worker.id)[0].to_f
     cmax = cel_max(worker.id)[0].to_f
-    @effec = Effectivenes.find(:all, :conditions => ["worker_id in (?)" , worker.id], :order => "ef_data asc") 
+    @effec = Realizacjanorm.find(:all, :conditions => ["rn_id_worker_merx in (?)" ,
+                                               worker.id_worker_merx], :order => "rn_data asc") 
     @effec.each do |a|
   
      @narray = Array.new(@workers.size,0)
-     @narray.insert(0,a.ef_data.strftime('%Y-%m-%d'),cmin,cmax)
-     @narray.insert(j+2,a.effectivity)
+     @narray.insert(0,a.rn_data.strftime('%Y-%m-%d'),cmin,cmax)
+     @narray.insert(j+2,(a.rn_normatywy_czas_suma_tg.to_f/100).round(2))
      @narray.delete_at(j+3) 
-     @tabela_dat << [worker.id, a.ef_data.strftime('%Y-%m-%d')]
+     @tabela_dat << [worker.id, a.rn_data.strftime('%Y-%m-%d')]
      @tmp <<  @narray
 
     end

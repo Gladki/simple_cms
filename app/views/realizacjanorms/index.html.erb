@@ -1,44 +1,9 @@
 <% title "Czasy dostępne" %>
- <div id="1" class="middle-content">
-    
-  <h1>Czasy dostępne</h1>
-<p>
-<b>Pobierz listę w formacie: 
-<%= button_to("Excel (.xls)" , export_czasy_dostepne_path(format: "xls"), :class => "szczegoly") %>
+ 
+<div id="1" class="middle-content">
+    <h1>Czasy dostępne</h1>
 
-</b>
-</p>
-
-
-
-<table id="tczynnosci" style="width:100%" border="1"class="listing" summary="Section list">
-    <tr class="header">
-      <th>Id pracownika </th>
-      <th>Id pracownika merx</th>
-    
-      <th>Data</th>
-      <th>Obszar</th>
-      <th>Magazyn</th>
-      <th>Typ operacji</th>
-   
-      <th>Czas normatywy [tg]</th>
-      <th>Czas normatywy [tj]</th>
-      <th>Czas tabela-transportowa [tg]</th>
-      <th>Czas tabela-transportowa [tj]</th>
-      <th>Suma czasów [tj]</th>
-      <th>Źródło</th>
-      <th>Komentarz</th>
-    </tr>
-    
- <% @normy.each do |norma| %>
- <%= render(:partial =>'norma', :locals => {:norma => norma}) %>
-          
-     <% end %>
-   </table>
-
-</div>
-   <div id="1" class="middle-content">
-<div id="insert">
+<div id="insert" style="width:80%;float:left;margin:0;padding:0 10px 10px 0;">
   <p>Dodaj nowy czas:</p>
 
  <%= form_for @nowa_norma do |f| %>
@@ -51,4 +16,41 @@
 
 
  </div> 
+<%= button_to "" , export_realizacja_norm_path(format: "xls"), :class => "export-excel", :style => "margin:0 0 0 20px;" %>
 
+ </div> 
+
+
+ <div id="1" class="middle-content">
+    <br>
+
+
+<table id="normy" class="display" style="font-size:12px; width:100%;" data-source="<%= tabela_realizacji_norm_url(format: "json") %>" summary="Section list">
+  <thead>
+    <tr style="text-align:left;">
+      <th>ID Pracownika</th>
+      <th>Id HR </th>
+      <th>Id HR Merx</th>
+    
+      <th>Data realizacji</th>
+      <th>Obszar</th>
+      <th>Magazyn</th>
+      <th>Typ operacji</th>
+   
+      <th>Czas normatywu [TG]</th>
+      <th>Czas normatywu [TJ]</th>
+    <!--   <th>Czas tabela-transportowa [tg]</th>
+      <th>Czas tabela-transportowa [tj]</th> -->
+      <!-- <th>Suma czasów [tj]</th> -->
+
+      <th>Komentarz</th>
+    </tr>
+    </thead>
+    <tbody>
+
+   </tbody>
+   </table>
+
+
+</div>
+   

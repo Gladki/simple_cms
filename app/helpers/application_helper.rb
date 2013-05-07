@@ -43,6 +43,10 @@ module ApplicationHelper
     @minimum_effectivity_data = Effectivenes.minimum(:effectivity, :conditions => ["worker_id = ? and ef_data like ?", worker_id,"%#{data}%"])
     return @minimum_effectivity_data.to_f
   end 
+  def czas_dostepny_data(worker_id,data)
+    @czas_dostepny = Tabelaczasowdostepnych.maximum(:tcd_sum_godz_przep, :conditions => ["tcd_id_worker_merx = ? and tcd_data like ?", worker_id,"%#{data}%"])
+    return @czas_dostepny.to_f.round(2)
+  end 
 
   # def effectivity_min(worker_id)
   #   @effectivity_min = Effectivenes.where("effectivenes.worker_id = ?", worker_id).limit(1).pluck(:effectivity_min)
@@ -91,6 +95,19 @@ module ApplicationHelper
       @cel_max = 0
     end
   end  
+  def realizacja_norm(limit)
+
+    @normy = Realizacjanorm.where("rn_normatywy_czas_suma_tg >= ?", 0).order('rn_data desc').limit(limit)
+    return @normy
+  end
+  def dodatek_by_obszar(obszar)
+    if Obszar.all.include?(obszar) == false
+    @dodatek ||= Obszar.where("ob_kod =? ", obszar).order('created_at desc').limit(1).pluck(:ob_wartosc)
+    return @dodatek
+  else
+    @dodatek = 1
+  end
+  end
 
   def predkosc_po_kodzie(predkosc_kod)
     @predkosc = Predkosci.where("pr_kod = ?" , predkosc_kod).limit(1).pluck(:pr_predkosc_km)

@@ -18,7 +18,7 @@ def find_products
     else
      val = conditions
   end
-  Worker.find(:all, :conditions => val, :include => [:effectivenes], :joins => [:effectivenes])
+  Worker.find(:all, :conditions => val, :include => [:effectivenes], :joins => ["inner join realizacja_norm rn on rn.rn_id_worker_merx =  workers.id_worker_merx"]).uniq
 end
 
 
@@ -41,11 +41,11 @@ def maximum_effectivity_conditions
 end
 
 def date_from_conditions
-  ["effectivenes.ef_data >= ?", date_from] unless date_from.blank?
+  ["rn.rn_data >= ?", date_from] unless date_from.blank?
 end
 
 def date_to_conditions
-  ["effectivenes.ef_data <= ?", date_to] unless date_to.blank?
+  ["rn.rn_data <= ?", date_to] unless date_to.blank?
 end
 
 

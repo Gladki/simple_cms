@@ -7,7 +7,7 @@ class WorkersController < ApplicationController
 
  layout 'worker'
  
- require 'csv'
+
 
  def worker_by_id
     @worker = Worker.find(params[:id])
@@ -60,7 +60,9 @@ class WorkersController < ApplicationController
   end
 
   def szczegoly
+
     @effec = Effectivenes.find(:all, :conditions => ["worker_id = ?" , @worker.id], :order => "id DESC")
+    @rn = Realizacjanorm.find(:all, :conditions => ["rn_id_worker = ? or rn_id_worker_merx = ?" , @worker.id, @worker.id_worker_merx], :order => "rn_data DESC")
     @worker_count = Worker.count
     @cele = Cele.find(:all,:conditions => ["ce_worker_id = ?" , @worker.id], :order => "id DESC")
     @premie = Premie.find(:all,:conditions => ["pe_worker_id = ?" , @worker.id], :order => "id DESC")

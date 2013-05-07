@@ -70,6 +70,7 @@ SimpleCms::Application.routes.draw do
     resources :celes
     resources :premies
     resources :effectivenes
+    resources :realizacjanorms
     resources :effectivene
 
     # resources :pomocniczes    
@@ -82,6 +83,7 @@ SimpleCms::Application.routes.draw do
     match '/tabela-transportowa/export' => 'tabelatransportowas#export', :as => :export_tabela_transportowa
     match '/typy-czynnosci/export' => 'typyczynnosci#export', :as => :export_czynnosci
     match '/tabela-czasow-dostepnych/export' => 'tabelaczasowdostepnychs#export', :as => :export_czasy_dostepne
+    match '/tabela-realizacji-norm/export' => 'realizacjanorms#export', :as => :export_realizacja_norm
 
 
     #IMPORTY

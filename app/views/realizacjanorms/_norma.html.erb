@@ -1,25 +1,26 @@
+
 <tr>
 
-<td> <%= norma.rn_id_worker %> </td>
-<td> <%= norma.rn_id_worker_merx %> </td>
+<td > <%= norma.rn_id_worker %> </td>
+<td > <%= norma.rn_id_worker_merx %> </td>
 
-<td> <%= norma.rn_data.strftime("%d-%m-%Y") %> </td>
+<td style="width:80px"> <%= norma.rn_data.strftime("%d-%m-%Y") %> </td>
 
-<td> <%= norma.rn_obszar %> </td>
-<td> <%= norma.rn_magazyn %> </td>
-<td> <%= norma.rn_typ_operacji %> </td>
+<td style="width:60px"> <%= norma.rn_obszar %> </td>
+<td style="width:60px"> <%= norma.rn_magazyn %> </td>
+<td style="width:60px"> <%= norma.rn_typ_operacji %> </td>
 
 
-<td> <%= norma.rn_normatywy_czas_suma_tg %> </td>
-<td> <%= norma.rn_normatywy_czas_suma_tj %> </td>
-<td> <%= norma.rn_tabela_transportowa_suma_tg %> </td>
-<td> <%= norma.rn_tabela_transportowa_suma_tj %> </td>
+<td style="width:100px"> <%= norma.rn_normatywy_czas_suma_tg  %> </td>
+<td style="width:100px"> <%= (norma.rn_normatywy_czas_suma_tg * (100 +  dodatek_by_obszar(norma.rn_obszar)[0].to_f )/100).round(2) %> </td>
+<!-- <td style="width:100px"> <%= norma.rn_tabela_transportowa_suma_tg %> </td>
+<td style="width:100px"> <%= norma.rn_tabela_transportowa_suma_tj %> </td> -->
 <td> <%= norma.rn_suma_tj %> </td>
 
 <td> <%= norma.rn_import_file_info %> </td>
 <td> <%= norma.rn_komentarz %> </td>
-
+<!-- 
 <% if permitted_to? :delete, :realizacjanorms %>
-        <td style="border:0;"><%= button_to("", usun_po_id_realizacja_norm(norma.id), :class=>"delete" ) %></td>
-      <% end %>
+        <td style="border:0;"><%= button_to("", usun_po_id_realizacja_norm_path(norma.id), :class=>"delete" ) %></td>
+      <% end %> -->
 </tr>

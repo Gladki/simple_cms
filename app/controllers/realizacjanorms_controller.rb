@@ -3,7 +3,7 @@ class RealizacjanormsController < ApplicationController
 
     filter_access_to :all
 
- layout 'worker'
+layout 'worker'
 before_filter :normatywy_all, :only => [:index,:export,:create]
 before_filter :normatywy_by_id, :only => [:delete]
 
@@ -11,11 +11,16 @@ def normatywy_by_id
     @norma = Realizacjanorm.find(params[:id])
  end
 def normatywy_all
-    @normy = Realizacjanorm.find(:all, :order => "id desc")
+     # @normy = Realizacjanorm.find(:all, :order => "rn_data desc", :limit => 1000, :conditions => "rn_normatywy_czas_suma_tg >= 0")
 end
 
 def index
+
 	@nowa_norma = Realizacjanorm.new	
+  respond_to do |format|
+    format.html
+    format.json { render json: NormsDatatable.new(view_context) }
+  end
 end
 
 def new
@@ -44,8 +49,10 @@ end
   end
 
 def export
+
+
 	respond_to do |format|
-    	format.html
+    	format.html 
     	format.xls 	
 	end
 end

@@ -14,7 +14,7 @@ development:
   reconnect: false
   database: webapp_database
   pool: 5
-  username: root
+  username: superadmin
   password: stawor2012pass
   host: localhost
   port: 3306
@@ -28,7 +28,7 @@ test:
   reconnect: false
   database: webapp_database_test
   pool: 5
-  username: root
+  username: superadmin
   password: stawor2012pass
   host: localhost
   port: 3306
@@ -40,7 +40,7 @@ production:
   reconnect: false
   database: webapp_database_production
   pool: 5
-  username: root
+  username: superadmin
   password: stawor2012pass
   host: localhost
   port: 3306

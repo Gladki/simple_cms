@@ -6,7 +6,7 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
-
+gem 'rails-i18n'
 #autoryzacja
 
 gem 'bcrypt-ruby', '~> 3.0.0', :require => "bcrypt"
@@ -20,8 +20,11 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 
+   gem 'jquery-ui-rails'
   gem 'uglifier', '>= 1.0.3'
 end
+
+gem 'will_paginate'
 
 #import
 gem 'roo'
