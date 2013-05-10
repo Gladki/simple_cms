@@ -75,7 +75,7 @@ SimpleCms::Application.routes.draw do
 
     # resources :pomocniczes    
     # resources :tabelanormatywows
-    # resources :tabelatransportowas
+    resources :tabelatransportowas
 
     
     #EXPORTY

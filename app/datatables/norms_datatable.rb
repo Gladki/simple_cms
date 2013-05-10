@@ -36,7 +36,7 @@ private
        norma.rn_obszar,
        norma.rn_magazyn,
        norma.rn_typ_operacji,
-       norma.rn_normatywy_czas_suma_tg,
+       norma.rn_normatywy_czas_suma_tg.to_s,
        (norma.rn_normatywy_czas_suma_tg * (100 +  dodatek_by_obszar(norma.rn_obszar)[0].to_f )/100).round(2) ,
        norma.rn_komentarz
       ]

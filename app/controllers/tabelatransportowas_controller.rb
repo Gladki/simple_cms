@@ -11,15 +11,20 @@ def normatywy_by_id
     @transport = Tabelatransportowa.find(params[:id])
  end
 def normatywy_all
-    @transporty = Tabelatransportowa.find(:all, order: "id desc")
+   # @transporty = Tabelatransportowa.find(:all, order: "id desc")
 end
 
 def index
 	@nowy_transport = Tabelatransportowa.new	
+  respond_to do |format|
+  format.html
+  format.json { render json: TabelaTransportowaDatatable.new(view_context) }
+  end
 end
 
 def new
 	@nowy_transport = Tabelatransportowa.new
+  
 
 end
 
