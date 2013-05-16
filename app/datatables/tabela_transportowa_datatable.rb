@@ -101,14 +101,15 @@ private
                          or tt_ruch_od like :search
                          or tt_ruch_do like :search
                          or tt_srodek_transportu like :search
-                         or tt_dystans_od.to_f.round(2) like :search
-                         or tt_dystans_do.to_f.round(2) like :search
+                         or tt_dystans_od like :search
+                         or tt_dystans_do like :search
                          or tt_ilosc_zakretow like :search
                          or tt_ilosc_start_stop like :search
                          or tt_rodzaj_pobrania like :search
                          or tt_predkosc_kod like :search
                          or tt_dodatek_kod like :search
-                         or tt_komentarz, like :search
+                         or 16 like :search
+                         or tt_komentarz like :search
                          or created_at like :search
                          or tt_import_file_info like :search
                          ", search: "%#{params[:sSearch]}%")

@@ -16,6 +16,10 @@ end
 
 def index
 	@nowy_normatyw = Tabelanormatywow.new	
+  respond_to do |format|
+  format.html
+  format.json { render json: NormatywyDatatable.new(view_context) }
+  end
 end
 
 def new

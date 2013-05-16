@@ -2,32 +2,27 @@
  <div id="1" class="middle-content">
     
   <h1>Czasy dostępne</h1>
-<p>
-<b>Pobierz listę w formacie: 
-<%= button_to("Excel (.xls)" , export_czasy_dostepne_path(format: "xls"), :class => "szczegoly") %>
-
-</b>
-</p>
 
 
-
-<table id="tczynnosci" border="1"class="listing" summary="Section list">
+<div style="width:650px; float:left;">
+<table id="tabela_czasow" class="dislpay" summary="Section list" data-source="<%= tabela_czasow_dostepnych_url(format: "json") %>" >
+  <thead>
     <tr class="header">
       <th>Id pracownika </th>
       <th>Id pracownika merx</th>
     
-      <th>Data</th>
       <th>Godziny przepracowane</th>
       <th>Godziny netto</th>
+      <th>Data</th>
+      <th>Źródło</th>
     </tr>
+  </thead>
     
- <% @czasy.each do |czas| %>
- <%= render(:partial =>'czas', :locals => {:czas => czas}) %>
-          
-     <% end %>
+    <tbody>
+    </tbody>
    </table>
-      
-<div id="insert">
+      </div>
+<div id="insert" style="float:right;margin-top:0px;margin-left:0px;">
   <p>Dodaj nowy czas:</p>
 
  <%= form_for @nowy_czas do |f| %>

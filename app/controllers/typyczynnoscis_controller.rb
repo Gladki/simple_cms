@@ -34,6 +34,11 @@ end
 
 def index
 @nowa_czynnosc =  Typyczynnosci.new
+respond_to do |format|
+  format.html
+  format.json { render json: CzynnosciDatatable.new(view_context) }
+end
+
 end
  def delete
     if @czynnosc.destroy

@@ -1,61 +1,8 @@
 <% title "Tabela Normatywów" %>
+<div style="middle-content">
 
-<div class="section list">
   <h1>Tabela Normatywów</h1>
-</div>
- <br/>
-<p>
-<b>Pobierz listę w formacie: 
-<%= button_to("Excel (.xls)" , export_normatywow_path(format: "xls"), :class => "szczegoly") %>
-
-</b>
-</p>
-<br/>
-<table style="font-size:11px;border-width: 1px;
-  border-spacing: 2px;
-  border-style: hidden;
-  border-color: #000;
-  width:100%;
-  border-collapse: collapse;
-  text-align:center;
-  " border="1"class="listing" summary="Section list">
-    <tr class="header">
-      <th>Kod<br/>Czynności</th>
-      <th>Obszar</th>
-      <th>Opis czynności</th>
-      <th>Dodatkowy opis czynności</th>
-      <th>Jednostka<br/>odniesienia</th>
-      <th>Czas[s]</th>
-      <th>Czas[min]</th>
-      <th>Komentarz</th>
-      <th>Pochodzenie</th>
-      <th>Data utworzenia</th>
-    </tr>
- <% @normatywy.each do |normatyw| %>
- <tr >
- 
-      <td><%= normatyw.tn_kod_czynnosci %></td>
-      <td><%= normatyw.tn_obszar %></td>
-      <td><%= normatyw.tn_opis_czynnosci %></td>
-      <td><%= normatyw.tn_opis_czynnosci_szczegolowy %></td>
-      <td><%= normatyw.tn_jednostka_odniesienia %></td>
-      <td><%= normatyw.tn_czas.to_f.round(2) %></td>
-      <td><%= (normatyw.tn_czas.to_f/60).round(2) %></td>
-      <td><%= normatyw.tn_komentarz %></td>
-      <td style="width:100px;"><%= normatyw.tn_import_file_info %></td>
-      <td><%= normatyw.created_at.strftime("%d-%m-%Y") %></td>
-      <% if permitted_to? :delete, :tabelanormatywows %>
-        <td><%= button_to("", usun_po_id_normatyw_path(normatyw.id), :class=>"delete" ) %></td>
-      <% end %>
-      </tr>
-          
-     <% end %>
-
-
-
-</div>
-   </table>
-     <div id="insert" >
+   <div id="insert" >
   <p>Dodaj nowy normatyw:</p>
 
  <%= form_for @nowy_normatyw do |f| %>
@@ -64,3 +11,25 @@
     
     
   <% end %>
+</div>
+</div><br/>
+<div style="middle-content">
+<table id="tabela_normatywow"  class="display"  data-source="<%= tabela_normatywow_url(format: "json") %>">
+   <thead>
+    <tr class="header">
+      <th>Kod Czynności</th>
+      <th>Obszar</th>
+      <th>Opis czynności</th>
+      <th>Dodatkowo</th>
+      <th>Jednostka</th>
+      <th>Czas[s]</th>
+      <th>Czas[min]</th>
+      <th>Komentarz</th>
+      <th>Pochodzenie</th>
+      <th>Data utworzenia</th>
+    </tr>
+</thead>
+<tbody>
+</tbody>   
+</table>
+</div>

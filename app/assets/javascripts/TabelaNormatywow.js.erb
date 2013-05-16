@@ -1,72 +1,41 @@
-
+ 
 
  $(document).ready(function() {
 
 editor = new $.fn.dataTable.Editor( {
-        "ajaxUrl": $('#tabela_transportowa').data('source'),
-        "domTable": "#tabela_transportowa",
+        "ajaxUrl": $('#tabela_normatywow').data('source'),
+        "domTable": "#tabela_normatywow",
         "fields": [ {
-                "label": "Nr. drogi:",
+                "label": "Kod Czynności:",
                 "name": 0
             }, {
-                "label": "Nr. z systemu:",
+                "label": "Obszar:",
                 "name": 1
             }, {
-                "label": "Przebieg trasy:",
+                "label": "Opis czynności:",
                 "name": 2
-            }, {
-                "label": "Opis trasy:",
+            }, {    
+                "label": "Dodatkowy opis czynności:",
                 "name": 3
             }, {
-                "label": "Typ operacji:",
+                "label": "Jednostka odniesienia:",
                 "name": 4
             }, {
-                "label": "Obszar:",
+                "label": "Czas[s]:",
                 "name": 5
-            }, {    
-              "label": "Ruch od:",
+            }, {
+                "label": "Czas[min]:",
                 "name": 6
             }, {
-                "label": "Ruch do:",
+                "label": "Komentarz:",
                 "name": 7
             }, {
-                "label": "Środek transporu:",
+                "label": "Pochodzenie:",
                 "name": 8
             }, {
-                "label": "Dystans od:",
+                "label": "Data utworzenia:",
                 "name": 9
-            }, {
-                "label": "Dystans do:",
-                "name": 10
-            }, {
-                "label": "Ilość zakrętów:",
-                "name": 11
-            }, {
-                "label": "Ilość start/stop:",
-                "name": 12
-            }, {
-                "label": "Rodzaj pobrania:",
-                "name": 13
-            }, {
-                "label": "Kod prędkości:",
-                "name": 14
-            }, {
-                "label": "Kod dodatku pobranie i umieszczenie:",
-                "name": 15
-            }, {
-                "label": "Czas przejazdu bez pobrania i umiesczenia [sek/1kurs]:",
-                "name": 16
-            }, {
-                "label": "Komentarz:",
-                "name": 17
             }
-            // , {
-            //     "label": "Data dodania:",
-            //     "name": 18
-            // }, {
-            //     "label": "Pochodzenie:",
-            //     "name": 19
-            // }
         ],
                 "i18n": {
             "create": {
@@ -95,38 +64,27 @@ editor = new $.fn.dataTable.Editor( {
     } );
  
 
- $('#tabela_transportowa').dataTable( {
+ $('#tabela_normatywow').dataTable( {
                 sPaginationType: "full_numbers",
                 bJQueryUI: true,
                 bProcessing: true,
                 bServerSide: true,
-                sAjaxSource: $('#tabela_transportowa').data('source'),
+                sAjaxSource: $('#tabela_normatywow').data('source'),
                 sDom: 'CT<"clear"><"H"lfr>t<"F"ip>',
                 "oColVis": {
             "buttonText": "Oddznacz kolumne"
         },
                 "aoColumns": [
-            { "mData": 0 },
-            { "mData": 1 },
-            { "mData": 2 },
+            { "mData": 0, sWidth: '5%' },
+            { "mData": 1, sWidth: '10%' },
+            { "mData": 2, sWidth: '20%' },
             { "mData": 3 },
             { "mData": 4 },
             { "mData": 5 },
             { "mData": 6 },
-            { "mData": 7 },
-            { "mData": 8 },
-            { "mData": 9 },
-            { "mData": 10 },
-            { "mData": 11 },
-            { "mData": 12 },
-            { "mData": 13 },
-            { "mData": 14 },
-            { "mData": 15 },
-            { "mData": 16 },
-            { "mData": 17 }
-            // ,
-            // { "mData": 18 },
-            // { "mData": 19 }
+            { "mData": 7, sWidth: '15%' },
+            { "mData": 8, sWidth: '15%' },
+            { "mData": 9, sWidth: '5%' }
         ],
         <% @data = DateTime.now.to_date.strftime("%d-%m-%Y") %>
 
@@ -135,19 +93,19 @@ editor = new $.fn.dataTable.Editor( {
                          "aButtons": [
                                 {  
                                     "sExtends": "xls",
-                                    "sFileName": "TabelaTransportowa-<%=  @data %>.xls",
+                                    "sFileName": "TabelaNormatywow-<%=  @data %>.xls",
                                     "sButtonText": "Excel",
                                      "mColumns": "visible"
                                 }, 
                                 {  
                                     "sExtends": "csv",
-                                    "sFileName": "TabelaTransportowa-<%=  @data %>.csv",
+                                    "sFileName": "TabelaNormatywow-<%=  @data %>.csv",
                                     "sButtonText": "CSV",
                                      "mColumns": "visible"
                                 },
                                   {  
                                     "sExtends": "pdf",
-                                    "sFileName": "TabelaTransportowa-<%=  @data %>.pdf",
+                                    "sFileName": "TabelaNormatywow-<%=  @data %>.pdf",
                                     "sButtonText": "PDF",
                                      "mColumns": "visible"
                                 },

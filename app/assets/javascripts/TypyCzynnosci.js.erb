@@ -1,72 +1,23 @@
-
+ 
 
  $(document).ready(function() {
 
 editor = new $.fn.dataTable.Editor( {
-        "ajaxUrl": $('#tabela_transportowa').data('source'),
-        "domTable": "#tabela_transportowa",
+        "ajaxUrl": $('#typy_czynnosci').data('source'),
+        "domTable": "#typy_czynnosci",
         "fields": [ {
-                "label": "Nr. drogi:",
+                "label": "Kod czynności:",
                 "name": 0
             }, {
-                "label": "Nr. z systemu:",
+                "label": "Opis:",
                 "name": 1
             }, {
-                "label": "Przebieg trasy:",
+                "label": "Źródło pochodzenia:",
                 "name": 2
             }, {
-                "label": "Opis trasy:",
+                "label": "Data dodania:",
                 "name": 3
-            }, {
-                "label": "Typ operacji:",
-                "name": 4
-            }, {
-                "label": "Obszar:",
-                "name": 5
-            }, {    
-              "label": "Ruch od:",
-                "name": 6
-            }, {
-                "label": "Ruch do:",
-                "name": 7
-            }, {
-                "label": "Środek transporu:",
-                "name": 8
-            }, {
-                "label": "Dystans od:",
-                "name": 9
-            }, {
-                "label": "Dystans do:",
-                "name": 10
-            }, {
-                "label": "Ilość zakrętów:",
-                "name": 11
-            }, {
-                "label": "Ilość start/stop:",
-                "name": 12
-            }, {
-                "label": "Rodzaj pobrania:",
-                "name": 13
-            }, {
-                "label": "Kod prędkości:",
-                "name": 14
-            }, {
-                "label": "Kod dodatku pobranie i umieszczenie:",
-                "name": 15
-            }, {
-                "label": "Czas przejazdu bez pobrania i umiesczenia [sek/1kurs]:",
-                "name": 16
-            }, {
-                "label": "Komentarz:",
-                "name": 17
             }
-            // , {
-            //     "label": "Data dodania:",
-            //     "name": 18
-            // }, {
-            //     "label": "Pochodzenie:",
-            //     "name": 19
-            // }
         ],
                 "i18n": {
             "create": {
@@ -95,38 +46,21 @@ editor = new $.fn.dataTable.Editor( {
     } );
  
 
- $('#tabela_transportowa').dataTable( {
+ $('#typy_czynnosci').dataTable( {
                 sPaginationType: "full_numbers",
                 bJQueryUI: true,
                 bProcessing: true,
                 bServerSide: true,
-                sAjaxSource: $('#tabela_transportowa').data('source'),
+                sAjaxSource: $('#typy_czynnosci').data('source'),
                 sDom: 'CT<"clear"><"H"lfr>t<"F"ip>',
                 "oColVis": {
             "buttonText": "Oddznacz kolumne"
         },
                 "aoColumns": [
             { "mData": 0 },
-            { "mData": 1 },
-            { "mData": 2 },
-            { "mData": 3 },
-            { "mData": 4 },
-            { "mData": 5 },
-            { "mData": 6 },
-            { "mData": 7 },
-            { "mData": 8 },
-            { "mData": 9 },
-            { "mData": 10 },
-            { "mData": 11 },
-            { "mData": 12 },
-            { "mData": 13 },
-            { "mData": 14 },
-            { "mData": 15 },
-            { "mData": 16 },
-            { "mData": 17 }
-            // ,
-            // { "mData": 18 },
-            // { "mData": 19 }
+            { "mData": 1 ,sWidth: '40%' },
+            { "mData": 2 , sWidth: '20%' },
+            { "mData": 3 , sWidth: '20%'}
         ],
         <% @data = DateTime.now.to_date.strftime("%d-%m-%Y") %>
 
@@ -135,19 +69,19 @@ editor = new $.fn.dataTable.Editor( {
                          "aButtons": [
                                 {  
                                     "sExtends": "xls",
-                                    "sFileName": "TabelaTransportowa-<%=  @data %>.xls",
+                                    "sFileName": "TypyCzynności-<%=  @data %>.xls",
                                     "sButtonText": "Excel",
                                      "mColumns": "visible"
                                 }, 
                                 {  
                                     "sExtends": "csv",
-                                    "sFileName": "TabelaTransportowa-<%=  @data %>.csv",
+                                    "sFileName": "TypyCzynności-<%=  @data %>.csv",
                                     "sButtonText": "CSV",
                                      "mColumns": "visible"
                                 },
                                   {  
                                     "sExtends": "pdf",
-                                    "sFileName": "TabelaTransportowa-<%=  @data %>.pdf",
+                                    "sFileName": "TypyCzynności-<%=  @data %>.pdf",
                                     "sButtonText": "PDF",
                                      "mColumns": "visible"
                                 },

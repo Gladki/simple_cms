@@ -1,20 +1,31 @@
 <% title "Tabela Transportowa" %>
 <div style="middle-content">
-
-<div class="section list">
   <h1>Tabela Transportowa</h1>
+  
+     <div id="insert" >
+  <p>Dodaj nowy Transport:</p>
+
+ <%= form_for @nowy_transport do |f| %>
+  
+    <%= render(:partial => 'form', :locals => {:f => f}) %>
+    
+    
+  <% end %>
 </div>
- <br/>
+<div style="middle-content">
+
+
+<!--  <br/>
 <p>
 <b>Pobierz listę w formacie: 
 <%= button_to("Excel (.xls)" , export_tabela_transportowa_path(format: "xls"), :class => "szczegoly") %>
 
 </b>
-</p>
+</p> -->
 <br/>
 <div id="tabela-div">
   
-<table id="tabela_transportowa" border="1" class="display" style="font-size:12px; width:100%;" summary="Section list" data-source="<%= tabela_transportowa_url(format: "json") %>">
+<table id="tabela_transportowa" class="display" style="font-size:12px;" summary="Section list" data-source="<%= tabela_transportowa_url(format: "json") %>">
      <thead>
     <tr style="text-align:left;" >
       <th>Nr. drogi</th>
@@ -33,15 +44,10 @@
       <th>Rodzaj pobrania</th>
       <th>Kod prędkości</th>
       <th>Kod dodatku pobranie i umieszczenie</th>
-      <th>Czas przejazdu bez pobrania <br/>i umiesczenia [sek/1kurs]</th>
-      
-      
-
+      <th>Czas przejazdu bez pobrania i umiesczenia [sek/1kurs]</th>
       <th>Komentarz</th>
-
-
-      <th>Data dodania</th>
-      <th>Pochodzenie</th>
+      <!-- <th>Data dodania</th> -->
+      <!-- <th>Pochodzenie</th> -->
     </tr>
     </thead>
       <tbody>
@@ -50,16 +56,4 @@
 
    </table>
 </div>
-</div>
-<div style="middle-content">
-  
-     <div id="insert" >
-  <p>Dodaj nowy Transport:</p>
-
- <%= form_for @nowy_transport do |f| %>
-  
-    <%= render(:partial => 'form', :locals => {:f => f}) %>
-    
-    
-  <% end %>
 </div>

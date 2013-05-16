@@ -2,31 +2,24 @@
  <div id="1" class="middle-content">
     
   <h1>Typy czynności</h1>
-<p>
-<b>Pobierz listę w formacie: 
-<%= button_to("Excel (.xls)" , export_czynnosci_path(format: "xls"), :class => "szczegoly") %>
 
-</b>
-</p>
-
-
-
-<table id="tczynnosci" border="1"class="listing" summary="Section list">
+<div style="width:650px; float:left;">
+<table id="typy_czynnosci" class="display" summary="Section list" data-source="<%= typy_czynnosci_url(format: "json") %>">
+    <thead>
     <tr class="header">
-      <th>Kod<br/>Czynności</th>
+      <th>Kod Czynności</th>
       <th>Opis</th>
     
       <th>Pochodzenie</th>
       <th>Data utworzenia</th>
     </tr>
+    </thead>
+    <tbody>
     
- <% @czynnosci.each do |czynnosc| %>
- <%= render(:partial =>'czynnosc', :locals => {:czynnosc => czynnosc}) %>
-          
-     <% end %>
+    </tbody>
    </table>
-      
-<div id="insert">
+   </div>   
+<div id="insert" style="float:right;margin-top:0px;margin-left:15px;">
   <p>Dodaj nową czynność:</p>
 
  <%= form_for @nowa_czynnosc do |f| %>
@@ -41,3 +34,8 @@
     </div>  
  </div>
 
+<!--     
+ <% @czynnosci.each do |czynnosc| %>
+ <%= render(:partial =>'czynnosc', :locals => {:czynnosc => czynnosc}) %>
+          
+     <% end %> -->

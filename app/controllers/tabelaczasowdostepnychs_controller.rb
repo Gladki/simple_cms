@@ -16,6 +16,10 @@ end
 
 def index
 	@nowy_czas = Tabelaczasowdostepnych.new	
+  respond_to do |format|
+    format.html
+    format.json { render json: CzasyDatatable.new(view_context) }
+  end
 end
 
 def new
