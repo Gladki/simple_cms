@@ -1,8 +1,8 @@
 authorization do
 	role :admin do	
-		has_permission_on :workers, :to => [:index, :show, :lista, :new ,:create,:delete,:pracownik,:szczegoly,:import_render,:import,:import_tn,:import_tc, :import_tt,:import_tdc,:import_rn]
+		has_permission_on :workers, :to => [:index, :show, :lista, :new ,:create,:delete,:pracownik,:szczegoly,:import_render,:import,:import_tn,:import_tc, :import_tt,:import_tdc,:import_rn,:import_workers,:calendar]
 		has_permission_on :searches, :to => [:new,:index,:create,:show,:combo_chart,:lista]
-		has_permission_on :effectivenes, :to => [:index,:new,:delete,:create,:calendar]
+		has_permission_on :effectivenes, :to => [:index,:new,:delete,:create]
 		has_permission_on :celes, :to => [:new,:create,:delete]
 		has_permission_on :premies, :to => [:new,:create,:delete]
 		has_permission_on :tabelanormatywows, :to => [:index,:export,:create,:new,:delete]

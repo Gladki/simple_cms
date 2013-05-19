@@ -1,0 +1,43 @@
+#lights {
+	background-color:lighten(#000,90%);
+	width:5em;
+	padding:10px 10px 5px 10px ;
+	height:17em;
+	margin-top: 80px;
+	margin-right: 20px;
+	border: 1px solid lighten(#000,70%);
+	float:right;
+}
+.transperent {
+	background-color: transparent;
+}
+.opacity-min {opacity:0.2;}
+.opacity-max {opacity:1;}
+.red {
+	background-color: red;	
+}
+.yellow {
+	background-color: yellow;	
+}
+.green {
+	background-color: green;	
+}
+#circle {
+	border: 1px solid #fff;
+	box-shadow: 1px 1px 1px 1px #999;
+margin-bottom:10px;
+-webkit-border-radius: 2.5em; -moz-border-radius: 2.5em;
+width: 5em; height: 5em; 	
+}
+
+.left{
+	float:left !important;
+	width:50%;
+	height: 20px;
+	margin: 0;
+}
+.right {
+	float:left !important;	width:60%;
+	height: 20px;
+	margin: 0;
+}

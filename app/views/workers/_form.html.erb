@@ -1,28 +1,33 @@
-
-
-<table summary="Section form fields">
+<table>
   <tr>
   <tr>
-    <th><%= f.label :id_worker, "Id Pracownika: " %></th>
+    <th><%= f.label :id_worker, "ID pracownika: " %></th>
     <td><%= f.text_field :id_worker %></td>
+    <th><%= f.label :id_worker_hr, "ID HR pracownika: " %></th>
+    <td><%= f.text_field :id_worker_hr %></td>
+    <th><%= f.label :id_worker_merx, "ID Merx pracownika: " %></th>
+    <td><%= f.text_field :id_worker_merx %></td>
   </tr>
   <tr>
-    <th><%= f.label :id_worker_merx, "Id Pracownika Merx: " %></th>
-    <td><%= f.text_field :id_worker_merx %></td>
-  </tr><tr>
     <th><%= f.label :first_name, "Imie: " %></th>
     <td><%= f.text_field :first_name %></td>
-  </tr>
-  <tr>
     <th><%= f.label :last_name, "Nazwisko: " %></th>
     <td><%= f.text_field :last_name %></td>
   </tr>
+  <tr>
+    <th><%= f.label :jednostka_organizacyjna, "Jednostka organizacyjna: " %></th>
+    <td><%= f.text_field :jednostka_organizacyjna %></td>
+    <th><%= f.label :profil_merx, "Profil merx: " %></th>
+    <td><%= f.text_field :profil_merx %></td>
+   </tr><tr>
+    <th><%= f.label :przelozony, "Przełożony: " %></th>
+    <td><%= f.text_field :przelozony %></td>
+    <th><%= f.label :przelozony_przelozonego, "Przełożony przełożonego: " %></th>
+    <td><%= f.text_field :przelozony_przelozonego %></td>
+  </tr>
    <tr>
     <th><%= f.label :name, "Stanowisko" %></th>
-    
     <td><%= f.collection_select  :position_ids, Position.all , :id, :name, :include_blank => true %></td>
-
-
+    <%= f.hidden_field :w_import_info, :value => "dodana ręcznie" %>
   </tr>
-
 </table>

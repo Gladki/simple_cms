@@ -267,11 +267,19 @@ ActiveRecord::Schema.define(:version => 20130426133221) do
 
   create_table "workers", :force => true do |t|
     t.integer  "id_worker"
+    t.integer  "id_worker_hr"
     t.integer  "id_worker_merx"
+    t.string   "jednostka_organizacyjna"
     t.string   "last_name"
     t.string   "first_name"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.string   "obszar"
+    t.string   "profil_merx"
+    t.string   "stanowisko"
+    t.string   "przelozony"
+    t.string   "przelozony_przelozonego"
+    t.string   "w_import_info"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
 end

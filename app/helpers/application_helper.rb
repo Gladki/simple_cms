@@ -22,6 +22,10 @@ module ApplicationHelper
   def title(page_title)
     content_for(:title) { page_title }
   end
+  def worker_id_by_merx(id_worker_merx)
+    id = Worker.where("id_worker_merx = ?", id_worker_merx).pluck(:id).first
+    return id
+  end
 
   def imie_nazwisko_worker(worker_id)
 
@@ -44,19 +48,10 @@ module ApplicationHelper
     return @minimum_effectivity_data.to_f
   end 
   def czas_dostepny_data(worker_id,data)
-    @czas_dostepny = Tabelaczasowdostepnych.maximum(:tcd_sum_godz_przep, :conditions => ["tcd_id_worker_merx = ? and tcd_data like ?", worker_id,"%#{data}%"])
+    @czas_dostepny = Tabelaczasowdostepnych.select("sum(tcd_sum_godz_przep)").where("tcd_id_worker_merx =? and tcd_data like ?", worker_id, data).group("tcd_data").order("tcd_data desc").pluck(:tcd_sum_godz_przep).first
     return @czas_dostepny.to_f.round(2)
   end 
 
-  # def effectivity_min(worker_id)
-  #   @effectivity_min = Effectivenes.where("effectivenes.worker_id = ?", worker_id).limit(1).pluck(:effectivity_min)
-  #   return @effectivity_min
-
-  # end 
-  #  def effectivity_max(worker_id)
-  #   @effectivity_max = Effectivenes.where("effectivenes.worker_id = ?", worker_id).limit(1).pluck("effectivity_max")
-  #   @effectivity_max
-  # end  
   def cel_min(worker_id)
     if Cele.all.include?(worker_id) == false
     @cel_min = Cele.where("ce_worker_id = ?", worker_id).order('id desc').limit(1).pluck(:ce_minimum)
@@ -64,30 +59,41 @@ module ApplicationHelper
     else
       @cel_min = 0
     end
+  end 
 
-
-  end  
-   def cel_min_by_date(worker_id,data)
+  def cel_min_by_date(worker_id,data)
     if Cele.all.include?(worker_id) == false
-    @cel_min = Cele.where("ce_worker_id = ? and ce_data like ?", worker_id,"%#{data}%").order('ce_data asc').limit(1).pluck(:ce_minimum)
-    return @cel_min
+    cel_min = Cele.minimum(:ce_minimum, :conditions => ["ce_worker_id = ? and ce_data like ?", worker_id,"%#{data}%"])
+    return cel_min
     else
-      @cel_min = 0
+     cel_min = 0
     end
+  end
 
-
-  end   
   def cel_max_by_date(worker_id,data)
     if Cele.all.include?(worker_id) == false
-    @cel_min = Cele.where("ce_worker_id = ? and ce_data like ?", worker_id,"%#{data}%").order('ce_data asc').limit(1).pluck(:ce_maximum)
-    return @cel_min
+    cel_min = Cele.maximum(:ce_maximum, :conditions =>["ce_worker_id = ? and ce_data like ?", worker_id,"%#{data}%"])
+    return cel_min
     else
-      @cel_min = 0
+      cel_min = 0
     end
-
-
+  end   
+  
+  def cel_by_date_merx(worker_id,data,type)
+    if Cele.all.include?(worker_id) == false
+      if type == 'max'
+       cel_min = Cele.where("ce_id_worker_merx = ? and ce_data like ?", worker_id,"%#{data}%").order('ce_data asc').pluck(:ce_maximum).first
+      end
+      if type == 'min'
+       cel_min = Cele.where("ce_id_worker_merx = ? and ce_data like ?", worker_id,"%#{data}%").order('ce_data asc').pluck(:ce_minimum).first
+      end
+    return cel_min
+    else
+      cel_min = 0
+    end
   end  
-   def cel_max(worker_id)
+
+  def cel_max(worker_id)
     if Cele.all.include?(worker_id) == false
     @cel_max = Cele.where("ce_worker_id = ?", worker_id).order('id desc').limit(1).pluck(:ce_maximum)
     return @cel_max
@@ -95,11 +101,102 @@ module ApplicationHelper
       @cel_max = 0
     end
   end  
-  def realizacja_norm(limit)
+  
+  def relizacja_norm_last(worker_id,type)
+      wartosc = Realizacjanorm.select("sum(rn_normatywy_czas_suma_tj) as suma").where("rn_id_worker_merx = ?",worker_id).group("rn_data").order("rn_data desc").pluck(:rn_normatywy_czas_suma_tj).first
+      data = Realizacjanorm.where("rn_id_worker_merx = ?", worker_id).order("rn_data desc").pluck(:rn_data).first
+      czas_dostepny = Tabelaczasowdostepnych.select("sum(tcd_sum_godz_przep) as suma").where("tcd_id_worker_merx =? and tcd_data like ?", worker_id, data).group("tcd_data").order("tcd_data desc").pluck(:tcd_sum_godz_przep).first
+      if czas_dostepny != nil
+        czas_dostepny = (czas_dostepny - czas_dostepny/8).round 
+      else
+        czas_dostepny = 450
+      end 
+      if czas_dostepny != nil and wartosc != nil
+        
+         efektywnosc = (wartosc/czas_dostepny*100).round
+      else
+        efektywnosc = 0
+      end
+      if type == 'cmax'
+        celmax = cel_by_date_merx(worker_id,data,'max').to_f 
+        if celmax != nil
+          return celmax
+        else 
+          return 0
+        end
+      end
+      if type == 'cmin'
+        celmin = cel_by_date_merx(worker_id,data,'min').to_f
+       if celmin != nil
+          return celmin
+        else 
+          return 0
+        end
+      end
+      if type == "efektywnosc"
+        if efektywnosc != nil
+          return  efektywnosc
+        else
+          return 0
+        end
+      end
+      if type == "czas_dostepny"
+        if czas_dostepny != nil 
+          return  czas_dostepny
+        else
+          return 0
+        end
+      end
+      if type == "realizacja_norm"
+        if wartosc != nil 
+          return  wartosc
+        else
+          return 0
+        end
+      end
+  end
 
+  def ostatni_poziom_zrealizowanego_celu(efektywnosc,cmin,cmax)
+    if cmin != 0 and cmax != 0 and efektywnosc != 0
+      wartosc = ((efektywnosc - cmin) / (cmax-cmin))*100
+      return wartosc
+    else
+      return 0
+    end 
+  end
+
+  def szczegolowe_dane_z_dnia(worker_id,data,type)
+      realizacja_norm = Realizacjanorm.select("sum(rn_normatywy_czas_suma_tj) as suma").where("rn_id_worker_merx = ? and rn_data like ?",worker_id,data).group("rn_data").order("rn_data desc").pluck(:rn_normatywy_czas_suma_tj).first
+      czas_dostepny = Tabelaczasowdostepnych.select("sum(tcd_sum_godz_przep) as suma").where("tcd_id_worker_merx =? and tcd_data like ?", worker_id, data).group("tcd_data").order("tcd_data desc").pluck(:tcd_sum_godz_przep).first
+      if czas_dostepny == nil
+        czas_dostepny = 480
+      end
+        if type == "efektywnosc"
+              if realizacja_norm != nil and czas_dostepny != nil
+              efektywnosc = realizacja_norm/(czas_dostepny - czas_dostepny/8)*100
+              else
+              efektywnosc = 0
+              end
+          return efektywnosc
+        end
+
+      if type == "czas_dostepny"
+        if czas_dostepny == nil
+          return 450.0
+        else
+          return  czas_dostepny - czas_dostepny/8
+        end
+      end
+        if type == "realizacja_norm"
+           return  realizacja_norm
+        end
+  end
+
+  def realizacja_norm(limit)
     @normy = Realizacjanorm.where("rn_normatywy_czas_suma_tg >= ?", 0).order('rn_data desc').limit(limit)
     return @normy
   end
+
   def dodatek_by_obszar(obszar)
     if Obszar.all.include?(obszar) == false
     @dodatek ||= Obszar.where("ob_kod =? ", obszar).order('created_at desc').limit(1).pluck(:ob_wartosc)

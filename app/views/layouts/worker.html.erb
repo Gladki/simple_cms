@@ -4,9 +4,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Aplikacja - <%= yield(:title) || "Aplikacja" %></title>
-      <%= stylesheet_link_tag('jquery-ui-1.10.2.custom.css','ColVis.css','dataTables.editor.css','TableTools.css','demo_table_jui','worker', 'token-input-facebook') %>
-    <%= javascript_include_tag  "jquery-1.8.2.min.js","jquery.dataTables.js", "ZeroClipboard.js","TableTools.js","jquery-ui-1.10.2.custom.js", "TableRealizacjaNorm.js.erb", "TabelaNormatywow.js.erb","TabelaTransportowa.js.erb","TypyCzynnosci.js.erb","TabelaCzasow.js.erb", "dataTables.editor.js" , "ColVis.min.js"%>
-    <%= javascript_include_tag  "jquery.tokeninput","calendar.js", "moment.js" %>
+      <%= stylesheet_link_tag('jquery-ui-1.10.2.custom.css','ColVis.css','dataTables.editor.css','TableTools.css','demo_table_jui','worker', 'token-input-facebook','headers','circle') %>
+    <%= javascript_include_tag  "jquery-1.8.2.min.js","jquery.dataTables.js", "ZeroClipboard.js","TableTools.js","jquery-ui-1.10.2.custom.js", "TableRealizacjaNorm.js.erb", "TabelaNormatywow.js.erb","TabelaTransportowa.js.erb","TypyCzynnosci.js.erb","TabelaCzasow.js.erb","szczegoly","lista", "dataTables.editor.js" , "ColVis.min.js"%>
+    <%= javascript_include_tag  "jquery.tokeninput","calendar.js", "moment.js", "general.js" %>
 
     <meta name="author" content="Aleksander Gładysz">
  
@@ -34,7 +34,7 @@
           <% if permitted_to? :new, :searches %>
           <li><%= button_to "", nowe_szukanie_path, :class => "ico search_nav", :title => "Szukaj pracownika" %></li>
           <% end %>
-          <% if permitted_to? :calendar, :effectivenes %>
+          <% if permitted_to? :calendar, :workers %>
           
           <li><%= button_to "", effectivenes_calendar_path,  :class => "ico calendar_nav", :title => "Kalendarz efektywności"  %></li>
           <% end %>

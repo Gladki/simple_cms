@@ -1,0 +1,55 @@
+<% title "Kalendarz efektywności" %>
+<div id="header" class="header-colored" style="background-color:rgb(233, 135, 29); ">
+Kalendarz pracowników ze zrealizowanymi celami
+  
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a>
+<div id="visable-div" >
+<div id="calendar">
+  <h2 id="month">
+    <%= link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m-%d") %>
+    <%= h(l @date, format: :middle).titleize %>
+    <%= link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-%d") %>
+  </h2>
+<%= calendar_for(@realizacjanorm, :year => @date.year, :month => @date.month) do |t| %>
+  <%= t.head('Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota') %>
+
+    <%= t.day(:day_method => :rn_data, :class =>"test")  do |day, realizacja| %>
+       <%= day.day %>
+
+          <% realizacja.each do |rn| %>
+              <% worker_id = worker_id_by_merx(rn.rn_id_worker_merx) %>
+               <% if worker_id != nil %> 
+                <% val1 = szczegolowe_dane_z_dnia(rn.rn_id_worker_merx,rn.rn_data,"efektywnosc")
+                   
+                    val2 = cel_min_by_date(worker_id,rn.rn_data).to_f
+                    val3 = cel_max_by_date(worker_id,rn.rn_data).to_f
+                    val4 = ostatni_poziom_zrealizowanego_celu(val1,val2,val3).round
+                    if val4 >= 60
+                      @klasa = "ok"
+                    else 
+                    if val4 == 0
+                      @klasa = "neutral"
+                    else
+                      @klasa = "bad"
+                    end
+                    end
+
+                 %>
+
+            <% if val4 != 0 %>
+             <div class="<%= @klasa %>" >
+<%= link_to(" #{imie_nazwisko_worker(worker_id)[0].titleize}  #{imie_nazwisko_worker(worker_id)[1].titleize}", szczegoly_po_id_path(worker_id)) %> 
+      </div>
+<% end %>
+
+             <% end %>
+             <% end %>
+                 
+
+      
+        <% end %>
+        </ul>
+  <% end %>
+</div>
+</div>

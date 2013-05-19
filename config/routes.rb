@@ -29,7 +29,7 @@ SimpleCms::Application.routes.draw do
     match '/tabela-realizacji-norm/nowa-realizacja' => 'realizacjanorms#create' , :as => 'realizacjanorms'
     match '/pomocnicze' => 'pomocniczes#index' , :as => 'pomocnicze'
     #EFEKTYWNOSCI
-    match 'efektywnosci/kalendarz' => 'effectivenes#calendar' , :as => 'effectivenes_calendar'
+    match 'pracownicy/kalendarz' => 'workers#calendar' , :as => 'effectivenes_calendar'
     match 'efektywnosc/nowa' => 'effectivenes#create', :as => 'effectivenes_index'
     #TABELE
     match 'tabela-normatywow' => 'tabelanormatywows#index', :as => 'tabela_normatywow'
@@ -88,7 +88,7 @@ SimpleCms::Application.routes.draw do
 
     #IMPORTY
     resources :workers do 
-      collection {post :import , :import_tn, :import_tc, :import_tt,:import_tdc, :import_rn}
+      collection {post :import , :import_tn, :import_tc, :import_tt,:import_tdc, :import_rn,:import_workers}
     end
 
 

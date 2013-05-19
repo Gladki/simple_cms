@@ -9,6 +9,7 @@ class Cele < ActiveRecord::Base
 	             :ce_minimum, 
 	             :ce_maximum,
 	             :ce_data,
+	             :ce_id_worker_merx,
 	             :ce_worker_id,
 	             :ce_aud_us_id	
 

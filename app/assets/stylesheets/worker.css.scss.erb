@@ -1,7 +1,7 @@
 // Place all the styles related to the worker controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,300,400);
 $gray: #efefef;
 $black: #000;
 $blue:#0000ff;
@@ -96,8 +96,9 @@ position: relative;
 z-index: 1;
 }
 .chart {
-	width:100%;
+	width:850px;
 	height:500px;
+	float:left;
 	z-index: 1;
 }
 
@@ -212,19 +213,23 @@ height:23px;
 	background-image: url(<%= asset_path('wymiana.png') %>);
 }
 
-
+.search-top {
+	margin-bottom:-23px;
+	width: 50%;
+	text-align: right;
+	float:right;
+}
 
 .delete {
 width:16px;
 height:16px;
 background-color: transparent;
-clear:right;
+float: left;
 border: 0;
-margin:1px 2px;
-	background-image: url(<%= asset_path('delete.png') %>);
+// margin:1px 2px;
+background-image: url(<%= asset_path('delete.png') %>);
 cursor: pointer;
 opacity: 0.5;
-
 	&:hover{
 		opacity: 1.0;
 	}
@@ -232,11 +237,11 @@ opacity: 0.5;
 .details {
 width:23px;
 height:23px;
-clear:right;
+float: left;
 border: 0;
 padding: 0;
 background-color: transparent;
-	background-image: url(<%= asset_path('details.png') %>);
+background-image: url(<%= asset_path('details.png') %>);
 cursor: pointer;
 opacity: 0.5;
 
@@ -330,10 +335,16 @@ div.field_with_errors {
 
  }
 .bad {
-	background-color: red;
+	background-color: red !important;
+	border-color: red !important;
 }
 .ok {
-	background-color: green;
+	background-color: green !important;
+	border-color:green !important;
+}
+.neutral {
+	background-color: orange !important;
+	border-color: orange !important;
 }
 .left_auto_div {
 	float:left; 
@@ -346,12 +357,7 @@ div.field_with_errors {
 	}
 }
 
-.notice {
-padding: 5px 10px;
-margin-bottom: 10px;
-color:$white;
-	background-color: green;
-}
+
 #middle-content {
 width: auto;
 height:auto;
@@ -376,7 +382,7 @@ min-height: 2000px;
 }
 #container {
 	width:100%;
-	padding:10px 25px 10px 25px;
+	padding:10px 25px 10px 20px;
 	background-color: $white;
 	height: auto;
 	border:1px solid lighten($black,70%);
@@ -430,16 +436,16 @@ width:100%;
 		text-align:center;
   
 	}
-	#insert {
-		margin-left:50px;
-		float:right;
-		padding:0 20px;
-			padding-bottom:10px;
+	// #insert {
+	// 	margin-left:50px;
+	// 	float:right;
+	// 	padding:0 20px;
+	// 		padding-bottom:10px;
 
-		.add {
+	// 	.add {
 
-		}
-	}
+	// 	}
+	// }
 
 }
 #insert{
@@ -534,6 +540,14 @@ width:100%;
 .dane-pracownik {
 font-size: 13px;
 border-spacing: 3px;
+border-collapse: collapse;
+font-family: "Open Sans", sans-serif;
+font-weight: 400;
+	td {
+		padding:5px;
+	
+		border: 1px solid gray;
+	}
 }
 .tabela-efektywnosci {
 	float:left;

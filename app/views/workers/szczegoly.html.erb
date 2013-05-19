@@ -15,22 +15,24 @@
 
   @workers_id_table << params[:id]
   @imie_nazwisko = imie_nazwisko_worker(params[:id])[0] +" "+ imie_nazwisko_worker(params[:id])[1]
-  data_table.new_column('number', @imie_nazwisko.humanize )
-    cmin = cel_min(params[:id])[0].to_f
-    cmax = cel_max(params[:id])[0].to_f
+  data_table.new_column('number', @imie_nazwisko.titleize )
+    
     @test = []
     @rn.each do |a|
+      # cmax = cel_by_date_merx(a.rn_id_worker_merx,a.rn_data.strftime('%Y-%m-%d'),'max')[0].to_f * 10
+      # cmin = cel_by_date_merx(a.rn_id_worker_merx,a.rn_data.strftime('%Y-%m-%d'),'min')[0].to_f * 10
+
     if czas_dostepny_data(a.rn_id_worker_merx, a.rn_data.strftime('%Y-%m-%d')) != 0
-      czas_dostepny ||= czas_dostepny_data(a.rn_id_worker_merx, a.rn_data.strftime('%Y-%m-%d'))*60
+      czas_dostepny = czas_dostepny_data(a.rn_id_worker_merx, a.rn_data.strftime('%Y-%m-%d'))
     else
-      czas_dostepny = 450
+      czas_dostepny = 480.0
     end
      @test << czas_dostepny
 
      @narray = Array.new(1,0)
-     @narray.insert(0,a.rn_data,cmin,cmax)
-     @narray.insert(j+2,(a.rn_normatywy_czas_suma_tg/czas_dostepny).round(2)*100)
-     @narray.delete_at(j+3) 
+     @narray.insert(0,a.rn_data)
+     @narray.insert(j,((a.rn_normatywy_czas_suma_tj/(czas_dostepny - (czas_dostepny/8)))*100).round)
+     @narray.delete_at(j+1) 
      @tabela_dat << [params[:id], a.rn_data]
      @tmp <<  @narray
      
@@ -41,7 +43,7 @@
   @celes = []
   k =0
   @tabela_dat.uniq.each do |td|
-      @celes << [td[1],cel_min_by_date(td[0],td[1].strftime('%Y-%m-%d'))[0].to_f,cel_max_by_date(td[0],td[1].strftime('%Y-%m-%d'))[0].to_f ]
+      @celes << [td[1],cel_min_by_date(td[0],td[1].strftime('%Y-%m-%d')).to_f,cel_max_by_date(td[0],td[1].strftime('%Y-%m-%d')).to_f ]
       k = k+1
   end
   @cele_tabela = @celes.group_by(&:first).map do |date, rs|
@@ -51,7 +53,7 @@
   end
 
     @aggregated_rows = @tmp.group_by(&:first).map do |date, rs|
-  values = rs[0].zip(*rs[1..-1]).drop(3).map { |xs| xs.reduce(:+)}
+  values = rs[0].zip(*rs[1..-1]).drop(1).map { |xs| xs.reduce(:+)}
 
   [date.strftime('%d-%m-%Y'), values].flatten
   end 
@@ -76,7 +78,7 @@
               }
 
           }, 
-       
+        :colors => ['red','green','purple'],
         :chartArea => { :left => 50,  
                         :top => 50,
                         :width => 800,
@@ -97,82 +99,148 @@
 
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <%  @array = @tmp.group_by(&:first).map do |date, rs|
-  values = rs[0].zip(*rs[1..-1]).drop(3).map { |xs| xs.reduce(:+)}
+  values = rs[0].zip(*rs[1..-1]).drop(1).map { |xs| xs.reduce(:+)}
   
   [date.strftime('%Y-%m-%d'), values].flatten
   end 
   %>
-
+<div id="header" class="header-colored" style="background-color:rgb(233, 135, 29); ">
+  Wykres zrealizowanych norm
+  
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a>
+<div id="visable-div" >
 <div id='chart' class="chart"></div>
+
 <%= render_chart @chart, 'chart' %>
+<% 
 
-  <h1>Dane o pracowniku: </h1>
+  sum = 0
+  i = 0
+  @aggregated_rows.each do |f| 
+    sum += f[3]
+    i = i + 1
+  end 
+  if i != 0
+  sum = sum/i
+  else
+    sum = 0
+  end
+if sum >= 100 
+  @op1 = "opacity-max"
+  @op2 = "opacity-min"
+  @op3 = "opacity-min"
+end
+if sum < 100 and sum >= 70
+  @op1 = "opacity-min"
+  @op2 = "opacity-max"
+  @op3 = "opacity-min"
+end
+if sum < 70 
+  @op1 = "opacity-min"
+  @op2 = "opacity-min"
+  @op3 = "opacity-max"
+end
+
+ %>
+<div id="lights">
+<div id="circle" class="green <%= @op1 %>"></div>  
+<div id="circle" class="yellow <%= @op2 %>"></div>  
+<div id="circle" class="red <%= @op3 %>"></div>  
+</div>
+</div>
+<div id="header" class="header-colored" style="background-color:rgb(12, 157, 170); ">
+  Dane o pracowniku
+  
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a>
+<div id="visable-div" >
     <table class="dane-pracownik" >
-    	  <tr>
-    	  	<td class="header">Id pracownika: </td><td><%= @worker.id_worker %></td>
-    	  </tr><tr>
-    	  	<td class="header">Id pracownika merx: </td><td><%= @worker.id_worker_merx %></td>
-      </tr><tr>	
-    	  	<td class="header">Imie:</td><td><%= @worker.first_name %></td>
-    	  </tr><tr>
-    	  	<td class="header">Nazwisko:</td><td><%= @worker.last_name %></td>
-    	  </tr><tr>
-	    <% 
-        val1 = minimum_effectivity(params[:id])
-        val2 = cel_min(params[:id])[0].to_f
-        val3 = cel_max(params[:id])[0].to_f
-       
-            if val2 == 0 and val3 == 0
-              val4 = 0
-            else
-              val4 = (((val1-val2)/(val3-val2))*100).round
-            end
+    	   <tr>  
+          <td class="header">Pracownik:</td><td><%= @worker.first_name.humanize %> <%= @worker.last_name.humanize %></td>
+          <td  style="width:50px; border:none"></td><td class="header">Obszar:</td><td><%= @worker.obszar %></td>
+          <td  style="width:50px; border:none"></td><td class="header">Przełożony:</td><td><%= @worker.przelozony %></td>
 
-          if val4 < 0
-            @klasa = "bad"
-          else
-            @klasa = "ok"
-          end
+        </tr>
 
-       %>
-       <td>Najmniejszy poziom<br/>zrealizowania celu:</td><td class="<%= @klasa %>"><%= val4 %>%</td>
-    	  </tr><tr>
-    	  	<td class="header">Effektywność minimum:</td><td><%= val2 %>%</td>
-    	  </tr>
-    	  <tr>
-    	  	<td class="header">Effektywność maximum:</td><td><%= val3 %>%</td>
-    	  </tr>
-    	  <tr>
-    	  	<td class="header">Data ostatniego update:</td><td>
+         <tr>  <td class="header">Id Merx pracownika: </td><td><%= @worker.id_worker_merx %></td>
+        
+          <td style="width:50px; border:none;"></td><td class="header">Jednostka organizacyjna:</td><td><%= @worker.jednostka_organizacyjna %></td><td style="width:50px; border:none;"></td>  <td class="header">Stanowisko:</td><td><%= @worker.stanowisko %></td>
 
-          <% if last_update_effectivity(params[:id]) != nil %>
-          <%= last_update_effectivity(params[:id]).strftime("%d-%m-%Y r. ") %>
-          <% else  %>
-          0
-          <% end %>
-        </td>
-         </tr>
+        </tr>
+
+
+        <tr>
+    	  	<td class="header">ID HR pracownika: </td><td><%= @worker.id_worker_hr %></td>
+    	   <td  style="width:50px; border:none"></td><td class="header">Profil merx: </td><td><%= @worker.profil_merx %></td>
+    	  	
+      </tr>
+      <tr style="height:20px;"> 
+      </tr>
+      <tr> 
+        <% efektywnosc_latest = relizacja_norm_last(@worker.id_worker_merx,"efektywnosc")
+            if efektywnosc_latest > 60
+                @klasa = "ok"
+              else
+                @klasa = "bad"
+              end
+         %>
+
+
+          <td class="header">Ostatnia efektywność</td><td style="padding:5px;" class="<%= @klasa %>"><%= efektywnosc_latest %> %</td>
+        </tr>
+        <% 
+            val1 = relizacja_norm_last(@worker.id_worker_merx,"efektywnosc") 
+            val2 = relizacja_norm_last(@worker.id_worker_merx,"cmin") 
+            val3 = relizacja_norm_last(@worker.id_worker_merx,"cmax") 
+           
+                val4 = ostatni_poziom_zrealizowanego_celu(@worker.id_worker_merx,val1,val2,val3)
+                if val4 >= 60
+                 @klasa = "ok"
+                else 
+                  if val4 == 0
+                  @klasa = "neutral"
+                  else
+                  @klasa = "bad"
+
+                  end
+                end
+
+             %>
+          <td class="header">Ostatnia realizacja celu</td><td style="padding:5px;" class="<%= @klasa %>"><%= val4 %> %</td>
+
+      
     </table>
-  <div id="1" class="middle-content">
 
-  <h1>Zrealizowane cele</h1>
-    <table id="zrealizowane-cele" style="margin-bottom:40px;" class="tabela-efektywnosci" >
+</div>
+<br>
+  <div id="1" class="middle-content">
+<div id="header" class="header-colored" style="background-color:rgb(204, 122, 0); ">
+  Zrealizowane cele
+  
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a>
+<div id="visable-div" >
+    <table id="zrealizowane-cele"  class="display" >
       <thead>
         <tr>
-          <th>Efektywność</th>
+          <th>Realizacja norm</th>
+          <th>Czas dostępny</th>
+          <th>Wykonana praca</th>
           <th>Poziom zrealizowania celu</th>
           <th>Data</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+       
         <% @array.each do |f| %>
           <tr>
-
+          <td><%= szczegolowe_dane_z_dnia(@worker.id_worker_merx,f[0],"realizacja_norm") %> min</td>
+          <td><%= szczegolowe_dane_z_dnia(@worker.id_worker_merx,f[0],"czas_dostepny") %> min</td>
             <% 
           val1 = f[1]
-          val2 = cel_min_by_date(params[:id],f[0])[0].to_f
-          val3 = cel_max_by_date(params[:id],f[0])[0].to_f
+          val2 = cel_min_by_date(params[:id],f[0]).to_f
+          val3 = cel_max_by_date(params[:id],f[0]).to_f
               if  val1 != nil
               if val2 == 0 and val3 == 0
                 val4 = 0
@@ -180,79 +248,76 @@
                 val4 = (((val1-val2)/(val3-val2))*100).round
               end
               end
-            if val4 < 0
-              @klasa = "bad"
-            else
-              @klasa = "ok"
-            end
+              if val4 >= 60
+               @klasa = "ok"
+              else 
+                if val4 == 0
+                @klasa = "neutral"
+                else
+                @klasa = "bad"
+
+                end
+              end
+
            %>
           <td><%= f[1]%>%</td>
+          
           <td class="<%= @klasa %>"><%= val4 %>%</td>
+
           <td><%= f[0]%></td>
          
   
           </tr>
           <% end %>
-        </tr>
+
       </tbody>
     </table>
 
-<div id="insert" style="margin-top:20px;margin-left:20px;width:400px;float:right;">
-
-
- <%= form_for @nowa_efektywnosc do |f| %>
-  
-    <%= render(:partial => 'efektywnosc', :locals => {:f => f}) %>
-    
-    
-  <% end %>
-  
 </div>
 </div>
-  <div id="1" class="middle-content">
-
-
-    <h1 style="clear:left;">Cele</h1>
-    
-  <table style="margin-bottom:40px;" class="tabela-efektywnosci" >
-      <thead>
-        <tr>
-          <th>Cel minimum</th>
-          <th>Cel maximum</th>
-          <th>Data celu</th>
-        </tr>
-      </thead>
-      <tbody>
-         <% if @cele == nil || @cele.empty? %>
+<div id="1" class="middle-content">
+  <div id="header" class="header-colored" style="background-color:rgb(113, 170, 12); ">
+    Ustawione cele
+  </div>
+  <a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a>
+  <div id="visable-div" >
+      <div style="width:680px; float:left;">
+        
       
-     
-       <tr>
-       <td>0</td><td>0</td><td>-</td>
+    <table id="szcegoly-cele" class="display" style="margin-bottom:10px;"   >
+        <thead>
+          <tr>
+            <th>Cel minimum</th>
+            <th>Cel maximum</th>
+            <th>Data celu</th>
+            <th></th>
+
+          </tr>
+        </thead>
+        <tbody>
+      
+           <% @cele.each do |cel| %>
+        <tr >
+          <td><%= cel.ce_minimum %>%</td>
+          <td><%= cel.ce_maximum %>%</td>
+            
+            <% if cel.ce_data != nil %>
+            <td>
+              <%= cel.ce_data.strftime("%d-%m-%Y r.") %></td>
+          <% else %>
+            <td>-</td>
+          <% end %>
+          <td > <% if permitted_to? :delete, :celes %>
+          <%= button_to("", usun_po_id_cel_path(cel.id), :class=>"delete" ) %>
+          <% end %></td>
         </tr>
+           <% end %> 
 
-
-       <% else %>
-         <% @cele.each do |cel| %>
-      <tr>
-        <td><%= cel.ce_minimum %>%</td>
-        <td><%= cel.ce_maximum %>%</td>
-          
-          <% if cel.ce_data != nil %>
-          <td><%= cel.ce_data.strftime("%d-%m-%Y r.") %></td>
-        <% else %>
-          <td>-</td>
-        <% end %>
-          <% if permitted_to? :delete, :celes %>
-        <td><%= button_to("", usun_po_id_cel_path(cel.id), :class=>"delete" ) %></td>
-      <% end %>
-      </tr>
-         <% end %> 
-     <% end %>
-     
-      </tbody>
-    </table>
-
-<div id="insert" style="margin-top:20px;width:400px;float:right;">
+       
+        </tbody>
+      </table>
+  </div>
+  <div id="insert" style="margin-top:20px;width:300px;float:right;">
   
 
 
@@ -262,26 +327,32 @@
     
     
   <% end %>
-
+</div>
 </div>
 </div>
     <div id="1" class="middle-content">
-
-  <h1 style="clear:left;">Premie</h1>
-    
-  <table style="margin-bottom:40px;" class="tabela-efektywnosci" >
+<div id="1" class="middle-content">
+<div id="header" class="header-colored" style="background-color:rgb(66, 0, 117); ">
+Ustawione premie
+  
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a>
+<div id="visable-div" >
+        <div style="width:680px; float:left;">
+  <table id="ustawione-premie" class="display" style="margin-bottom:10px;" >
       <thead>
         <tr>
           <th>Tytułem</th>
           <th>Wartość premii</th>
           <th>Obowiązuje od</th>
           <th>Obowiązuje do</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         
          <% @premie.each do |premia| %>
-      <tr>
+        <tr>
         <td><%= premia.pe_tytul %></td>
         <td><%= premia.pe_wartosc %></td>
         <td><%= premia.pe_data_od %></td>
@@ -296,8 +367,8 @@
      
       </tbody>
     </table>
-
-<div id="insert" style="margin-top:20px;width:400px;float:right;">
+</div>
+<div id="insert" style="margin-top:20px;width:300px;float:right;">
   
 
 
@@ -308,6 +379,7 @@
     
   <% end %>
 
+</div>
 </div>
 </div>
 

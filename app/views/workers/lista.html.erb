@@ -1,80 +1,95 @@
 <% title "Lista pracowników" %>
-
-<div class="section list">
-  <h1>Wyszukiwanie pracowników</h1>
+<% if permitted_to? :new, :workers %>
+<div id="header" class="header-colored" style="background-color:rgb(233, 135, 29); ">
+Dodaj nowego pracownika do systemu
 </div>
- <br/>
-<p>
-<b>Pobierz listę w formacie: 
-<%= button_to("Excel (.xls)" , lista_pracownikow_path(format: "xls"), :class => "szczegoly") %>
- 
-          <% if permitted_to? :new, :workers %>
-<%= button_to "", nowy_pracownik_path, :class=> "add", title: "Dodaj nowego pracownika" %>
-          <% end %>
-        
-         
-</b>
-</p>
-<br/>
-<table class="listing" summary="Section list">
-    <tr class="header">
-      <th>ID<br/>Pracownika</th>
-      <th>ID<br/>Merx<br/>Pracownika</th>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a>
+<div id="visable-div" >
+  <% @page_title = "Dodaj pracownika" %>
+ <div id="1" class="middle-content">
+ <div id="insert" style=" float:left; margin:0; padding:20px 10px;">
+
+  <%= form_for @new_worker  do |f| %>
+  
+    <%= render(:partial => 'form', :locals => {:f => f}) %>
+    
+    <div class="form-buttons">
+      <%= submit_tag("" , :class => "add", title: "Dodaj nowego pracownika") %>
+    </div>
+    
+  <% end %>
+</div>
+</div>
+</div>
+
+<% end %>
+<div id="header" class="header-colored" style="background-color:rgb(176, 29, 233); ">
+ Lista pracowników
+  
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a>
+<div id="visable-div" >
+<table id="lista-pracownikow" class="display">
+    <thead>
+
+      <th>ID HR pracownika</th>
+      <th>ID Merx pracownika</th>
       <th>Nazwisko</th>
       <th>Imie</th>
-      <th>Najlepsza<br/>Efektywność</th>
-      <th>Najgorsza<br/>Efektywność</th>
-      <th>Realizacja<br/>Celu</th>
-    </tr>
+      <th>Stanowisko</th>
+      <th>Ostatnia realizacja norm</th>
+      <th>Ostatni czas dostępny</th>
+      <th>Ostatna efektywność</th>
+      <th>Ostatnia realizacja celu</th>
+      <th></th>
+
+
+  </thead>
+   <tbody>
  <% @workers.each do |worker| %>
+
  <tr>
  
-     <td><%= worker.id_worker %></td>
+
+      <td><%= worker.id_worker_hr %></td>
       <td><%= worker.id_worker_merx %></td>
       <td><%= worker.last_name %></td>
       <td><%= worker.first_name %></td>
-      <td style="text-align:right"><%= maximum_effectivity(worker.id) %>%</td>
-      <td style="text-align:right"><%= minimum_effectivity(worker.id) %>%</td>
+      <td><%= worker.stanowisko %></td>
+      <td style="text-align:right"><%= relizacja_norm_last(worker.id_worker_merx,"realizacja_norm") %> min</td>
+      <td style="text-align:right"><%= relizacja_norm_last(worker.id_worker_merx,"czas_dostepny") %> min</td>
+      <td style="text-align:right"><%= relizacja_norm_last(worker.id_worker_merx,"efektywnosc") %>%</td>
+
       <% 
-      val1 ||= minimum_effectivity(worker.id)
-      val2 ||= cel_min(worker.id)[0].to_f
-      val3 ||= cel_max(worker.id)[0].to_f
+      val1 = relizacja_norm_last(worker.id_worker_merx,"efektywnosc") 
+      val2 = relizacja_norm_last(worker.id_worker_merx,"cmin") 
+      val3 = relizacja_norm_last(worker.id_worker_merx,"cmax") 
      
-            if ((val3-val2) == 0 )
-            tmpval = 1
-          else
-            tmpval = (val3-val2)
-          end
-          if val2 == 0 and val3 == 0
-            val4 = 0
-          else
-            val4 = (((val1-val2)/(tmpval))*100).round
-          end
-          if val4 <30
+          val4 = ostatni_poziom_zrealizowanego_celu(val1,val2,val3)
+          if val4 >= 60
+           @klasa = "ok"
+          else 
+            if val4 == 0
+            @klasa = "neutral"
+            else
             @klasa = "bad"
-          else
-            @klasa = "ok"
+
+            end
           end
 
        %>
       <td class="<%= @klasa %>" style="text-align:right;"><%= val4 %>%</td>
-      
-   
-   
-     
-     
-    
-     
-    
-      </td>
-      <td><%= button_to("", szczegoly_po_id_path(worker.id), :class=>"details" ) %></td>
+
+      <td style="width:50px;"><%= button_to("", szczegoly_po_id_path(worker.id), :class=>"details" ) %>
       
       <% if permitted_to? :delete, :workers %>
-        <td><%= button_to("", usun_po_id_path(worker.id), :class=>"delete" ) %></td>
+        <%= button_to("", usun_po_id_path(worker.id), :class=>"delete", :style=>"margin-top:4px; margin-left:5px;" ) %>
       <% end %>
 
-
+      </td>
       </tr>
           
      <% end %>
+   </tbody>
    </table>
+ </div>
