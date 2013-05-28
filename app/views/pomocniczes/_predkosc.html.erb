@@ -18,12 +18,10 @@
      
 
 	<% if permitted_to? :delete, :pomocniczes %>
-		<td style="border:0"><%= button_to("", edit_predkosc_path(predkosc.id), :class=>"edit",:title=>"Edytuj prędkość nr. #{predkosc.id}" ) %></td>
+	<td style="border:0 width:100px;"><%= button_to("", edit_predkosc_path(predkosc.id), :class=>"edit",:title=>"Edytuj prędkość nr. #{predkosc.id}" ) %>
 	<% end %>
-
-
 	<% if permitted_to? :delete, :pomocniczes %>
-		<td style="border:0"><%= button_to("", usun_po_id_predkosc_path(predkosc.id), :class=>"delete", :title=>"Usuń prędkość nr. #{predkosc.id}" ) %></td>
+<%= button_to("", usun_po_id_predkosc_path(predkosc.id), :class=>"delete", :title=>"Usuń prędkość nr. #{predkosc.id}" ) %></td>
 	<% end %>
 
 

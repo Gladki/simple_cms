@@ -1,9 +1,10 @@
 <% title "Tabela Transportowa" %>
-<div style="middle-content">
-  <h1>Tabela Transportowa</h1>
-  
-     <div id="insert" >
-  <p>Dodaj nowy Transport:</p>
+<div id="header" class="header-colored" style="background-color:rgb(233, 135, 29); ">
+Dodawanie nowego transportu
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a>
+<div id="visable-div" >
+<div id="insert" style="margin-top:0; padding:10px;">
 
  <%= form_for @nowy_transport do |f| %>
   
@@ -12,17 +13,12 @@
     
   <% end %>
 </div>
-<div style="middle-content">
+</div>
+<div id="header" class="header-colored" style="background-color:rgb(33, 135, 129); ">
+Tabela transportowa
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a><div id="visable-div" >
 
-
-<!--  <br/>
-<p>
-<b>Pobierz listę w formacie: 
-<%= button_to("Excel (.xls)" , export_tabela_transportowa_path(format: "xls"), :class => "szczegoly") %>
-
-</b>
-</p> -->
-<br/>
 <div id="tabela-div">
   
 <table id="tabela_transportowa" class="display" style="font-size:12px;" summary="Section list" data-source="<%= tabela_transportowa_url(format: "json") %>">
@@ -55,5 +51,6 @@
       </tbody>
 
    </table>
+</div>
 </div>
 </div>

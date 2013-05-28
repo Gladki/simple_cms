@@ -1,12 +1,11 @@
 <% title "Typy czynnosci" %>
-  <div id="1" class="middle-content">
-    
- 
-  <h1>Typy Predkosci</h1>
+ <div id="header" class="header-colored" style="background-color:rgb(233, 135, 29); ">
+Prędkości</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a><div id="visable-div" >
+<div style="width:650px; float:left;">
 
-<br/>
-<table id="tczynnosci" border="1"class="listing" summary="Section list">
-    <tr class="header">
+<table id="predkosci" class="display">
+    <thead>
       <th>Rodzaj<br/>wózka</th>
       <th>Opis</th>
     
@@ -15,14 +14,18 @@
       <th>Prędkość <br/>w [m/s]</th>
       <th>Prędkość <br/>TMU</th>
       <th>Data utworzenia</th>
-    </tr>
+      <th>Czynności</th>
+
+      </thead>
+<tbody>
  <% @predkosci.each do |predkosc| %>
  <%= render(:partial =>'predkosc', :locals => {:predkosc => predkosc}) %>
           
      <% end %>
+     </tbody>
    </table>
-
-<div id="insert">
+</div>
+<div id="insert" style="padding-right:10px;float:right;margin-top:0px;">
   <p>Dodaj nową prędkość:</p>
 
  <%= form_for @nowa_predkosc do |f| %>
@@ -34,13 +37,15 @@
 
 </div>
  </div>
-  <div id="2" class="middle-content">
-    
- <h1>Dodatki</h1>
+  <div id="header" class="header-colored" style="background-color:rgb(133, 135, 229); ">
+Dodatki
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a><div id="visable-div" >
 
-<br/>
-<table id="tczynnosci" border="1"class="listing" summary="Section list">
-    <tr class="header">
+
+<div style="width:650px; float:left;">
+<table id="dodatki" class="display">
+<thead>
       <th>Rodzaj<br/>wózka</th>
       <th>Opis</th>
     
@@ -49,14 +54,17 @@
       <th>Czas start/stop<br/>w [sek]</th>
       
       <th>Data utworzenia</th>
-    </tr>
+      <th>Czynności</th>
+</thead>
+<tbody>
  <% @dodatki.each do |dodatek| %>
  <%= render(:partial =>'dodatek', :locals => {:dodatek => dodatek}) %>
           
      <% end %>
+     </tbody>
    </table>
-
-<div id="insert">
+</div>
+<div id="insert" style="padding-right:10px;float:right;margin-top:0px;">
   <p>Dodaj nowy dodatek:</p>
 
  <%= form_for @nowy_dodatek do |f| %>
@@ -68,30 +76,38 @@
 
 </div>
 </div>
-  <div id="3" class="middle-content">
+ <div id="header" class="header-colored" style="background-color:rgb(133, 135, 189); ">
+Obszary
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a><div id="visable-div" >
+
 
  <h1>Obszary</h1>
 
-<br/>
-<table id="tczynnosci" border="1"class="listing" summary="Section list">
-    <tr class="header">
+
+<div style="width:650px; float:left;">
+<table id="obszary" class="display">
+<thead>
       <th>Miejsce zastosowania</th>
       <th>Magazyn</th>
     
       <th>Kod</th>
       <th>Wartość dodatku</th>
-      <th>Opis<br/>obszaru</th>
+      <th>Opis obszaru</th>
+      <th>Czynności</th>
     
       
       <!-- <th>Data utworzenia</th> -->
-    </tr>
+</thead>
+<tbody>
  <% @obszary.each do |obszar| %>
  <%= render(:partial =>'obszar', :locals => {:obszar => obszar}) %>
           
      <% end %>
+     </tbody>
    </table>
-
-<div id="insert" >
+</div>
+<div id="insert" style="padding-right:10px;float:right;margin-top:0px;">
   <p>Dodaj nowy obszar:</p>
 
  <%= form_for @nowy_obszar do |f| %>

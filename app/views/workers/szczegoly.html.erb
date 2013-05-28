@@ -194,7 +194,7 @@ end
             val2 = relizacja_norm_last(@worker.id_worker_merx,"cmin") 
             val3 = relizacja_norm_last(@worker.id_worker_merx,"cmax") 
            
-                val4 = ostatni_poziom_zrealizowanego_celu(@worker.id_worker_merx,val1,val2,val3)
+                val4 = ostatni_poziom_zrealizowanego_celu(val1,val2,val3)
                 if val4 >= 60
                  @klasa = "ok"
                 else 

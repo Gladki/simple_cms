@@ -7,11 +7,11 @@
 <td style="width:200px; padding:0 5px;"><%= obszar.ob_opis %></td>
 
 <% if permitted_to? :delete_obszar, :pomocniczes %>
-        <td style="border:0;"><%= button_to("", edit_obszar_path(obszar.id), :class=>"edit",:title=>"Edytuj obszar nr. #{obszar.id}" ) %></td>
+        <td style="border:0;"><%= button_to("", edit_obszar_path(obszar.id), :class=>"edit",:title=>"Edytuj obszar nr. #{obszar.id}" ) %>
       <% end %>
 
 <% if permitted_to? :delete_obszar, :pomocniczes %>
-        <td style="border:0;"><%= button_to("", usun_po_id_obszar_path(obszar.id), :class=>"delete",:title=>"Usuń obszar nr. #{obszar.id}" ) %></td>
+<%= button_to("", usun_po_id_obszar_path(obszar.id), :class=>"delete",:title=>"Usuń obszar nr. #{obszar.id}" ) %></td>
       <% end %>
 
 </tr>

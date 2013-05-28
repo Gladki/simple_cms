@@ -1,7 +1,9 @@
 <% title "Realizacja norm" %>
- 
-<div id="1" class="middle-content">
-    <h1>Realizacja norm</h1>
+<div id="header" class="header-colored" style="background-color:rgb(233, 135, 29); ">
+Dodawanie nowej realizacji
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a><div id="visable-div" >
+
 
 <div id="insert" style="width:80%;float:left;margin:0;padding:0 10px 10px 0;">
   <p>Dodaj nowy czas:</p>
@@ -15,14 +17,18 @@
 
 
 
+
  </div> 
 <%= button_to "" , export_realizacja_norm_path(format: "xls"), :class => "export-excel", :style => "margin:0 0 0 20px;" %>
 
  </div> 
 
 
- <div id="1" class="middle-content">
-    <br>
+<div id="header" class="header-colored" style="background-color:rgb(233, 35, 29); ">
+Tabela realizacji norm
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a><div id="visable-div" >
+
 
 
 <table id="normy" class="display" style="font-size:12px; width:100%;" data-source="<%= tabela_realizacji_norm_url(format: "json") %>" summary="Section list">
@@ -52,5 +58,6 @@
    </table>
 
 
+</div>
 </div>
    
