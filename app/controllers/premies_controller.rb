@@ -11,8 +11,11 @@ def find_worker
     
 end
 def premia_id
-    @premia = Premie.find(params[:id2])
-
+    if params[:id2] != nil
+        @premia = Premie.find(params[:id2])
+    else
+        @premia = Premie.find(params[:id])
+    end
 end
 
 def new

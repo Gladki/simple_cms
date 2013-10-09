@@ -1,7 +1,7 @@
 
   $(function() {
      $( "#date_from_div" ).datepicker({
-      defaultDate: "-1w",
+      defaultDate: false,
       changeMonth: true,
       changeMonth: false,
       closeText: 'Zamknij',
@@ -21,7 +21,7 @@
       altFormat: "dd-mm-yy",
     });
     $( "#date_to_div" ).datepicker({
-      defaultDate: "today",
+      defaultDate: false,
       changeMonth: true,
       changeMonth: false,
       closeText: 'Zamknij',

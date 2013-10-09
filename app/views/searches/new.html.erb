@@ -1,16 +1,18 @@
-<% title "Nowe wyszukiwanie" %>
+<% title "Raport pracownika" %>
 
-<div class="section list">
-  <h1>Wyszukiwanie pracownika</h1>
+
+<div id="header" class="header-colored" style="background-color:rgb(233, 135, 29); ">
+Generowanie raportu
 </div>
-
-
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a><div id="visable-div" >
+<div id ="left" style="float:left; width:50%">
+  
 <%= form_for @search do |f|  %>
 
   <table cellpadding="5" style="float:left;">
   	<tbody>
   		<tr>
-  			<td><%= f.label "Imie, Nazwisko: " %></td>
+  			<td style="width:100px;"><%= f.label "Imie, Nazwisko: " %></td>
 	  		<td colspan="3"><%= f.text_field :keywords , :class=>"input-search big" %></td>
 	  		
 			
@@ -24,22 +26,34 @@
   		<tr>
   			<td style="width:50px;"><%= f.label "Minimalna efektywność: " %></td>
   			<td style="width:50px;"><%= f.number_field :min_effectivity, :class=>"input-search small" %></td>
-  			<td style="width:50px;"><%= f.label "Maksymalna efektywność: " %></td>
-  			<td><%= f.number_field :max_effectivity , :class=>"input-search small"%></td>
+  		  <td style="width:50px;"><%= f.label "Maksymalna efektywność: " %></td>
+        <td><%= f.number_field :max_effectivity , :class=>"input-search small"%></td>
+	       <tr>
+         <td style="width:50px;"><%= f.label "Stanowisko: " %></td>
+    <td><%= f.collection_select  :stanowisko, Position.order("name asc") , :name, :name, :include_blank => true %></td>
+    <td style="width:50px;"><%= f.label "Jednostka organizacyjna: " %></td>
+    <td><%= f.collection_select  :jedn_organizacyjna, Jednostkaorganizacyjna.order("name asc") , :name, :name, :include_blank => true %></td>
+    </tr>
+    <tr>
+             <td style="width:50px;"><%= f.label "Obszar: " %></td>
 
+    <td><%= f.collection_select  :obszar, Obszar.order("ob_kod asc") , :ob_kod,  :pelna_nazwa_obszaru , :include_blank => true %></td>
+    </tr>
 
   		</tr>
   	</tbody>
   </table>
    
 
-   
+</div>
+   <div id="right" style="float:right; width:38%; padding-left:100px;">
+     
  
    
    <table id="table-for-calendar" >
     		<tr>
-    				<td><%= f.label "Data od: " %></td>
-    				<td><%= f.label "Data do: " %></td>
+    				<td class="new_search"><%= f.label "Data od: " %></td>
+    				<td class="new_search"><%= f.label "Data do: " %></td>
     			</tr>
     		<tr >
     			<td ><div id="date_from_div"></div></td>
@@ -65,8 +79,10 @@
  
 
  
+   </div>
 
   <%= f.submit "" , :class => "szukaj"%>
 <% end %>
+</diV>
 
 

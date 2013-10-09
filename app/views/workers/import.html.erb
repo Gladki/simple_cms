@@ -11,6 +11,16 @@
 
   <p><b>Import danych z pliku EXCEL</b></p>
 
+<div class="left_auto_div">
+ <p>Zrealizowane normy:</p>
+
+  <%= form_tag import_rn_finall_workers_path, multipart: true do %>
+    <%= file_field_tag :file , :class => "szczegoly"%><br/><br/>
+    <%= submit_tag "Importuj!" , :class => "szczegoly"%>
+  <% end %>
+
+
+</div>
   <div class="left_auto_div">
  <p>Tabela pracowników:</p>
 
@@ -20,7 +30,8 @@
   <% end %>
 
 
-</div><div class="left_auto_div">
+</div>
+<div class="left_auto_div">
  <p>Tabela wymiany czasów:</p>
 
   <%= form_tag import_rn_workers_path, multipart: true do %>
@@ -68,6 +79,27 @@
   <p>Tabela Czynności:</p>
 
   <%= form_tag import_tc_workers_path, multipart: true do %>
+    <%= file_field_tag :file , :class => "szczegoly"%><br/><br/>
+    <%= submit_tag "Importuj!" , :class => "szczegoly"%>
+  <% end %>
+
+
+</div>
+<div class="left_auto_div">
+
+  <p>Stanowiska:</p>
+
+  <%= form_tag import_stanowiska_workers_path, multipart: true do %>
+    <%= file_field_tag :file , :class => "szczegoly"%><br/><br/>
+    <%= submit_tag "Importuj!" , :class => "szczegoly"%>
+  <% end %>
+
+
+</div><div class="left_auto_div">
+
+  <p>Jednostki organizacyjne:</p>
+
+  <%= form_tag import_jednostki_organizacyjne_workers_path, multipart: true do %>
     <%= file_field_tag :file , :class => "szczegoly"%><br/><br/>
     <%= submit_tag "Importuj!" , :class => "szczegoly"%>
   <% end %>

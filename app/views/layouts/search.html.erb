@@ -3,11 +3,14 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Aplikacja - <%= yield(:title) || "Wyszukiwaniea" %></title>
+    <title>Aplikacja - <%= yield(:title) || "Raport pracownika" %></title>
     
     <%= stylesheet_link_tag('worker', 'token-input-facebook', 'jquery-ui-1.10.2.custom.css') %>
     <%= javascript_include_tag  "jquery-ui-1.10.2.custom.js" %>
     <%= javascript_include_tag :application, "jquery.tokeninput","calendar.js", "moment.js" %>
+   <%= stylesheet_link_tag('jquery-ui-1.10.2.custom.css','ColVis.css','dataTables.editor.css','TableTools.css','demo_table_jui','worker', 'token-input-facebook','headers','circle') %>
+    <%= javascript_include_tag  "jquery-1.8.2.min.js","jquery.dataTables.js", "ZeroClipboard.js","TableTools.js","jquery-ui-1.10.2.custom.js", "TableRealizacjaNorm.js.erb", "TabelaNormatywow.js.erb","wyszukiwanie-lista.js.erb","TabelaTransportowa.js.erb","TypyCzynnosci.js.erb","TabelaCzasow.js.erb","szczegoly","lista","pomocnicze","raporty", "dataTables.editor.js" , "ColVis.min.js"%>
+    <%= javascript_include_tag  "jquery.tokeninput","calendar.js", "moment.js", "general.js" %>
 
     <meta name="author" content="Aleksander Gładysz">
 <script type="text/javascript">
@@ -22,11 +25,14 @@ $(function() {
   </head>
   <body>
     <div class="header-pipe-bar">
-      <% if current_user %>
+        <% if current_user %>
 
-    <div id="navigation">
+        <div id="navigation">
+       <div style="float:left; width:auto; padding-top:5px;">
+         
+       Witaj: <%= current_user.login.humanize %>.</div>
         <ul>
-           <li style="padding-top:5px; ">Witaj: <%= current_user.login.humanize %>.</li>
+          
             
           <!--   <% if permitted_to? :szczegoly, :workers %>
             <li><%= link_to "Dashboard", szczegoly_po_id_path(current_user.id) %></li>
@@ -39,7 +45,7 @@ $(function() {
           <% if permitted_to? :new, :searches %>
           <li><%= button_to "", nowe_szukanie_path, :class => "ico search_nav", :title => "Szukaj pracownika" %></li>
           <% end %>
-          <% if permitted_to? :calendar, :effectivenes %>
+          <% if permitted_to? :calendar, :workers %>
           
           <li><%= button_to "", effectivenes_calendar_path,  :class => "ico calendar_nav", :title => "Kalendarz efektywności"  %></li>
           <% end %>
@@ -54,7 +60,14 @@ $(function() {
             <li><%= button_to "", typy_czynnosci_path ,  :class => "ico tc_nav", :title => "Tabela czynności"%></li>
           <% end %>
 
-          <% if permitted_to? :index, :pomocniczes %>
+          <% if permitted_to? :index, :tabelaczasowdostepnychs %>
+            <li><%= button_to "", tabela_czasow_dostepnych_path,  :class => "ico cd_nav", :title => "Tabela czasow dodatkowych" %></li>
+          <% end %> 
+
+            <% if permitted_to? :index, :tabelaczasowdostepnychs %>
+            <li><%= button_to "", tabela_realizacji_norm_path,  :class => "ico rn_nav", :title => "Tabela realizacji norm" %></li>
+          <% end %> 
+           <% if permitted_to? :index, :pomocniczes %>
             <li><%= button_to "", pomocnicze_path,  :class => "ico dodatki_nav", :title => "Dane dodatkowe" %></li>
           <% end %>
            

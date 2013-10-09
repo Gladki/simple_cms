@@ -35,8 +35,8 @@ class WorkersController < ApplicationController
   end
   def create 
   
-    @new_worker = Worker.new(params[:worker])
-    if @new_worker.save 
+    @new_worker = Worker.new(params[:worker]) 
+   if @new_worker.save 
       flash[:notice] = "Poprawnie dodano pracownika!"
         redirect_to :action => "lista"
     else
@@ -131,6 +131,30 @@ class WorkersController < ApplicationController
     Realizacjanorm.import(params[:file])
     if Realizacjanorm.create.new_record? == true  
       redirect_to import_danych_path, notice: "Tabela realizacji norm dostepnych zostala poprawnie dodana"
+    else
+      redirect_to import_danych_path, notice: "Plik o podanej nazwie zostal juz poprawnie wgrany!"
+    end
+  end 
+  def import_rn_finall
+    Realizacjanorm.import_finall(params[:file])
+    if Realizacjanorm.create.new_record? == true  
+      redirect_to import_danych_path, notice: "Tabela realizacji norm dostepnych zostala poprawnie dodana"
+    else
+      redirect_to import_danych_path, notice: "Plik o podanej nazwie zostal juz poprawnie wgrany!"
+    end
+  end
+   def import_stanowiska
+    Position.import(params[:file])
+    if Position.create.new_record? == true  
+      redirect_to import_danych_path, notice: "Tabela stanowisk zostala poprawnie dodana"
+    else
+      redirect_to import_danych_path, notice: "Plik o podanej nazwie zostal juz poprawnie wgrany!"
+    end
+  end
+  def import_jednostki_organizacyjne
+    Jednostkaorganizacyjna.import(params[:file])
+    if Jednostkaorganizacyjna.create.new_record? == true  
+      redirect_to import_danych_path, notice: "Tabela stanowisk zostala poprawnie dodana"
     else
       redirect_to import_danych_path, notice: "Plik o podanej nazwie zostal juz poprawnie wgrany!"
     end

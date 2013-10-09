@@ -59,6 +59,9 @@ SimpleCms::Application.routes.draw do
     match 'pracownik/:id2/cel/usun/:id' => 'celes#delete', :as => 'usun_po_id_cel'
     match 'pracownik/:id2/premia/usun/:id' => 'premies#delete', :as => 'usun_po_id_premia'
     match 'pracownik/:id2/efektywnosc/usun/:id' => 'effectivenes#delete', :as => 'usun_po_id_efektywnosc'
+    match 'raporty/premie/usun/:id' => 'premies#delete', :as => 'usun_premia'
+    #RAPORTY
+    match 'raporty/premie' => 'raporty#premie', :as => 'raport_premie'
 
     resources :typyczynnoscis do
       collection {get :index}
@@ -88,7 +91,7 @@ SimpleCms::Application.routes.draw do
 
     #IMPORTY
     resources :workers do 
-      collection {post :import , :import_tn, :import_tc, :import_tt,:import_tdc, :import_rn,:import_workers}
+      collection {post :import , :import_tn, :import_tc, :import_tt,:import_tdc, :import_rn,:import_rn_finall,:import_workers,:import_stanowiska,:import_jednostki_organizacyjne}
     end
 
 

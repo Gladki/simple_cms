@@ -1,0 +1,68 @@
+ $(document).ready(function() {
+	$("#lista-pracownikow-wyszukiwanie").dataTable({
+		sPaginationType: "full_numbers",
+	                bJQueryUI: true,
+                sDom: 'CT<"clear"><"H"lfr>t<"F"ip>',
+	                "oColVis": {
+	            "buttonText": "Oddznacz kolumne"
+	        },
+	        //     "aoColumns": [
+	        //     { "mData": 0 ,sWidth: '25%'},
+	        //     { "mData": 1 ,sWidth: '30%'},
+	        //     { "mData": 2 ,sWidth: '35%' },
+	        //     { "mData": 3 ,sWidth: '10%' }
+
+	        // ],
+	                oTableTools: {
+	                            "sRowSelect": "multi",
+	                           "aButtons": [
+	                                {  
+	                                    "sExtends": "xls",
+	                                    "sFileName": "CzasyDostępne-<%=  @data %>.xls",
+	                                    "sButtonText": "Excel",
+	                                     "mColumns": "visible"
+	                                }, 
+	                                {  
+	                                    "sExtends": "csv",
+	                                    "sFileName": "CzasyDostępne-<%=  @data %>.csv",
+	                                    "sButtonText": "CSV",
+	                                     "mColumns": "visible"
+	                                },
+	                                  {  
+	                                    "sExtends": "pdf",
+	                                    "sFileName": "CzasyDostępne-<%=  @data %>.pdf",
+	                                    "sButtonText": "PDF",
+	                                     "mColumns": "visible"
+	                                },
+	                                {
+	                                    "sExtends": "copy",
+	                                    "sButtonText": "Skopiuj do schowka",
+
+	                                },
+	                                {
+	                                    "sExtends": "print",
+	                                    "sInfo": "<h2>Drukowanie</h2>Strona została oczyszczona i przygotowana do wydruku.</br>Wybierz opcję drukowania z menu przeglądarki.",
+	                                    "sButtonText": "Wydrukuj"
+	                                }
+	                                ]    
+	        },
+	                        "oLanguage": {
+	                        "sProcessing":   "Proszę czekać...",
+	                        "sLengthMenu":   "Pokaż _MENU_ pozycji",
+	                        "sZeroRecords":  "Nie znaleziono żadnych pasujących indeksów",
+	                        "sInfo":         "Pozycje od _START_ do _END_ z _TOTAL_ łącznie",
+	                        "sInfoEmpty":    "Pozycji 0 z 0 dostępnych",
+	                        "sInfoFiltered": "(filtrowanie spośród _MAX_ dostępnych pozycji)",
+	                        "sInfoPostFix":  "",
+	                        "sSearch":       "Szukaj:",
+	                        "sUrl":          "",
+	                        "oPaginate": {
+	                        "sFirst":    "Pierwsza",
+	                        "sPrevious": "Poprzednia",
+	                        "sNext":     "Następna",
+	                        "sLast":     "Ostatnia"
+	                        }
+	                        }
+    });
+
+});

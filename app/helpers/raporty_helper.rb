@@ -1,0 +1,2 @@
+module RaportyHelper
+end

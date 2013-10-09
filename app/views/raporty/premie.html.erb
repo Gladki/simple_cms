@@ -1,0 +1,63 @@
+<% title "Raport - premie" %>
+<div id="header" class="header-colored" style="background-color:rgb(233, 135, 29); ">
+Dodawanie nowej premii
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a><div id="visable-div" >
+
+
+<div id="insert" style="width:80%;float:left;margin:0;padding:0 10px 10px 0;">
+
+ <%= form_for @nowa_premia do |f| %>
+  
+    <%= render(:partial => 'premia', :locals => {:f => f}) %>
+<% end %>
+
+
+
+
+ </div> 
+ </div> 
+
+
+<div id="header" class="header-colored" style="background-color:rgb(233, 35, 29); ">
+Tabela premii
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a><div id="visable-div" >
+
+
+
+<!-- <table id="normy" class="display" style="font-size:12px; width:100%;" data-source="<%= tabela_realizacji_norm_url(format: "json") %>" summary="Section list">
+ -->   <table id="raport-premie" class="display" style="margin-bottom:10px;" >
+      <thead>
+
+          <th>Id worker</th>
+          <th>Tytułem</th>
+          <th>Wartość premii</th>
+          <th>Obowiązuje od</th>
+          <th>Obowiązuje do</th>
+          <th></th>
+
+      </thead>
+      <tbody>
+        
+         <% @premie.each do |premia| %>
+        <tr>
+        <td><%= premia.pe_worker_id %></td>
+        <td><%= premia.pe_tytul %></td>
+        <td><%= premia.pe_wartosc %></td>
+        <td><%= premia.pe_data_od %></td>
+        <td><%= premia.pe_data_do %></td>
+         
+          <% if permitted_to? :delete, :premies %>
+        <td><%= button_to("", usun_premia_path(premia.id), :class=>"delete" ) %></td>
+      <% end %>
+      </tr>
+
+     <% end %>
+     
+      </tbody>
+    </table>
+
+</div>
+</div>
+   

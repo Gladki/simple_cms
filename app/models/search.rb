@@ -1,5 +1,5 @@
 class Search < ActiveRecord::Base
-  attr_accessible :keywords, :id_worker, :id_worker_merx, :min_effectivity, :max_effectivity, :date_from, :date_to, :name_tokens
+  attr_accessible :keywords, :id_worker, :id_worker_merx, :min_effectivity, :max_effectivity, :date_from, :date_to, :name_tokens, :stanowisko, :obszar, :jedn_organizacyjna
   has_many :workers
 
 def workers
@@ -18,7 +18,7 @@ def find_products
     else
      val = conditions
   end
-  Worker.find(:all, :conditions => val, :include => [:effectivenes], :joins => ["inner join realizacja_norm rn on rn.rn_id_worker_merx =  workers.id_worker_merx"]).uniq
+  Worker.find(:all, :conditions => val, :include => [:effectivenes], :joins => ["left join realizacja_norm rn on rn.rn_id_worker_merx =  workers.id_worker_merx"]).uniq
 end
 
 
@@ -30,6 +30,15 @@ def keywords_conditions
 end
 def id_worker_merx_conditions
   ["workers.id_worker_merx in (?)", id_worker_merx] unless id_worker_merx.blank?
+end
+def stanowisko_conditions
+  ["workers.stanowisko = ?", stanowisko] unless stanowisko.blank?
+end
+def jedn_organizacyjna_conditions
+  ["workers.jednostka_organizacyjna = ?", jedn_organizacyjna] unless jedn_organizacyjna.blank?
+end
+def jedn_organizacyjna_conditions
+  ["workers.obszar = ?", obszar] unless obszar.blank?
 end
 
 def minimum_effectivity_conditions

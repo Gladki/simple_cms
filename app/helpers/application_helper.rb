@@ -27,6 +27,12 @@ module ApplicationHelper
     return id
   end
 
+  def imie_nazwisko_worker_by_merx(worker_id_merx)
+
+    @imie = Worker.where("id_worker_merx = ?", worker_id_merx).pluck(:first_name) 
+    @nazwisko = Worker.where("id_worker_merx = ?", worker_id_merx).pluck(:last_name)
+    return @imie + @nazwisko
+  end
   def imie_nazwisko_worker(worker_id)
 
     @imie = Worker.where("id = ?", worker_id).pluck(:first_name) 

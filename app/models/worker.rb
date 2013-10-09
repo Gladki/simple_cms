@@ -29,16 +29,26 @@ end
       header = ['id_worker_hr','id_worker_merx','jednostka_organizacyjna','last_name','first_name','obszar','profil_merx','stanowisko','przelozony','przelozony_przelozonego','w_import_info']
       (2..ex.last_row).each do |i|
 
-      id_worker_hr = ex.cell(i,'A')
-      id_worker_merx = ex.cell(i,'B')
-      jednostka_organizacyjna = ex.cell(i,'C')
-      last_name = ex.cell(i,'D')
-      first_name = ex.cell(i,'E')
-      obszar = ex.cell(i,'F')
-      profil_merx = ex.cell(i,'G')
-      stanowisko = ex.cell(i,'H')
-      przelozony = ex.cell(i,'I')
-      przelozony_przelozonego = ex.cell(i,'J')
+      id_worker_hr = ex.cell(i,'D')
+      id_worker_merx = ex.cell(i,'E')
+      jednostka_organizacyjna = ex.cell(i,'I')
+      last_name = ex.cell(i,'F')
+      first_name = ex.cell(i,'G')
+      obszar = ex.cell(i,'C')
+      profil_merx = ex.cell(i,'H')
+      stanowisko = ex.cell(i,'J')
+      przelozony = ex.cell(i,'K')
+      przelozony_przelozonego = ex.cell(i,'L')
+      # id_worker_hr = ex.cell(i,'A')
+      # id_worker_merx = ex.cell(i,'B')
+      # jednostka_organizacyjna = ex.cell(i,'C')
+      # last_name = ex.cell(i,'D')
+      # first_name = ex.cell(i,'E')
+      # obszar = ex.cell(i,'F')
+      # profil_merx = ex.cell(i,'G')
+      # stanowisko = ex.cell(i,'H')
+      # przelozony = ex.cell(i,'I')
+      # przelozony_przelozonego = ex.cell(i,'J')
       row = Hash[[header,[id_worker_hr,id_worker_merx,jednostka_organizacyjna,last_name,first_name,obszar,profil_merx,stanowisko,przelozony,przelozony_przelozonego,w_import_info]].transpose]
       Worker.create row 
     end

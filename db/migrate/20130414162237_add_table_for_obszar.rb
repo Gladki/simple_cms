@@ -7,6 +7,7 @@ def up
 	  t.string :ob_kod
 	  t.decimal :ob_wartosc, :precision => 10 , :scale => 2
 	  t.string :ob_aud_us_id
+	  t.string :ob_import_info
 	  t.timestamps
 	
   end

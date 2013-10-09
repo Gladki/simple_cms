@@ -1,0 +1,240 @@
+<% @array_of_effectivities =[]
+   @array_of_dates =[]  
+   
+  
+     @tmp =[]
+     @czas_dostepny =[]
+     @tabela_dat = []
+     @workers_id_table =[]
+  data_table = GoogleVisualr::DataTable.new
+  data_table.new_column('string', 'Dzień')
+  data_table.new_column('number', 'Minimum')
+  data_table.new_column('number', 'Maximum')
+  data_table.new_column('number', 'Efektywność')
+  data_table.new_column('string', '','','tooltip');
+  j = 1
+
+  @workers_id_table << params[:id]
+  # @imie_nazwisko = imie_nazwisko_worker(params[:id])[0] +" "+ imie_nazwisko_worker(params[:id])[1]
+  # data_table.new_column('number', @search.stanowisko )
+    
+   
+    @workers.each do |a|
+      @imie_nazwisko = imie_nazwisko_worker_by_merx(a.id_worker_merx)[0] +" "+ imie_nazwisko_worker_by_merx(a.id_worker_merx)[1]
+  
+      # cmax = cel_by_date_merx(a.rn_id_worker_merx,a.rn_data.strftime('%Y-%m-%d'),'max')[0].to_f * 10
+      # cmin = cel_by_date_merx(a.rn_id_worker_merx,a.rn_data.strftime('%Y-%m-%d'),'min')[0].to_f * 10
+
+    if relizacja_norm_last(a.id_worker_merx,"czas_dostepny") != 0
+      czas_dostepny = relizacja_norm_last(a.id_worker_merx,"czas_dostepny")
+    else
+      czas_dostepny = 480.0
+    end
+    if @search.date_to == nil
+    @data = DateTime.now.to_date.strftime('%Y-%m-%d')
+    else
+    @data = @search.date_to.strftime('%Y-%m-%d')
+    end
+  if relizacja_norm_last(a.id_worker_merx,"realizacja_norm") != 0
+     @narray = Array.new(1,0)
+     @narray.insert(0,@data)
+     @narray.insert(j,((relizacja_norm_last(a.id_worker_merx,"realizacja_norm")/(czas_dostepny - (czas_dostepny/8)))*100).round)
+     @narray.delete_at(j+1) 
+     @narray.insert(2,@imie_nazwisko.titleize)
+     @tabela_dat << [params[:id], @data]
+     @tmp <<  @narray
+  
+     end
+    end
+
+   j = j + 1
+ 
+  @celes = []
+
+  k =0
+  @tabela_dat.uniq.each do |td|
+      @celes << [td[1],cel_min_by_date(td[0],@data).to_f,cel_max_by_date(td[0],@data).to_f ]
+      k = k+1
+  end
+  @cele_tabela = @celes.group_by(&:first).map do |date, rs|
+  values = rs[0].zip(*rs[1..-1]).drop(1).map { |xs| xs.reduce(:+) }
+  [values].flatten
+
+  end
+
+    @aggregated_rows = @tmp.group_by(&:first).map do |date, rs|
+  values = rs[0].zip(*rs[1..-1]).drop(1).map { |xs| xs.reduce(:+)}
+
+  [date, values].flatten
+  end 
+  i=0
+  @aggregated_rows.each do |ar|
+    ar.insert(1,@celes[i][1], @celes[i][2] )
+    i+=1
+  end 
+  @tmp.each do |br|
+    br.insert(1,100, 120)
+    i+=1
+  end
+   # @aggregated_rows << ["11-04-2013", 100.0, 120.0, 120,"Imie i nazwisko"]
+  data_table.add_rows(@tmp)
+ 
+  opts   = { 
+        :width => '100%', 
+        :height => '100%', 
+      
+
+         :vAxis => {:title => 'Efektywność',
+           viewWindowMode: 'explicit',
+    
+              viewWindow:{
+                min:0
+              }
+
+          }, 
+        :colors => ['red','green','purple'],
+        :chartArea => { :left => 50,  
+                        :top => 50,
+                        :width => 800,
+                        :height => 350
+                        }, 
+        :seriesType => 'bars', 
+        :bar => {groupWidth: 80},
+
+        :series => {
+          '1' => {:type => 'line'}, 
+          '0' => {:type => 'line'}
+          } 
+
+        }
+  @chart = GoogleVisualr::Interactive::ComboChart.new(data_table, opts)
+
+  %>
+
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <%  @array = @tmp.group_by(&:first).map do |date, rs|
+  values = rs[0].zip(*rs[1..-1]).drop(1).map { |xs| xs.reduce(:+)}
+  
+  [@date, values].flatten
+  end 
+  %>
+<div id="header" class="header-colored" style="background-color:rgb(233, 135, 29); ">
+  Wykres zrealizowanych norm
+  
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a>
+<div id="visable-div" >
+<div id='chart' class="chart"></div>
+
+<%= render_chart @chart, 'chart' %>
+<% 
+
+  sum = 0
+  i = 0
+  @tmp.each do |f| 
+    sum += f[3]
+    i = i + 1
+  end 
+  if i != 0
+  sum = sum/i
+  else
+    sum = 0
+  end
+if sum >= 100 
+  @op1 = "opacity-max"
+  @op2 = "opacity-min"
+  @op3 = "opacity-min"
+end
+if sum < 100 and sum >= 70
+  @op1 = "opacity-min"
+  @op2 = "opacity-max"
+  @op3 = "opacity-min"
+end
+if sum < 70 
+  @op1 = "opacity-min"
+  @op2 = "opacity-min"
+  @op3 = "opacity-max"
+end
+
+ %>
+<div id="lights">
+<div id="circle" class="green <%= @op1 %>"></div>  
+<div id="circle" class="yellow <%= @op2 %>"></div>  
+<div id="circle" class="red <%= @op3 %>"></div>  
+</div>
+</div>
+<div class="section list">
+  <h1>Wyszukiwanie pracowników</h2>
+ 
+
+<div id="header" class="header-colored" style="background-color:rgb(176, 29, 233); ">
+ Lista pracowników
+  
+</div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a>
+<div id="visable-div" >
+<table id="lista-pracownikow-wyszukiwanie" class="display">
+    <thead>
+
+      <th>ID HR pracownika</th>
+      <th>ID Merx pracownika</th>
+      <th>Nazwisko</th>
+      <th>Imie</th>
+      <th>Stanowisko</th>
+      <th>Jednostka organizacyjna</th>
+      <th>Obszar</th>
+      <th>Ostatnia realizacja norm</th>
+      <th>Ostatni czas dostępny</th>
+      <th>Ostatna efektywność</th>
+      <th>Ostatnia realizacja celu</th>
+      <th></th>
+
+
+  </thead>
+   <tbody>
+ <% @workers.each do |worker| %>
+
+ <tr>
+ 
+
+      <td><%= worker.id_worker_hr %></td>
+      <td><%= worker.id_worker_merx %></td>
+      <td><%= worker.last_name %></td>
+      <td><%= worker.first_name %></td>
+      <td><%= worker.stanowisko %></td>
+      <td><%= worker.jednostka_organizacyjna %></td>
+      <td><%= worker.obszar %></td>
+      <td style="text-align:right"><%= relizacja_norm_last(worker.id_worker_merx,"realizacja_norm") %> min</td>
+      <td style="text-align:right"><%= relizacja_norm_last(worker.id_worker_merx,"czas_dostepny") %> min</td>
+      <td style="text-align:right"><%= relizacja_norm_last(worker.id_worker_merx,"efektywnosc") %>%</td>
+
+      <% 
+      val1 = relizacja_norm_last(worker.id_worker_merx,"efektywnosc") 
+      val2 = relizacja_norm_last(worker.id_worker_merx,"cmin") 
+      val3 = relizacja_norm_last(worker.id_worker_merx,"cmax") 
+     
+          val4 = ostatni_poziom_zrealizowanego_celu(val1,val2,val3)
+          if val4 >= 60
+           @klasa = "ok"
+          else 
+            if val4 == 0
+            @klasa = "neutral"
+            else
+            @klasa = "bad"
+
+            end
+          end
+
+       %>
+      <td class="<%= @klasa %>" style="text-align:right;"><%= val4 %>%</td>
+
+      <td style="width:50px;"><%= button_to("", szczegoly_po_id_path(worker.id), :class=>"details" ) %>
+      
+
+      </td>
+      </tr>
+          
+     <% end %>
+   </tbody>
+   </table>
+ </div>
