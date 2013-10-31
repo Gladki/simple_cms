@@ -1,9 +1,7 @@
 
   $(function() {
      $( "#date_from_div" ).datepicker({
-      defaultDate: false,
-      changeMonth: true,
-      changeMonth: false,
+     defaultDate: '-1w',
       closeText: 'Zamknij',
       prevText: '&#x3c;Poprzedni',
       nextText: 'Następny&#x3e;',
@@ -21,9 +19,9 @@
       altFormat: "dd-mm-yy",
     });
     $( "#date_to_div" ).datepicker({
-      defaultDate: false,
-      changeMonth: true,
-      changeMonth: false,
+defaultDate: 'today',
+     
+
       closeText: 'Zamknij',
       prevText: '&#x3c;Poprzedni',
       nextText: 'Następny&#x3e;',

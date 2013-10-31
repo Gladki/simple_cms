@@ -1,9 +1,9 @@
 <% title "Edycja prędkości nr. #{params[:id]}" %>
+ <div id="header" class="header-colored" style="background-color:rgb(233, 135, 29); ">
+Edycja prędkości nr. <%= "#{params[:id]}" %></div>
+<a href="#" id="hide" style="float:right; margin-top:-22px; color:#fff; font-weight:500; text-decoration:none;" ><span>-</span></a><div id="visable-div" >
+<div style="width:650px; float:left;">
 
-<div id="1" class="middle-content">
-    
- 
-  <h1>Edycja prędkości nr. <%= "#{params[:id]}" %></h1>
 <div id="insert" style="width:400px; float:left; margin:0; padding:20px 0;">
 <%= form_for @predkosc do |f| %>
 <table summary="Section form fields">
@@ -40,7 +40,7 @@
 
 </table>
 
-     <%= submit_tag("" , :class => "add", :remote => true) %>
+     <%= submit_tag("" , :class => "save", :remote => true) %>
 
 <% end %>
 </div>
